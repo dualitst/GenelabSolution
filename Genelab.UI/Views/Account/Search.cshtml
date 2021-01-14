@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "Consuta de usuarios";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row clearfix">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="body">
+                <h2>Usuarios</h2>
+                <h4>Consulta usuarios del sistema</h4>
+                <hr />
+                <br />
+                <div class="row clearfix">
+
+                    <div class="col-md-4">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <select id="dropRoles" name="selMoneda" class="form-control" data-live-search="true" required>
+                                    <option value="ANALISTA" selected>Analista</option>
+                                    <option value="AUXILIAR">Auxiliar</option>
+                                    <option value="FACTURACION">Facturación</option>
+                                    <option value="CAJA">Caja</option>
+                                    <option value="RESULTADOS">Carga Resultados</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row clearfix">
+                    <div class="col-md-12">
+
+                        <br />
+                        <div id="grdDatos" style="height: 600px;" class="ag-theme-material ag-compact"></div>
+                    </div>
+                </div>
+            </div>
+            </div>
+    </div>
+</div>
+
+<script src="~/Content/js/src/Account/Usuarios.js"></script>

@@ -1,0 +1,102 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_LayoutPublico.cshtml";
+}
+
+<style>
+    ul {
+        list-style: none outside none;
+        padding-left: 0;
+        margin: 0;
+    }
+
+    .demo .item {
+        margin-bottom: 60px;
+    }
+
+    .content-slider li {
+        background-color: #ed3020;
+        text-align: center;
+        color: #FFF;
+    }
+
+    .content-slider h3 {
+        margin: 0;
+        padding: 70px 0;
+    }
+
+    .demo {
+        width: 800px;
+    }
+</style>
+
+<div class="row clearfix">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="body">
+
+                <br />
+                <div class="text-center">
+                    <h1 class="display-4">Portal Genelab</h1>
+                    <p>Bienvenido</a>.</p>
+
+                    <br />
+
+                    <div style="margin-left: 5%;">
+
+                        <div class="item col-md-11">
+                            <ul id="content-slider" class="content-slider">
+                                <li>
+                                    <img src="~/Content/images/Slider/cs1.jpg" />
+                                </li>
+                                <li>
+                                    <img src="~/Content/images/Slider/cs2.jpg" />
+                                </li>
+                                <li>
+                                    <img src="~/Content/images/Slider/cs3.jpg" />
+                                </li>
+                                <li>
+                                    <img src="~/Content/images/Slider/cs4.jpg" />
+                                </li>
+                                <li>
+                                    <img src="~/Content/images/Slider/cs5.jpg" />
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <br /> <br />
+                <div class="row clearfix">
+                    <div class="col-md-12">
+                        <br />
+                        <br />
+                        <div id="grdDatos" style="height:600px;" class="ag-theme-material ag-compact"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Content/js/src/Home/indexPublic.js"></script>
+
+<script language="javascript" type="text/javascript">
+
+    $(document).ready(function () {
+        $("#content-slider").lightSlider({
+            loop: true,
+            keyPress: true,
+            speed: 600,
+            slideMove: 1,
+            auto: true,
+            galleryMargin: 5,
+            slideMargin: 5,
+            autoWidth: true
+        });
+
+
+    });
+
+</script>

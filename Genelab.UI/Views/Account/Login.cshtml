@@ -1,0 +1,136 @@
+﻿@{
+    Layout = null;
+}
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>Ingresar Genelab</title>
+
+    <!-- Favicon-->
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+
+    <!-- Bootstrap Core Css -->
+    <link href="~/Content/js/plugins/bootstrap/css/bootstrap.css" rel="stylesheet" />
+
+    <!-- Waves Effect Css -->
+    <link href="~/Content/js/plugins/node-waves/waves.css" rel="stylesheet" />
+
+    <!-- Animation Css -->
+    <link href="~/Content/js/plugins/animate-css/animate.css" rel="stylesheet" />
+
+    <!-- Sweet Alert Css -->
+    <link href="~/Content/js/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+
+    <!-- Custom Css -->
+    <link href="~/Content/css/style.css?v=@{ @Configuration.GetSection("AppSettings")["fiinsoft_version"];  }" rel="stylesheet" />
+</head>
+<body class="login-page">
+    <div class="login-box">
+       
+        <div class="card">
+            <div class="body">
+                <div class="logo">
+                    <a href="javascript:void(0);">GENE<b>LAB</b></a>
+                </div>
+
+                <form id="sign_in">
+                    <div class="msg">Inicia sesión</div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">person</i>
+                        </span>
+                        <div class="form-line">
+                            <input type="text" class="form-control" id="usuario" placeholder="Usuario" required autofocus>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">lock</i>
+                        </span>
+                        <div class="form-line">
+                            <input type="password" class="form-control" id="contrasenia" placeholder="Contraseña" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-8 p-t-5">
+                            <input type="checkbox" name="rememberme" id="rememberme" class="filled-in chk-col-pink">
+                            <label for="rememberme">Recordarme</label>
+                        </div>
+                        <div class="col-xs-4">
+                            <button name="btnSignIn" id="btnSignIn" class="btn btn-block bg-blue waves-effect" type="submit">Ingresar</button>
+                        </div>
+                    </div>
+                    <div class="row m-t-15 m-b--20">
+                        <div class="col-xs-6">
+                            @*<a href="sign-up.html">Registrarse</a>*@
+                        </div>
+                        <div class="col-xs-6 align-right">
+                            <a href="javascript:RecuperarContrasenia.fnMuestraDatos()">Olvide mi contraseña?</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="modalRecuperar" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="defaultModalLabel">Recuperar contraseña</h4>
+                </div>
+                <div class="modal-body">
+
+
+                    @*@{ Html.RenderPartial("~/Views/Account/_RecuperarContrasenia.cshtml", ""); }*@
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Jquery Core Js -->
+    <script src="~/Content/js/plugins/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core Js -->
+    <script src="~/Content/js/plugins/bootstrap/js/bootstrap.js"></script>
+
+    <!-- Select Plugin Js -->
+    <script src="~/Content/js/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+    <!-- Bootstrap Notify Plugin Js -->
+    <script src="~/Content/js/plugins/bootstrap-notify/bootstrap-notify.js"></script>
+    <!-- Waves Effect Plugin Js -->
+    <script src="~/Content/js/plugins/node-waves/waves.js"></script>
+    <!-- jQuery Back Detect Js -->
+    <script src="~/Content/js/plugins/jquery-backDetect/jquery.backDetect.min.js"></script>
+    <!-- Validation Plugin Js -->
+    <script src="~/Content/js/plugins/jquery-validation/jquery.validate.js"></script>
+
+    <!-- SweetAlert Plugin Js -->
+    <script src="~/Content/js/plugins/sweetalert/sweetalert.min.js"></script>
+
+    <script src="~/Content/js/plugins/ajaxloader/ajaxloader.js"></script>
+    <!-- Custom Js -->
+    <script src="~/Content/js/src/utils.js?v=@{ @Configuration.GetSection("AppSettings")["fiinsoft_version"]; }"></script>
+    <script src="~/Content/js/src/Shared/admin.js?v=@{ @Configuration.GetSection("AppSettings")["fiinsoft_version"];  }"></script>
+    <script src="~/Content/js/src/Account/RecuperacionContrasenia.js?v=@{ @Configuration.GetSection("AppSettings")["fiinsoft_version"];  }"></script>
+    <script src="~/Content/js/src/Account/login.js?v=@{ @Configuration.GetSection("AppSettings")["fiinsoft_version"];  }"></script>
+    <script src="~/Content/js/src/Account/ManageAccount.js?v=@{ @Configuration.GetSection("AppSettings")["fiinsoft_version"];  }"></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+﻿#divFlujoContainer {
+    padding-bottom: 10px;
+    text-align: center;
+    padding-top: 40px;
+}
+
+    #divFlujoContainer .btn-circle {
+        border: solid 6px #E6E7E9;
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        background-color: #27a5d8 !important;
+    }
+
+    #divFlujoContainer .btn-circle[disabled] {
+        opacity: 1 !important;
+        background-color: #E6E7E9 !important;
+    }
+
+        #divFlujoContainer .btn-circle.accepted {
+            background-color: #3eb77f !important;
+        }
+
+        #divFlujoContainer .btn-circle.rejected {
+            background-color: #f44339 !important;
+        }
+
+    #divFlujoContainer .col-md-3, #divFlujoContainer .col-md-4, #divFlujoContainer .col-md-6 {
+        padding: 0;
+    }
+
+    #divFlujoContainer .linea {
+        height: 5px;
+        width: 42%;
+        background-color: #E6E7E9;
+        position: relative;
+        top: -43px;
+        z-index: -1;
+    }
+
+/*#divContainer{
+	margin-top: -120px;
+	width: 100%;
+    margin-bottom: 40px;
+}
+
+#divLine{
+	position: relative;
+	z-index: 2;
+}
+
+#divButtons{
+	position:absolute;
+	top:85px;
+	z-index:3; 
+	width:100%
+}
+
+svg{
+	width: 80%;
+}*/
