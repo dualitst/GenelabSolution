@@ -8,11 +8,5 @@
     <ProjectReference Include="..\Genelab.Common\Genelab.Common.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="app.yaml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 
 </Project>

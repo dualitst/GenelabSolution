@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Genelab.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
         public class WeatherForecastController : ControllerBase
     {
