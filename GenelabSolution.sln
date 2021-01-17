@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genelab.UI", "Genelab.UI\Genelab.UI.csproj", "{81FF3D37-3DDD-4D75-BBAB-EB1732BF2C57}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Genelab.API", "Genelab.API\Genelab.API.csproj", "{8C5BBE99-0431-42AE-860F-704A9DF258D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genelab.API", "Genelab.API\Genelab.API.csproj", "{8C5BBE99-0431-42AE-860F-704A9DF258D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Genelab.Common", "Genelab.Common\Genelab.Common.csproj", "{48589136-4A16-4ADD-97C9-8DAEE287B773}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genelab.Common", "Genelab.Common\Genelab.Common.csproj", "{48589136-4A16-4ADD-97C9-8DAEE287B773}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
