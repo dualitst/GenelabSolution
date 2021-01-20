@@ -7,8 +7,7 @@ namespace Genelab.Database.Models
 {
     public class ServicioDetalle
     {
-        
-        public  int ID { get; set; }
+        public  int Id { get; set; }
         public  string NombrePaciente { get; set; }
         public  string ApellidoPPaciente { get; set; }
         public  string ApellidoMPaciente { get; set; }

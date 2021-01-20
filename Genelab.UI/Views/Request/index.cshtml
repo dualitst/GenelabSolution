@@ -1,0 +1,141 @@
+﻿
+@{
+    ViewBag.Title = "Bandeja de resultados";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<div class="row clearfix">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="body">
+
+                <h2>@ViewBag.Title.</h2>
+
+                <form id="sign_in">
+                    <div class="msg"></div>
+                    <div class="form-group">
+                        <input class="form-check-input" type="checkbox" value="" id="NombreCuenta">
+                        <label class="form-check-label" for="defaultCheck1">
+                            Nombre de la cuenta
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="MayorE">
+                        <label class="form-check-label" for="defaultCheck1">
+                            Es mayor de edad
+                        </label>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+
+                        </span>
+                        <div class="form-line">
+                            <input type="text" class="form-control" id="Nombre" placeholder="Nombre" required autofocus>
+                        </div>
+                        <div class="form-line">
+                            <input type="text" class="form-control" id="ApellidoP" placeholder="Apellido Paterno" required autofocus>
+                        </div>
+                        <div class="form-line">
+                            <input type="text" class="form-control" id="ApellidoM" placeholder="Apellido Materno" required autofocus>
+                        </div>
+                        <div class="form-line">
+                            <input type="text" class="form-control" id="Ntitular" placeholder="Nombre Titular" required autofocus>
+                        </div>
+                        <div class="form-line">
+                            <input type="text" class="form-control" id="Parentezco" placeholder="Parentezco" required autofocus>
+                        </div>
+                    </div>
+                    <hr>
+                    <hr>
+                    <div class="col-md-4">
+
+                        <div>
+                            <select id="Catalogo" name="" class="form-control" data-live-search="true" required>
+                                <option value="catalogo" selected>Catalogo</option>
+                                <option value="servicio1">servicio1</option>
+                                <option value="servicio2">servicio2</option>
+                                <option value="servicio3">servicio3</option>
+                            </select>
+                        </div>
+                        <hr>
+                        <hr>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="Domicilio">
+                        <label class="form-check-label" for="defaultCheck1">
+                            En domicilio
+                        </label>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+
+                        </span>
+                        <div class="form-line">
+                            <input type="text" class="form-control" id="Cp" placeholder="CP" required autofocus>
+                        </div>
+                        <div class="form-line">
+                            <input type="text" class="form-control" id="Delegacion" placeholder="Delegación" required autofocus>
+                        </div>
+                        <div class="form-line">
+                            <input type="text" class="form-control" id="Colonia" placeholder="Colonia" required autofocus>
+                        </div>
+                        <div class="form-line">
+                            <input type="text" class="form-control" id="CDpN" placeholder="Calle,depto,número interno/externo" required autofocus>
+                        </div>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="Fact">
+                        <label class="form-check-label" for="Fact">
+                            Facturación
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="UseD">
+                        <label class="form-check-label" for="defaultCheck1">
+                            Usar el domicilio capturado
+                        </label>
+                    </div>
+                    <div class="input-group">
+                        <div class="form-line">
+                            <input type="text" class="form-control" id="EmpresaF" placeholder="Empresa Fiscal" required autofocus>
+                        </div>
+                        <div class="form-line">
+                            <input type="text" class="form-control" id="Cpp" placeholder="cp" required autofocus>
+                        </div>
+                        <div class="form-line">
+                            <input type="text" class="form-control" id="Colonia" placeholder="Colonia" required autofocus>
+                        </div>
+                        <div class="form-line">
+                            <input type="text" class="form-control" id="Delega" placeholder="Delegación" required autofocus>
+                        </div>
+                        <div class="form-line">
+                            <input type="text" class="form-control" id="CDN" placeholder="Calle,depto,número interno/externo" required autofocus>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-xs-4">
+                            <button name="btnSignIn" id="btnSignIn" class="btn btn-block bg-blue waves-effect" type="submit">Enviar</button>
+                        </div>
+                    </div>
+                    <div class="row m-t-15 m-b--20">
+                        <div class="col-xs-6">
+                            @*<a href="sign-up.html">Registrarse</a>*@
+                        </div>
+                        <div class="col-xs-6 align-right">
+                            <a href="javascript:RecuperarContrasenia.fnMuestraDatos()">Olvide mi contraseña?</a>
+                        </div>
+                    </div>
+                </form>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Content/js/src/Altas/Alta.js"></script>
