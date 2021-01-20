@@ -177,7 +177,7 @@ namespace Genelab.Database.Data
 			modelBuilder.Entity<ServicioEstudio>().Property(t => t.ServicioId).HasColumnName("ServicioId").HasColumnType("int").IsRequired();
 			modelBuilder.Entity<ServicioEstudio>().Property(t => t.EstudioId).HasColumnName("EstudioId").HasColumnType("int").IsRequired();
 
-			modelBuilder.Entity<ServicioDetalle>().ToTable("ServicioEstudio");
+			modelBuilder.Entity<ServicioEstudio>().ToTable("ServicioEstudio");
 		}
 		protected void MapTipoServicio(ModelBuilder modelBuilder)
 		{

@@ -179,7 +179,7 @@ namespace Genelab.Database.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ServicioEstudio",
+                name: "ServicioDetalle",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -198,11 +198,11 @@ namespace Genelab.Database.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ServicioEstudio", x => x.Id);
+                    table.PrimaryKey("PK_ServicioDetalle", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ServicioEstudios",
+                name: "ServicioEstudio",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -212,7 +212,7 @@ namespace Genelab.Database.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ServicioEstudios", x => x.Id);
+                    table.PrimaryKey("PK_ServicioEstudio", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -417,10 +417,10 @@ namespace Genelab.Database.Migrations
                 name: "ServicioDatosFacturacion");
 
             migrationBuilder.DropTable(
-                name: "ServicioEstudio");
+                name: "ServicioDetalle");
 
             migrationBuilder.DropTable(
-                name: "ServicioEstudios");
+                name: "ServicioEstudio");
 
             migrationBuilder.DropTable(
                 name: "TipoServicio");

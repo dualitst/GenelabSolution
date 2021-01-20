@@ -385,7 +385,7 @@ namespace Genelab.Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ServicioEstudio");
+                    b.ToTable("ServicioDetalle");
                 });
 
             modelBuilder.Entity("Genelab.Database.Models.ServicioEstudio", b =>
@@ -406,7 +406,7 @@ namespace Genelab.Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ServicioEstudios");
+                    b.ToTable("ServicioEstudio");
                 });
 
             modelBuilder.Entity("Genelab.Database.Models.TipoServicio", b =>
