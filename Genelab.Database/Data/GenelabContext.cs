@@ -148,8 +148,8 @@ namespace Genelab.Database.Data
 		protected void MapServicioDetalle(ModelBuilder modelBuilder)
 		{
 			//Se define campo que sera llave primaria
-			modelBuilder.Entity<ServicioDetalle>().HasKey(k => k.ID); // Propiedad que sera la Llave Primaria
-			modelBuilder.Entity<ServicioDetalle>().Property(t => t.ID).HasColumnName("ID").HasColumnType("int").UseIdentityColumn();
+			modelBuilder.Entity<ServicioDetalle>().HasKey(k => k.Id); // Propiedad que sera la Llave Primaria
+			modelBuilder.Entity<ServicioDetalle>().Property(t => t.Id).HasColumnName("Id").HasColumnType("int").UseIdentityColumn();
 
 			//Se define el resto de los campos
 			modelBuilder.Entity<ServicioDetalle>().Property(t => t.NombrePaciente).HasColumnName("NombrePaciente").HasColumnType("varchar").IsRequired().HasMaxLength(50);
