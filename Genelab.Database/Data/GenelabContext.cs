@@ -13,7 +13,7 @@ namespace Genelab.Database.Data
 
 		public DbSet<DatosFacturacion> DatosFacturacions { get; set; }
         public DbSet<Domicilio> Domicilios { get; set; }
-        public DbSet<Estatus> Estatuss { get; set; }
+        public DbSet<Estatus> Estatus { get; set; }
         public DbSet<Estudio> Estudios { get; set; }
         public DbSet<Pago> Pagos { get; set; }
         public DbSet<Resultado> Resultados { get; set; }
@@ -177,7 +177,7 @@ namespace Genelab.Database.Data
 			modelBuilder.Entity<ServicioEstudio>().Property(t => t.ServicioId).HasColumnName("ServicioId").HasColumnType("int").IsRequired();
 			modelBuilder.Entity<ServicioEstudio>().Property(t => t.EstudioId).HasColumnName("EstudioId").HasColumnType("int").IsRequired();
 
-			modelBuilder.Entity<ServicioDetalle>().ToTable("ServicioEstudio");
+			modelBuilder.Entity<ServicioEstudio>().ToTable("ServicioEstudio");
 		}
 		protected void MapTipoServicio(ModelBuilder modelBuilder)
 		{
