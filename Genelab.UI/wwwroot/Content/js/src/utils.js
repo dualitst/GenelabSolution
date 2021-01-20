@@ -35,8 +35,8 @@ var utils = function () {
     /// -----------------------------------------------------------------------------
     var sites = {};
     //SERVER SANDBOX - CLIENTES
-    sites["Security"] = "http://localhost/Finsoft.WebAPI.Security/fiinsoftapi/";
-    sites["Originacion"] = "http://localhost:57537/api/";//TEMPORAL SITE API
+    sites["Security"] = "http://localhost:57537/api/"; //TEMPORAL SITE API FABIAN
+    sites["Originacion"] = "http://localhost:57537/api/";//TEMPORAL SITE API FABIAN
     sites["Bancos"] = "http://localhost/Finsoft.WebAPI.Bancos/fiinsoftapi/";
     sites["Reportes"] ="http://localhost/Finsoft.WebAPI.Reportes/api/Reports";
     sites["Cobranza"] = "http://localhost/Finsoft.WebAPI.Cobranza/fiinsoftapi/";

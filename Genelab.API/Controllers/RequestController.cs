@@ -33,22 +33,39 @@ namespace Genelab.API.Controllers
         {
             try
             {
-                RequestModel userModel1 = new RequestModel();
-                RequestModel userModel2 = new RequestModel();
-                RequestModel userModel3 = new RequestModel();
-                RequestModel userModel4 = new RequestModel();
-
-                List<RequestModel> listUsers = new List<RequestModel>();
-                List<Servicio> listServicios;
-                listServicios = new List<Servicio>();
+             
+                List<Servicio> listServicios = new List<Servicio>();
+                List<ServicioDetalle> listServiciosDetalles= new List<ServicioDetalle>();
+                List<ServiciosConsultaModel> result = new List<ServiciosConsultaModel>();
 
                 listServicios = (from o in _context.Servicios
-
                                  select o).ToList();
 
+                listServiciosDetalles = (from o in _context.ServicioDetalles
+                                 select o).ToList();
 
+                foreach(Servicio serv in listServicios){
+                    ServiciosConsultaModel objSer = new ServiciosConsultaModel();
 
-                var data = new RespuestaAPI(listServicios);
+                   var serviDetalle= listServiciosDetalles.Where(x => x.Id == serv.ServicioDetalleID).FirstOrDefault();
+
+                    objSer.ApellidoMPaciente = serviDetalle.ApellidoMPaciente;
+                    objSer.ApellidoPPaciente = serviDetalle.ApellidoPPaciente;
+                    objSer.CodigoPostal = serviDetalle.CodigoPostal;
+                    objSer.Colonia = serviDetalle.Colonia;
+                    objSer.Delegacion = serviDetalle.Delegacion;
+                    objSer.Edad = serviDetalle.Edad;
+                    objSer.Estado = serviDetalle.Estado;
+                    objSer.EstatusId = serv.EstatusId;
+                    objSer.EstudioId = serv.EstudioId;
+                    objSer.FechaHoraCreacion = serv.FechaHoraCreacion;
+                    objSer.NombrePaciente = serviDetalle.NombrePaciente;
+                    objSer.NombreTitular = serviDetalle.NombreTitular;
+
+                    result.Add(objSer);
+                }
+
+                var data = new RespuestaAPI(result);
 
                 return Ok(data);
             }

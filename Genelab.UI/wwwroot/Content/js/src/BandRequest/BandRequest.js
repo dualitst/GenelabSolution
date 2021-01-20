@@ -25,11 +25,11 @@ var DatosPublico = function () {
     var SessionData = utils.fnLocalData.get(utils.fnGlobals("Sesion"));
 
     var colDefs = [
-        utils.fnAgGrid_ColumnBuilder({ header: "Cliente", field: "cliente" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "Paciente", field: "paciente" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "Fecha", field: "fecha"}),
-        utils.fnAgGrid_ColumnBuilder({ header: "Estudio", field: "estudio" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "Estatus", field: "estatus" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "Cliente", field: "nombrePaciente" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "Paciente", field: "nombrePaciente" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "Fecha", field: "fechaHoraCreacion"}),
+        utils.fnAgGrid_ColumnBuilder({ header: "Estudio", field: "estudioId" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "Estatus", field: "estatusId" }),
         utils.fnAgGrid_ColumnBuilder({ header: "Acciones", noFilter: true, cellRenderer: cellRender_Acciones })
     ];
 
@@ -81,6 +81,7 @@ var DatosPublico = function () {
     // Funciones manejo Grid
     //----------------------
     function llenaGrid() {
+
         utils.fnAgGrid_SetRowsAPI(grdOptions, "request/list", {}, false, "Originacion")
             .done(function (res) {
                 grdOptions = res;

@@ -82,7 +82,7 @@ var login = function () {
         if ($formSignIn.valid()) {
 
             try {
-                var oUrl = 'Altas/Alta';
+                var oUrl = 'Request/alta';
                 var urlIndex = '';
 
                 var oData =
