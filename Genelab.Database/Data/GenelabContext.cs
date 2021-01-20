@@ -20,6 +20,7 @@ namespace Genelab.Database.Data
         public DbSet<Servicio> Servicios { get; set; }
         public DbSet<ServicioDatosFacturacion> ServicioDatosFacturacions { get; set; }
         public DbSet<ServicioDetalle> ServicioDetalles { get; set; }
+
         public DbSet<ServicioEstudio> ServicioEstudios { get; set; }
         public DbSet<TipoServicio> TipoServicios { get; set; }
 
@@ -195,6 +196,19 @@ namespace Genelab.Database.Data
         {
 
 			base.OnModelCreating(modelBuilder);
+
+			modelBuilder.Entity<Pago>();
+			modelBuilder.Entity<Resultado>();
+			modelBuilder.Entity<Servicio>();
+			modelBuilder.Entity<DatosFacturacion>();
+			modelBuilder.Entity<Domicilio>();
+			modelBuilder.Entity<Estatus>();
+			modelBuilder.Entity<Estudio>();
+			modelBuilder.Entity<DatosFacturacion>();
+			modelBuilder.Entity<ServicioDetalle>();
+			modelBuilder.Entity<ServicioEstudio>();
+			modelBuilder.Entity<TipoServicio>();
+
 
 			MapPago(modelBuilder);
             MapResultado(modelBuilder);

@@ -33,12 +33,7 @@ namespace Genelab.API.Controllers
                 List<BandResultModel> listUsers = new List<BandResultModel>();
                 List<Resultado> listResultados;
                 listResultados = new List<Resultado>();
-                using (GenelabContext context = new GenelabContext())
-                {
-                    listResultados = (from o in context.Resultados
-
-                                     select o).ToList();
-                }
+           
 
 
 

@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genelab.API", "Genelab.API\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genelab.Common", "Genelab.Common\Genelab.Common.csproj", "{48589136-4A16-4ADD-97C9-8DAEE287B773}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Genelab.Database", "Genelab.Database\Genelab.Database.csproj", "{D62412CE-898E-4F9E-903E-1B4B265302BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genelab.Database", "Genelab.Database\Genelab.Database.csproj", "{D62412CE-898E-4F9E-903E-1B4B265302BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
