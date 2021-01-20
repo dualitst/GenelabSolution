@@ -106,10 +106,10 @@ namespace Genelab.API.Controllers
                 ServicioDetalle servicioDetalle = new ServicioDetalle();
                 Servicio servicio = new Servicio();
 
-                servicioDetalle.NombrePaciente = model.Nombre;
-                servicioDetalle.ApellidoMPaciente = model.ApellidoMaterno;
-                servicioDetalle.ApellidoPPaciente = model.ApellidoPaterno;
-                servicioDetalle.CodigoPostal = model.CP;
+                servicioDetalle.NombrePaciente = model.NombrePaciente;
+                servicioDetalle.ApellidoMPaciente = model.ApellidoPPaciente;
+                servicioDetalle.ApellidoPPaciente = model.ApellidoMPaciente;
+                servicioDetalle.CodigoPostal = model.CodigoPostal;
                 servicioDetalle.Colonia = model.Colonia;
                 servicioDetalle.Edad = "29";
                 servicioDetalle.Estado = "Puebla";
@@ -137,7 +137,7 @@ namespace Genelab.API.Controllers
                 _context.Servicios.Add(servicio);
                 _context.SaveChanges();
 
-                var data = new RespuestaAPI("satisfactorio");
+                var data = new RespuestaAPI(servicio);
 
                 return Ok(data);
             }
