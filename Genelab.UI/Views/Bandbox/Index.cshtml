@@ -1,0 +1,72 @@
+﻿@{ ViewBag.Title = "PAGO";
+                Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+
+
+<div class="row clearfix">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="body">
+
+                <form id="sign_in">
+                    <div class="row clearfix">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <center>
+                                    <div class="body">
+                                        <h2>CAJA</h2>
+
+
+
+                                        <div class="form-check form-check-inline">
+
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="caja" id="inlineRadio1" value="Efectvo">
+                                                <label class="form-check-label" for="inlineRadio1">Efectvo</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="caja" id="inlineRadio2" value="Tarjeta">
+                                                <label class="form-check-label" for="inlineRadio2">Tarjeta</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="caja" id="inlineRadio3" value="Tranferencia">
+                                                <label class="form-check-label" for="inlineRadio3">Tranferencia </label>
+                                            </div>
+                                        </div>
+                                        <center>
+                                            <div class="body">
+
+
+                                                <div class="form-group">
+                                                    <p>Tarjeta </p>
+                                                    <input type="text" id="Tarjeta1">
+
+                                                    <p>MONTO </p>
+                                                    <input type="text" id="Monto">
+
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <h5>Sube el comprobante de pago</h5>
+                                                <input type="file" id="ComprobanteP">
+                                            </div>
+                                        </center>
+                                        <div class="col-xs-4">
+                                            <button name="btnSignIn" id="btnSignIn" class="btn btn-block bg-blue waves-effect" type="submit">GUARDAR</button>
+                                        </div>
+                                    </div>
+                                </center>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Content/js/src/Bandbox/bandbox.js"></script>

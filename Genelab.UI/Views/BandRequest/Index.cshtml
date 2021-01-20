@@ -1,0 +1,142 @@
+﻿@{
+    ViewData["Title"] = "Bandeja de Solicitudes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    ul {
+        list-style: none outside none;
+        padding-left: 0;
+        margin: 0;
+    }
+
+    .demo .item {
+        margin-bottom: 60px;
+    }
+
+    .content-slider li {
+        background-color: #ed3020;
+        text-align: center;
+        color: #FFF;
+    }
+
+    .content-slider h3 {
+        margin: 0;
+        padding: 70px 0;
+    }
+
+    .demo {
+        width: 800px;
+    }
+</style>
+
+<div class="row clearfix">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="body">
+
+                <br />
+                <div class="text-center">
+                    <h1 class="display-4">Solicitudes</h1>
+                    <p>Bienvenido</a>.</p>
+
+                    <br />
+
+                </div>
+
+                <center>
+                    <div>
+                        <div style="margin-left: 5%;">
+
+                            <div class="item col-md-11">
+
+                                <button class="btn btn-dark">Usuarios</button>
+
+                                <button class="btn btn-dark">Solicitudes</button>
+
+                                <button class="btn btn-dark">Caja</button>
+
+                                <button class="btn btn-dark">Carga de Resultados</button>
+
+                                <button class="btn btn-dark">Facturación</button>
+
+                                <button class="btn btn-dark">Reportes</button>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </center>
+                
+
+                <br />
+                <div class="row clearfix">
+                    <div class="col-md-4">
+                        <input type="search" class="form-control" placeholder="Buscar" />
+                    </div>
+                    <div class="col-md-4">
+                        <div class="col-md-4">
+                            <div class="form-line">
+                                <select id="" name="" class="form-control" data-live-search="true" required>
+                                    <option selected>Por Estatus</option>
+                                    <option value="Recepcion">Recepcion</option>
+                                    <option value="En Proceso">En Proceso</option>
+                                    <option value="Finalizado">Finalizado</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="col-md-4">
+                            <div class="form-line">
+                                <select id="" name="" class="form-control" data-live-search="true" required>
+                                    <option value="Empresa" selected>Empresa</option>
+                                    <option value="*">1</option>
+                                    <option value="*">2</option>
+                                    <option value="*">3</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <button>A Domicilio</button>
+                    <button>Presencial</button>
+                </div>
+                <br /> <br />
+                <div class="row clearfix">
+                    <div class="col-md-12">
+                        <br />
+                        <br />
+                        <div id="grdDatos" style="height:600px;" class="ag-theme-material ag-compact"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Content/js/src/BandRequest/BandRequest.js"></script>
+
+<script language="javascript" type="text/javascript">
+
+    $(document).ready(function () {
+        $("#content-slider").lightSlider({
+            loop: true,
+            keyPress: true,
+            speed: 600,
+            slideMove: 1,
+            auto: true,
+            galleryMargin: 5,
+            slideMargin: 5,
+            autoWidth: true
+        });
+
+
+    });
+
+</script>
+
+
