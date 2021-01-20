@@ -36,25 +36,32 @@
                                         <center>
                                             <div class="body">
 
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
 
-                                                <div class="form-group">
-                                                    <p>Tarjeta </p>
-                                                    <input type="text" id="Tarjeta1">
-
-                                                    <p>MONTO </p>
-                                                    <input type="text" id="Monto">
+                                                    </span>
+                                                    <div class="form-line">
+                                                        <input type="text" class="form-control" id="Tarjeta" placeholder="Tarjeta" required autofocus>
+                                                    </div>
+                                                    <div class="form-line">
+                                                        <input type="text" class="form-control" id="Monto" placeholder="Monto" required autofocus>
+                                                    </div>
 
                                                 </div>
+
                                             </div>
 
                                             <div>
                                                 <h5>Sube el comprobante de pago</h5>
                                                 <input type="file" id="ComprobanteP">
                                             </div>
+                                            <div class="">
+                                                <button name="btnSignIn" id="btnSignIn" class="btn btn-block bg-blue waves-effect" type="submit">Enviar</button>
+
+
+                                            </div>
                                         </center>
-                                        <div class="col-xs-4">
-                                            <button name="btnSignIn" id="btnSignIn" class="btn btn-block bg-blue waves-effect" type="submit">GUARDAR</button>
-                                        </div>
+                                       
                                     </div>
                                 </center>
 
