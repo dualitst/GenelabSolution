@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Genelab.Database.Migrations
 {
     [DbContext(typeof(GenelabContext))]
-    [Migration("20210120183410_addMigration")]
+    [Migration("20210120191622_addMigration")]
     partial class addMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -387,7 +387,7 @@ namespace Genelab.Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ServicioEstudio");
+                    b.ToTable("ServicioDetalle");
                 });
 
             modelBuilder.Entity("Genelab.Database.Models.ServicioEstudio", b =>
@@ -408,7 +408,7 @@ namespace Genelab.Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ServicioEstudios");
+                    b.ToTable("ServicioEstudio");
                 });
 
             modelBuilder.Entity("Genelab.Database.Models.TipoServicio", b =>

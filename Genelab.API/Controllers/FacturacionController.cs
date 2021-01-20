@@ -13,8 +13,6 @@ namespace Genelab.API.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class FacturacionController : ControllerBase
-
-
     {
         #region ServicesTest
 
@@ -42,7 +40,7 @@ namespace Genelab.API.Controllers
 
 
 
-                return Ok(data);
+                return Ok(listUsers);
             }
             catch (Exception ex)
             {

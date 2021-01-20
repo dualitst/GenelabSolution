@@ -103,7 +103,39 @@ namespace Genelab.API.Controllers
             try
             {
 
+                ServicioDetalle servicioDetalle = new ServicioDetalle();
+                Servicio servicio = new Servicio();
 
+                servicioDetalle.NombrePaciente = model.Nombre;
+                servicioDetalle.ApellidoMPaciente = model.ApellidoMaterno;
+                servicioDetalle.ApellidoPPaciente = model.ApellidoPaterno;
+                servicioDetalle.CodigoPostal = model.CP;
+                servicioDetalle.Colonia = model.Colonia;
+                servicioDetalle.Edad = "29";
+                servicioDetalle.Estado = "Puebla";
+                servicioDetalle.Delegacion = "Iztacalco";
+                servicioDetalle.NombreTitular = "Fabian";
+                servicioDetalle.Pais = "Mexico";
+                servicioDetalle.Parentezco = "TIO";
+               
+
+
+                _context.ServicioDetalles.Add(servicioDetalle);
+                _context.SaveChanges();
+
+                servicio.EstatusId = 1;
+                servicio.EstudioId = 1;
+                servicio.FechaHoraCreacion = DateTime.Now;
+                servicio.FechaHoraModificacion = DateTime.Now;
+                servicio.FolioPago = "FolioPago";
+                servicio.TipoServicioId = 1;
+                servicio.UsuarioId = "12312312321";
+                servicio.UsuarioModificacion = "123123131";
+                servicio.UsuarioCreacion = "123123131";
+                servicio.TipoServicioId = servicioDetalle.Id;
+
+                _context.Servicios.Add(servicio);
+                _context.SaveChanges();
 
                 var data = new RespuestaAPI("satisfactorio");
 
