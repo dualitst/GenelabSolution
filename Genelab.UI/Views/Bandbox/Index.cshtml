@@ -40,21 +40,28 @@
                                                     <span class="input-group-addon">
 
                                                     </span>
-                                                    <div class="form-line">
-                                                        <input type="text" class="form-control" id="Tarjeta" placeholder="Tarjeta" required autofocus>
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 control-label">Tarjeta</label>
+                                                        <div class="col-md-10 form-custom">
+                                                            <input type="text" class="form-control" id="Tarjeta" name="Tarjeta" required autofocus>
+                                                        </div>
                                                     </div>
-                                                    <div class="form-line">
-                                                        <input type="text" class="form-control" id="Monto" placeholder="Monto" required autofocus>
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 control-label">Monto</label>
+                                                        <div class="col-md-10 form-custom">
+                                                            <input type="text" class="form-control" id="Monto" name="Monto" required autofocus>
+                                                        </div>
                                                     </div>
 
+                                                </div>
+                                                <div>
+                                                    <h5>Sube el comprobante de pago</h5>
+                                                    <input type="file" name="ComprobanteP" id="ComprobanteP">
                                                 </div>
 
                                             </div>
 
-                                            <div>
-                                                <h5>Sube el comprobante de pago</h5>
-                                                <input type="file" id="ComprobanteP">
-                                            </div>
+                                            
                                             <div class="">
                                                 <button name="btnSignIn" id="btnSignIn" class="btn btn-block bg-blue waves-effect" type="submit">Enviar</button>
 

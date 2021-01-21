@@ -21,8 +21,7 @@ var login = function () {
     // var $oNombrecuenta = $('#NombreCuenta');
     //var $oMayor = $('#MayorE');
     var $Tipo = $('#caja');
-    
-    var $Tarjeta1 = $('#Tarjeta1');
+    var $Tarjeta = $('#Tarjeta');
     var $Monto = $('#Monto');
     var $Comprobante = $('#ComprobanteP');
 
@@ -69,13 +68,13 @@ var login = function () {
         if ($formSignIn.valid()) {
 
             try {
-                var oUrl = 'Bandbox/bandbox';
+                var oUrl = 'Bandbox/alta';
                 var urlIndex = '';
 
                 var oData =
                 {
                     "TipoPago": $Tipo.val(),
-                    "Tarjeta": $Tarjeta1.val(),
+                    "Tarjeta": $Tarjeta.val(),
                     "Monto": $Monto.val(),
                     "ImagenId": $Comprobante.val()
                 };

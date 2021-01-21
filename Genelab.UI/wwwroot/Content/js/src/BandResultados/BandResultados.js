@@ -27,7 +27,7 @@ var DatosPublico = function () {
     var colDefs = [
         utils.fnAgGrid_ColumnBuilder({ header: "NOMBRE", field: "" }),
         utils.fnAgGrid_ColumnBuilder({ header: "ESTUDIO", field: "" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RECEPCION", field: "" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "FECHA RECEPCION", field: "" }),
         utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE ENTREGA", field: "" }),
         utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS", field: "" }),
         //utils.fnAgGrid_ColumnBuilder({ header: "Acciones", noFilter: true, cellRenderer: cellRender_Acciones })
@@ -82,7 +82,7 @@ var DatosPublico = function () {
     //----------------------
     function llenaGrid() {
 
-        utils.fnAgGrid_SetRowsAPI(grdOptions, "request/list", {}, false, "Originacion")
+        utils.fnAgGrid_SetRowsAPI(grdOptions, "Resultados/", {}, false, "Originacion")
             .done(function (res) {
                 grdOptions = res;
             })

@@ -1,7 +1,9 @@
 ﻿using Genelab.API.Models;
 using Genelab.Common;
+using Genelab.Database;
 using Genelab.Database.Data;
 using Genelab.Database.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,7 +11,6 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace Genelab.API.Controllers
-  
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -115,7 +116,36 @@ namespace Genelab.API.Controllers
             }
         }
         #endregion
+        [HttpPost("alta")]
+        public IActionResult alta(PagoModel model)
+        {
+            try
+            {
+               
+                Pago listPago = new Pago();
 
+
+                listPago.TipoPago = model.TipoPago;
+                listPago.Tarjeta = model.Tarjeta;
+                listPago.Monto = model.Monto;
+                listPago.ImagenId = model.ImagenId;
+
+
+
+                _context.Pagos.Add(listPago);
+                _context.SaveChanges();
+
+
+                var data = new RespuestaAPI(listPago);
+
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+
+                return Ok(ex);
+            }
+        }
     }
 }
 
