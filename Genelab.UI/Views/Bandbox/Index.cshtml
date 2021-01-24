@@ -1,5 +1,6 @@
-﻿@{ ViewBag.Title = "PAGO";
-                Layout = "~/Views/Shared/_Layout.cshtml"; }
+﻿@{ ViewBag.Title = "Registrar pago";
+                Layout = "~/Views/Shared/_LayoutPublico.cshtml"; 
+    }
 
 
 
@@ -8,76 +9,72 @@
         <div class="card">
             <div class="body">
 
-                <form id="sign_in">
-                    <div class="row clearfix">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <center>
-                                    <div class="body">
-                                        <h2>CAJA</h2>
+                <h2>@ViewBag.Title.</h2>
 
+                <br /><br /><br />
 
+                            <form id="form_pago" class="form-horizontal">
 
-                                        <div class="form-check form-check-inline">
+                                <div class="col-md-10">
+                                    <div class="form-check form-check-inline">
 
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="caja" id="inlineRadio1" value="Efectvo">
-                                                <label class="form-check-label" for="inlineRadio1">Efectvo</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="caja" id="inlineRadio2" value="Tarjeta">
-                                                <label class="form-check-label" for="inlineRadio2">Tarjeta</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="caja" id="inlineRadio3" value="Tranferencia">
-                                                <label class="form-check-label" for="inlineRadio3">Tranferencia </label>
-                                            </div>
+                                        <div class="col-md-3">
+                                            <input class="form-check-input" type="radio" name="tipoPagoRad" id="inlineRadio1" value="EFECTIVO">
+                                            <label class="form-check-label radio-inline" for="inlineRadio1">
+                                                Efectvo
+                                            </label>
                                         </div>
-                                        <center>
-                                            <div class="body">
 
-                                                <div class="input-group">
-                                                    <span class="input-group-addon">
+                                        <div class="col-md-3">
+                                            <input class="form-check-input" type="radio" name="tipoPagoRad" id="inlineRadio2" value="TARJETA">
+                                            <label class="form-check-label radio-inline" for="inlineRadio2">
+                                                Tarjeta
+                                            </label>
+                                        </div>
 
-                                                    </span>
-                                                    <div class="form-group">
-                                                        <label class="col-md-2 control-label">Tarjeta</label>
-                                                        <div class="col-md-10 form-custom">
-                                                            <input type="text" class="form-control" id="Tarjeta" name="Tarjeta" required autofocus>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="col-md-2 control-label">Monto</label>
-                                                        <div class="col-md-10 form-custom">
-                                                            <input type="text" class="form-control" id="Monto" name="Monto" required autofocus>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                                <div>
-                                                    <h5>Sube el comprobante de pago</h5>
-                                                    <input type="file" name="ComprobanteP" id="ComprobanteP">
-                                                </div>
-
-                                            </div>
-
-                                            
-                                            <div class="">
-                                                <button name="btnSignIn" id="btnSignIn" class="btn btn-block bg-blue waves-effect" type="submit">Enviar</button>
-
-
-                                            </div>
-                                        </center>
-                                       
+                                        <div class="col-md-3">
+                                            <input class="form-check-input" type="radio" name="tipoPagoRad" id="inlineRadio3" value="TRANSFERENCIA">
+                                            <label class="form-check-label radio-inline" for="inlineRadio3">
+                                                Tranferencia
+                                            </label>
+                                        </div>
                                     </div>
-                                </center>
+                                </div>
 
 
-                            </div>
-                        </div>
-                    </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Tarjeta</label>
+                                    <div class="col-md-10 form-custom">
+                                        <input type="text" class="form-control" maxlength="30" id="Tarjeta" name="Tarjeta" required>
+                                    </div>
+                                </div>
 
-                </form>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Monto</label>
+                                    <div class="col-md-10 form-custom">
+                                        <input type="text" class="form-control" id="Monto" maxlength="10" name="Monto" required>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Subir comprobante</label>
+                                    <div class="col-md-10 form-custom">
+                                        <input type="file" class="form-control" id="ComprobanteP" name="ComprobanteP" required>
+                                    </div>
+                                </div>
+
+
+                                <br />
+                                <br />
+
+                                <div class="form-group">
+                                    <div class="col-md-offset-10 col-md-2">
+                                        <input type="submit" id="btnPagar" class="btn btn-primary" value="Guardad pago" />
+                                    </div>
+                                </div>
+
+                            </form>
 
             </div>
         </div>

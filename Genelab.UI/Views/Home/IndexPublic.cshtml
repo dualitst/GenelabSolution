@@ -36,9 +36,13 @@
             <div class="body">
 
                 <br />
+                <div class="text-right">
+                    <button id="btnSolicitar" class="btn btn-primary buttonCustom">Solicitar Servicio</button>
+                </div>
+
                 <div class="text-center">
-                    <h1 class="display-4">Portal Genelab</h1>
-                    <p>Bienvenido</a>.</p>
+                    <h1 class="display-4">Bienvenido Genelab</h1>
+                    @*<p><a>Bienvenido</a>.</p>*@
 
                     <br />
 
@@ -66,11 +70,22 @@
                         </div>
                     </div>
                 </div>
+
+               
+                <div class="row clearfix">
+                
+                    <div class="item col-md-12" style="margin-top:5%">
+
+                        <button id="btnResultados" class="btn btn-primary buttonCustom">Mis Resultados</button>
+                        &nbsp;&nbsp;
+                        <button id="btnFacturas" class="btn btn-secondary buttonCustom">Mis Facturas </button>
+                    </div>
+
+                </div>
+
                 <br /> <br />
                 <div class="row clearfix">
                     <div class="col-md-12">
-                        <br />
-                        <br />
                         <div id="grdDatos" style="height:600px;" class="ag-theme-material ag-compact"></div>
                     </div>
                 </div>
@@ -80,11 +95,20 @@
     </div>
 </div>
 
-<script src="~/Content/js/src/Home/indexPublic.js"></script>
 
 <script language="javascript" type="text/javascript">
 
     $(document).ready(function () {
+
+         //CARGANDO TOKEN FAB
+        var myTkn = '@ViewBag.tkn'
+
+        //GUARDANDO EL TOKEN
+        localStorage.setItem(utils.fnGlobals("Token"), myTkn);
+
+        console.log(myTkn);
+        console.log(localStorage);
+
         $("#content-slider").lightSlider({
             loop: true,
             keyPress: true,
@@ -100,3 +124,5 @@
     });
 
 </script>
+
+<script src="~/Content/js/src/Home/indexPublic.js"></script>

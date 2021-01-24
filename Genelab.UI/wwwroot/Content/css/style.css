@@ -6796,6 +6796,13 @@ section.content {
         padding-left: 0;
     }
 
+.form-control:disabled {
+    background: #ccc;
+}
+input:disabled {
+    background: #ccc;
+}
+
         .input-group .form-control:focus {
             -webkit-box-shadow: none !important;
             -moz-box-shadow: none !important;
@@ -11008,4 +11015,10 @@ div.sticky {
 /*fix Selects*/
 .input-group .bootstrap-select.form-control {
     z-index: inherit;
+}
+
+.buttonCustom {
+    padding: 10px 35px;
+    font-size: 18px;
+    border-color: #2e6da4;
 }

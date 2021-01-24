@@ -63,7 +63,7 @@ namespace Genelab.Database.Data
 			//Se define el resto de los campos
 			modelBuilder.Entity<Servicio>().Property(t => t.EstudioId).HasColumnName("EstudioId").HasColumnType("int").IsRequired();
 			modelBuilder.Entity<Servicio>().Property(t => t.EstatusId).HasColumnName("EstatusId").HasColumnType("int").IsRequired();
-			modelBuilder.Entity<Servicio>().Property(t => t.UsuarioId).HasColumnName("UsuarioId").HasColumnType("varchar").IsRequired().HasMaxLength(50);
+			modelBuilder.Entity<Servicio>().Property(t => t.UsuarioId).HasColumnName("UsuarioId").HasColumnType("nvarchar").IsRequired().HasMaxLength(256);
 			modelBuilder.Entity<Servicio>().Property(t => t.TipoServicioId).HasColumnName("TipoServicioId").HasColumnType("int").IsRequired();
 			modelBuilder.Entity<Servicio>().Property(t => t.FolioPago).HasColumnName("FolioPago").HasColumnType("varchar").IsRequired().HasMaxLength(50);
 			modelBuilder.Entity<Servicio>().Property(t => t.FechaHoraCreacion).HasColumnName("FechaHoraCreacion").HasColumnType("datetime").IsRequired();
@@ -83,7 +83,7 @@ namespace Genelab.Database.Data
 			//Se define el resto de los campos
 			modelBuilder.Entity<DatosFacturacion>().Property(t => t.EmpresaFiscal).HasColumnName("EmpresaFiscal").HasColumnType("varchar").IsRequired().HasMaxLength(250);
 			modelBuilder.Entity<DatosFacturacion>().Property(t => t.CodigoPostal).HasColumnName("CodigoPostal").HasColumnType("varchar").IsRequired().HasMaxLength(50);
-			modelBuilder.Entity<DatosFacturacion>().Property(t => t.DelegacionId).HasColumnName("DelegacionId").HasColumnType("int").IsRequired();
+			modelBuilder.Entity<DatosFacturacion>().Property(t => t.Delegacion).HasColumnName("Delegacion").HasColumnType("varchar").IsRequired().HasMaxLength(150);
 			modelBuilder.Entity<DatosFacturacion>().Property(t => t.Colonia).HasColumnName("Colonia").HasColumnType("varchar").IsRequired().HasMaxLength(150);
 			modelBuilder.Entity<DatosFacturacion>().Property(t => t.Calle).HasColumnName("Calle").HasColumnType("varchar").IsRequired().HasMaxLength(250);
 

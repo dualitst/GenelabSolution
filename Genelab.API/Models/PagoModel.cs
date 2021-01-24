@@ -10,7 +10,7 @@ namespace Genelab.API.Models
         public int Id { get; set; }
         public string TipoPago { get; set; }
         public string Tarjeta { get; set; }
-        public float Monto { get; set; }
+        public string Monto { get; set; }
         public string ImagenId { get; set; }
     }
 }

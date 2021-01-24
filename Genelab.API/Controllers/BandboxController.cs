@@ -3,11 +3,15 @@ using Genelab.Common;
 using Genelab.Database;
 using Genelab.Database.Data;
 using Genelab.Database.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace Genelab.API.Controllers
@@ -15,14 +19,15 @@ namespace Genelab.API.Controllers
     [Route("api/[controller]")]
     [ApiController]
 
-
     public class BandboxController : ControllerBase
     {
         private readonly GenelabContext _context;
-
-        public BandboxController(GenelabContext context)
+        private IWebHostEnvironment hostingEnv;
+        
+        public BandboxController(GenelabContext context, IWebHostEnvironment env)
         {
             _context = context;
+            this.hostingEnv = env;
         }
 
         #region ServicesTest
@@ -121,19 +126,19 @@ namespace Genelab.API.Controllers
         {
             try
             {
-               
-                Pago listPago = new Pago();
 
 
-                listPago.TipoPago = model.TipoPago;
-                listPago.Tarjeta = model.Tarjeta;
-                listPago.Monto = model.Monto;
-                listPago.ImagenId = model.ImagenId;
+                    Pago listPago = new Pago();
 
 
+                        listPago.TipoPago = model.TipoPago;
+                        listPago.Tarjeta = model.Tarjeta;
+                        float monto = (model.Monto != null) ? float.Parse(model.Monto) : 0;
+                        listPago.Monto = monto;
+                        listPago.ImagenId = model.ImagenId;
 
-                _context.Pagos.Add(listPago);
-                _context.SaveChanges();
+                        _context.Pagos.Add(listPago);
+                        _context.SaveChanges();
 
 
                 var data = new RespuestaAPI(listPago);

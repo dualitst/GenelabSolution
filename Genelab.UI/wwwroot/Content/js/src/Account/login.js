@@ -78,14 +78,14 @@ var login = function () {
         if ($formSignIn.valid()) {
             
             try {
-                var oUrl = 'Account/GetUsuario';
+                var oUrl = 'Account/Login';
                 var urlIndex = '';
                 var oData =
                 {
-                        "Usuario": $oUser.val().replace(/ +?/g, ""),
-                    "Contrasenia": $oPass.val(),
-                    "Aplicacion": utils.fnGlobals("Aplicacion")
+                    "Usuario": $oUser.val().replace(/ +?/g, ""),
+                    "Contrasenia": $oPass.val()
                 };
+
                 var oProcessMessage = 'Validando credenciales, espere por favor...';
                 var success = function (result) {
 

@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "Alta de servicio";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutPublico.cshtml";
 }
 
 <div class="row clearfix">
@@ -11,174 +11,193 @@
 
                 <h2>@ViewBag.Title.</h2>
 
-                <form id="sign_in" class="form-horizontal">
+                <form id="formServicio" class="form-horizontal">
                     <div class="msg"></div>
+                    <br /><br />
+       
 
-                    <div class="">
-
+                    <div class="col-md-10">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                            <label class="form-check-label checkbox-inline" for="defaultCheck1">
-                                Nombre de la cuenta
-                            </label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
-                            <label class="form-check-label checkbox-inline" for="defaultCheck2">
-                                Es mayor de edad
-                            </label>
-                        </div>
 
+                            <div class="col-md-3">
+                                <input class="form-check-input" type="checkbox" value="" id="chkNombreCunenta">
+                                <label class="form-check-label checkbox-inline" for="chkNombreCunenta">
+                                    Nombre de la cuenta
+                                </label>
+                            </div>
+
+                            <div class="col-md-3 col-md-offset-1">
+                                <input class="form-check-input" type="checkbox" value="" id="chkMayorEdad">
+                                <label class="form-check-label checkbox-inline" for="chkMayorEdad">
+                                    Es mayor de edad
+                                </label>
+                            </div>
+
+                        </div>
                     </div>
+
+
 
                     <br />
                     <div class="form-group">
                         <label class="col-md-2 control-label">Nombre</label>
                         <div class="col-md-8 form-custom">
-                            <input type="text" class="form-control" id="Nombre" required autofocus>
+                            <input type="text" class="form-control" id="Nombre" required>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-md-2 control-label">Apellido Paterno</label>
                         <div class="col-md-8 form-custom">
-                            <input type="text" class="form-control" id="ApellidoP" required autofocus>
+                            <input type="text" class="form-control" id="ApellidoP" required>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-md-2 control-label">Apellido Materno</label>
                         <div class="col-md-8 form-custom">
-                            <input type="text" class="form-control" id="ApellidoM" required autofocus>
+                            <input type="text" class="form-control" id="ApellidoM" required >
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-md-2 control-label">Nombre Titular</label>
                         <div class="col-md-8 form-custom">
-                            <input type="text" class="form-control" id="Ntitular" required autofocus>
+                            <input type="text" class="form-control" id="Ntitular" required >
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-md-2 control-label">Parentezco</label>
                         <div class="col-md-8 form-custom">
-                            <input type="text" class="form-control" id="Parentezco" required autofocus>
+                            <input type="text" class="form-control" id="Parentezco" required >
                         </div>
                     </div>
 
-                    <hr>
+
                     <div class="form-group">
                         <div>
-                            <label class="col-md-2 control-label">Catalogo</label>
+                            <label class="col-md-2 control-label">Catálogo</label>
                             <div class="col-md-8 form-custom">
                                 <select id="Catalogo" name="" class="form-control" data-live-search="true" required>
-                                    <option value="catalogo" selected>Catalogo</option>
-                                    <option value="servicio1">servicio1</option>
-                                    <option value="servicio2">servicio2</option>
-                                    <option value="servicio3">servicio3</option>
+                                    <option value=1>Covid 19</option>
+                                    <option value=2>Influenza</option>
+                                    <option value=3>Pulmones</option>
                                 </select>
                             </div>
                         </div>
-                        <hr>
-                        <hr>
+
                     </div>
 
-                    <div class="col-lg-10">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck3">
-                            <label class="form-check-label" for="defaultCheck3">
-                                En domicilio
-                            </label>
+             <hr /><br />
+
+
+                    <div class="col-md-10">
+                        <div class="form-check form-check-inline">
+                            <div class="col-md-3">
+                                <input class="form-check-input" type="checkbox" value="" id="chkEnDomicilio">
+                                <label class="form-check-label checkbox-inline" for="chkEnDomicilio">
+                                    En domicilio
+                                </label>
+                            </div>
+
                         </div>
-
                     </div>
-                    <br />
-                    <div class="input-group">
+
+
+                    <br /><br />
+
+                    <div class="input-group" id="divDomicilio">
                         <span class="input-group-addon">
 
                         </span>
                         <div class="form-group">
                             <label class="col-md-2 control-label">CP</label>
                             <div class="col-md-8 form-custom">
-                                <input type="text" class="form-control" id="Cp" required autofocus>
+                                <input type="text" class="form-control" id="Cp" required >
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">Delegación</label>
                             <div class="col-md-8 form-custom">
-                                <input type="text" class="form-control" id="Delegacion" required autofocus>
+                                <input type="text" class="form-control" id="Delegacion" required >
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">Colonia</label>
                             <div class="col-md-8 form-custom">
-                                <input type="text" class="form-control" id="Colonia" required autofocus>
+                                <input type="text" class="form-control" id="Colonia" required >
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Calle,depto,número interno/externo</label>
+                            <label class="col-md-2 control-label">Calle, depto, número interno/externo</label>
                             <div class="col-md-8 form-custom">
-                                <input type="text" class="form-control" id="CDpN" required autofocus>
+                                <input type="text" class="form-control" id="Cdpn" required >
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-lg-10">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck4">
-                            <label class="form-check-label" for="defaultCheck4">
-                                Facturación
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck5">
-                            <label class="form-check-label" for="defaultCheck5">
-                                Usar el domicilio capturado
-                            </label>
+
+                <hr><br />
+
+                    <div class="col-md-10">
+                        <div class="form-check form-check-inline">
+                            <div class="col-md-3">
+                                <input class="form-check-input" type="checkbox" value="" id="chkFacturacion">
+                                <label class="form-check-label checkbox-inline" for="chkFacturacion">
+                                    Facturación
+                                </label>
+                            </div>
+
+                            <div class="col-md-3 col-md-offset-1">
+                                <input class="form-check-input" type="checkbox" value="" id="chkUsarDomicilio">
+                                <label class="form-check-label checkbox-inline" for="chkUsarDomicilio">
+                                    Usar el domicilio capturado
+                                </label>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="input-group">
+
+                    <div class="input-group" id="divFacturacion">
                         <div class="form-group">
                             <label class="col-md-2 control-label">Empresa Fiscal</label>
                             <div class="col-md-8 form-custom">
-                                <input type="text" class="form-control" id="EmpresaF" required autofocus>
+                                <input type="text" class="form-control" id="EmpresaF">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">cp</label>
                             <div class="col-md-8 form-custom">
-                                <input type="text" class="form-control" id="Cpp" required autofocus>
+                                <input type="text" class="form-control" id="CpF">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">Colonia</label>
                             <div class="col-md-8 form-custom">
-                                <input type="text" class="form-control" id="Colonia" required autofocus>
+                                <input type="text" class="form-control" id="ColoniaF">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">Delegacion</label>
                             <div class="col-md-8 form-custom">
-                                <input type="text" class="form-control" id="Delega" required autofocus>
+                                <input type="text" class="form-control" id="DelegacionF">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Calle,depto,número interno/externo</label>
+                            <label class="col-md-2 control-label">Calle, depto, número interno/externo</label>
                             <div class="col-md-8 form-custom">
-                                <input type="text" class="form-control" id="CDN" required autofocus>
+                                <input type="text" class="form-control" id="CdpnF">
                             </div>
                         </div>
                     </div>
-                    <div class="text-center">
-                        <div class="form-group">
-                            <div class="col-md-8 form-custom">
-                                <button name="btnSignIn" id="btnSignIn" class="btn btn-block bg-blue waves-effect" type="submit">Enviar</button>
-                            </div>
+
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" id="btnSolicitar" class="btn btn-primary" value="Solicitar servicio" />
                         </div>
                     </div>
-                    
 
                 </form>
             </div>

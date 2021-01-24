@@ -22,3 +22,8 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.buttonCustom {
+    padding: 8px 32px;
+    font-size: 18px;
+}

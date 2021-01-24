@@ -13,24 +13,18 @@
 /// Fecha de creación:
 /// Autor:
 /// -----------------------------------------------------------------------------
+
 /// </summary>
-var login = function () {
+var pagoAlta = function () {
     // Objetos
-    var $btnSignIn = $('#btnSignIn');
-    var $formSignIn = $('#sign_in');
+    var $btnPagar = $('#btnPagar');
+    var $form_pago = $('#form_pago');
     // var $oNombrecuenta = $('#NombreCuenta');
     //var $oMayor = $('#MayorE');
     var $Tipo = $('#caja');
     var $Tarjeta = $('#Tarjeta');
     var $Monto = $('#Monto');
     var $Comprobante = $('#ComprobanteP');
-
-
-
-
-
-
-
 
 
     $(function () {
@@ -59,41 +53,45 @@ var login = function () {
 
     function fnInit() {
         // Asignamos los eventos de validación del form.
-        $btnSignIn.click(fnAlta);
+        $btnPagar.click(fnPago);
     };
 
-    function fnAlta(e) {
+    function fnPago(e) {
         e.preventDefault();
 
-        if ($formSignIn.valid()) {
+        if ($form_pago.valid()) {
 
             try {
                 var oUrl = 'Bandbox/alta';
                 var urlIndex = '';
 
+                var _tipoPago = $('input[name="tipoPagoRad"]:checked').val();
+
                 var oData =
                 {
-                    "TipoPago": $Tipo.val(),
+                    "TipoPago": _tipoPago,
                     "Tarjeta": $Tarjeta.val(),
                     "Monto": $Monto.val(),
                     "ImagenId": $Comprobante.val()
                 };
+
+                console.log(oData);
+
                 var oProcessMessage = 'Validando credenciales, espere por favor...';
                 var success = function (result) {
 
 
                     console.log(result);
+
                     if (utils.fnValidResult(result)) {
-
-                        alert("exito");
-
+                        utils.fnShowSuccessMessage("Se guardo correctamente el pago");
 
                     }
                     else {
-                        alert("error");
+                        utils.fnShowSuccessMessage("Error al guardar el pago");
                     }
                 };
-                utils.fnExecuteWithResult(e, oUrl, oData, oProcessMessage, success, false, "Security");
+                utils.fnExecuteWithResult(e, oUrl, oData, oProcessMessage, success, false, "Originacion");
 
             }
             catch (e) {

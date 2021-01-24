@@ -1251,56 +1251,56 @@ var utils = function () {
     function getMenuJson(idMenu, opciones) {
         var def = new $.Deferred();
 
-        try {
-            idMenu = 'menuContainer';
-            opciones = "";
+        //try {
+        //    idMenu = 'menuContainer';
+        //    opciones = "";
             
-            var token = localStorage.getItem(utils.fnGlobals("Token"));
-            var strToken = utils.fnGetJWTPayload(token);
-            var objToken = jQuery.parseJSON(strToken.data);
+        //    var token = localStorage.getItem(utils.fnGlobals("Token"));
+        //    var strToken = utils.fnGetJWTPayload(token);
+        //    var objToken = jQuery.parseJSON(strToken.data);
 
-            var sRoles = '';
-            for (var i = 0; i < objToken.Roles.filter(x => x.AplicacionId == utils.fnGlobals("AplicacionId")).length; i++) {
-                sRoles += objToken.Roles.filter(x => x.AplicacionId == utils.fnGlobals("AplicacionId"))[i].NombreRol;
-                if (i != objToken.Roles.filter(x => x.AplicacionId == utils.fnGlobals("AplicacionId")).length - 1) {
-                    sRoles += '|';
-                }
-            }
+        //    var sRoles = '';
+        //    for (var i = 0; i < objToken.Roles.filter(x => x.AplicacionId == utils.fnGlobals("AplicacionId")).length; i++) {
+        //        sRoles += objToken.Roles.filter(x => x.AplicacionId == utils.fnGlobals("AplicacionId"))[i].NombreRol;
+        //        if (i != objToken.Roles.filter(x => x.AplicacionId == utils.fnGlobals("AplicacionId")).length - 1) {
+        //            sRoles += '|';
+        //        }
+        //    }
 
-            var oUrl = 'Controles/GetMenu';
-            var oData = {
-                roles: sRoles,//obtener roles del objeto de seguridad
-                tipo: 'PANTA',
-                id_control_padre: 17
-            };
-            var oProcessMessage = 'Procesando información, espere por favor...';
-            var success = function (result) {
-                if (result.MessageType === 1) {
-                    utils.fnShowErrorMessage(result.ErrorMessage);
-                    return;
-                }
-                else {
-                    var str = '<li class="header">Men&uacute;</li>';
+        //    var oUrl = 'Controles/GetMenu';
+        //    var oData = {
+        //        roles: sRoles,//obtener roles del objeto de seguridad
+        //        tipo: 'PANTA',
+        //        id_control_padre: 17
+        //    };
+        //    var oProcessMessage = 'Procesando información, espere por favor...';
+        //    var success = function (result) {
+        //        if (result.MessageType === 1) {
+        //            utils.fnShowErrorMessage(result.ErrorMessage);
+        //            return;
+        //        }
+        //        else {
+        //            var str = '<li class="header">Men&uacute;</li>';
 
-                    //Guardando menu en LocalStorage
-                    utils.fnLocalData.set(utils.fnGlobals("Menu"), result.Data);
+        //            //Guardando menu en LocalStorage
+        //            utils.fnLocalData.set(utils.fnGlobals("Menu"), result.Data);
 
-                    str += getMenuJsonRec(result.Data);
+        //            str += getMenuJsonRec(result.Data);
 
-                    $('#' + idMenu).html(str);
+        //            $('#' + idMenu).html(str);
 
-                    //Habilita la navegación del menú
-                    $.AdminBSB.leftSideBar.activate();
-                }
+        //            //Habilita la navegación del menú
+        //            $.AdminBSB.leftSideBar.activate();
+        //        }
 
-                def.resolve(true);
-            };
-            utils.fnExecuteWithResult(null, oUrl, oData, oProcessMessage, success, true, "Originacion");
-        }
-        catch (e) {
-            utils.fnShowErrorMessage(e.message);
-            def.reject("Error");
-        }
+        //        def.resolve(true);
+        //    };
+        //    utils.fnExecuteWithResult(null, oUrl, oData, oProcessMessage, success, true, "Originacion");
+        //}
+        //catch (e) {
+        //    utils.fnShowErrorMessage(e.message);
+        //    def.reject("Error");
+        //}
         return def.promise();
     };
 

@@ -25,25 +25,17 @@ var DatosPublico = function () {
     var SessionData = utils.fnLocalData.get(utils.fnGlobals("Sesion"));
 
     var colDefs = [
-        utils.fnAgGrid_ColumnBuilder({ header: "NOMBRE", field: "userName" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "ESTUDIO", field: "fullName" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RECEPCIÓN", field: "rol", sort: "asc" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE ENTREGA", field: "rol" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS", field: "activo" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "NOMBRE", field: "nombrePaciente" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "ESTUDIO", field: "estudioNombre" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RECEPCIÓN", field: "fechaHoraCreacion", sort: "asc" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE ENTREGA", field: "fechaHoraCreacion" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS", field: "estatusNombre" }),
         utils.fnAgGrid_ColumnBuilder({ header: "Acciones", noFilter: true, cellRenderer: cellRender_Acciones })
     ];
 
-    var $hdnIdDato = $("#hdnIdDato");
-    var $hdnCveCatalogo = $("#hdnCveCatalogo");
-    var $frmDatos = $("#frmDatos");
-    var $txtCodigo = $("#txtCodigo");
-    var $txtDescripcion = $("#txtDescripcion");
-    var $selCatalogo = $("#selCatalogo");
-    var $txtResolucion = $("#txtResolucion");
-    var $chkActivo = $("#chkActivo");
-    var $btnGuardar = $("#btnGuardar");
-
-
+    var $btnSolicitar = $("#btnSolicitar");
+    var $btnResultados = $("#btnResultados");
+    var $btnFacturas = $("#btnFacturas");
 
     /// -------------------------------------------------------------------------
     /// Init
@@ -58,6 +50,7 @@ var DatosPublico = function () {
     /// Funciones
     /// -------------------------------------------------------------------------
     function fnInit() {
+
         //Inicializando página
         utils.fnPage_Init();
 
@@ -74,14 +67,48 @@ var DatosPublico = function () {
                 //Alimentando agGrid
                 llenaGrid();
             });
+
+        $btnSolicitar.click(function () {
+            window.location.href = '/Request/Index';
+        });
+
+        $btnResultados.click(function () {
+
+            misResultados();
+        });
+
+        $btnFacturas.click(function () {
+
+            misFacturas();
+        });
     };
 
+    function misResultados()
+    {
 
+        $btnResultados.removeClass("btn-secondary");
+        $btnResultados.addClass("btn-primary");
+
+        $btnFacturas.removeClass("btn-primary");
+        $btnFacturas.addClass("btn-secondary");
+        llenaGrid();
+    }
+
+    function misFacturas()
+    {
+        $btnFacturas.removeClass("btn-secondary");
+        $btnFacturas.addClass("btn-primary");
+
+        $btnResultados.removeClass("btn-primary");
+        $btnResultados.addClass("btn-secondary");
+
+        llenaGridFacturas();
+    }
 
     // Funciones manejo Grid
     //----------------------
     function llenaGrid() {
-        utils.fnAgGrid_SetRowsAPI(grdOptions, "usuarios/servicioslist", {}, false, "Originacion")
+        utils.fnAgGrid_SetRowsAPI(grdOptions, "request/mylist", {}, false, "Originacion")
             .done(function (res) {
                 grdOptions = res;
             })
@@ -92,6 +119,20 @@ var DatosPublico = function () {
                 });
             });
     }
+
+    function llenaGridFacturas() {
+        utils.fnAgGrid_SetRowsAPI(grdOptions, "request/MyBill", {}, false, "Originacion")
+            .done(function (res) {
+                grdOptions = res;
+            })
+            .done(function () {
+                //Inicilizando Tooltips del grid
+                $('[data-toggle="tooltip"]').tooltip({
+                    container: 'body'
+                });
+            });
+    }
+
 
     //Actualiza filtro
     function actualizaFiltro() {

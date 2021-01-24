@@ -103,18 +103,18 @@ var _Layout = function () {
         $MaskedInput.find('.masked-extension').inputmask('[9][9][9][9][9]', { placeholder: '_____' });
 
 
-        ManageAccount.SetGlobalVars().done(function () {
-            //No los actualiza con las declaraciones en objetos, sólo directo
+        //ManageAccount.SetGlobalVars().done(function () {
+        //    //No los actualiza con las declaraciones en objetos, sólo directo
 
-            $("#lblNombreSistema").html(utils.fnGlobals("NombreAplicacion"));
-            $("#lblNombreSistemaMenu").html(utils.fnGlobals("NombreAplicacion"));
+        //    $("#lblNombreSistema").html(utils.fnGlobals("NombreAplicacion"));
+        //    $("#lblNombreSistemaMenu").html(utils.fnGlobals("NombreAplicacion"));
 
-            $('#divMenuNombre').html(utils.fnLocalData.get(utils.fnGlobals("Sesion")).nombre_completo);
-            $('#divRol').html(utils.fnLocalData.get(utils.fnGlobals("Sesion")).roles);
+        //    $('#divMenuNombre').html(utils.fnLocalData.get(utils.fnGlobals("Sesion")).nombre_completo);
+        //    $('#divRol').html(utils.fnLocalData.get(utils.fnGlobals("Sesion")).roles);
 
-            $("#lblNombreUsuario").html(utils.fnLocalData.get(utils.fnGlobals("Sesion")).nombre_completo);
-            $("#lblRolesUsuario").html(utils.fnLocalData.get(utils.fnGlobals("Sesion")).roles);
-        });
+        //    $("#lblNombreUsuario").html(utils.fnLocalData.get(utils.fnGlobals("Sesion")).nombre_completo);
+        //    $("#lblRolesUsuario").html(utils.fnLocalData.get(utils.fnGlobals("Sesion")).roles);
+        //});
 
         
         //Modal Fix - Cuando se abre un modal sobre otro, respeta la scrollbar del padre

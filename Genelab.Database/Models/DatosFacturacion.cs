@@ -11,8 +11,8 @@ namespace Genelab.Database.Models
         public  int Id { get; set; }
         public  string EmpresaFiscal { get; set; }
         public  string CodigoPostal { get; set; }
-        public  int DelegacionId { get; set; }
-        public  int Colonia { get; set; }
+        public  string Delegacion { get; set; }
+        public string Colonia { get; set; }
         public  string Calle { get; set; }
     }
 }

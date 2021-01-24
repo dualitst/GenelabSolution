@@ -16,70 +16,142 @@
 /// </summary>
 var login = function () {
     // Objetos
-    var $btnSignIn = $('#btnSignIn');
-    var $formSignIn = $('#sign_in');
-   // var $oNombrecuenta = $('#NombreCuenta');
-    //var $oMayor = $('#MayorE');
+    var $btnSolicitar = $('#btnSolicitar');
+    var $formServicio = $('#formServicio');
+
+
     var $nombre = $('#Nombre');
     var $apellidop = $('#ApellidoP');
     var $apellidom = $('#ApellidoM');
     var $titular = $('#Ntitular');
     var $parentezco = $('#Parentezco');
     var $catalogo = $('#Catalogo');
-    //var $domicilio = $('#Domicilio');
+
+    //domicilio
     var $cp = $('#Cp');
     var $delegacion = $('#Delegacion');
     var $colonia = $('#Colonia');
-    var $calle = $('#CDpN');
-    var $calle1 = $('#CDN');
-    //var $fact = $('#Fact');
-    //var $used = $('#UseD');
-    var $empresa = $('#Empresaf');
-    var $cp1 = $('#Cpp');
-    var $colonia1 = $('#Colonia1');
-    var $delega = $('#Delega');
-    
-    
+    var $cdpn = $('#Cdpn');
 
+    //facuracion
+    var $EmpresaF = $('#EmpresaF');
+    var $cpF = $('#CpF');
+    var $delegacionF = $('#DelegacionF');
+    var $coloniaF = $('#ColoniaF');
+    var $cdpnF = $('#CdpnF');
 
+    var $chkNombreCunenta = $('#chkNombreCunenta');
+    var $chkMayorEdad = $('#chkMayorEdad');
+    var $chkEnDomicilio = $('#chkEnDomicilio');
+    var $chkFacturacion = $('#chkFacturacion');
+    var $chkUsarDomicilio = $('#chkUsarDomicilio');
 
-
-
-
+    //parametros para check
+    var mayorEdad = false;
+    var enDomicilio = false;
+    var facturacion = false;
 
     $(function () {
-        $('#sign_in').validate({
+        fnInit();
+    });
+
+
+    function setDomicilioF(activo) {
+
+        $("#divFacturacion :input").attr("disabled", activo);
+        $chkUsarDomicilio.attr("disabled", activo);
+
+        if (activo) {
+            $cpF.val("");
+            $delegacionF.val("");
+            $coloniaF.val("");
+            $cdpnF.val("");
+        }
+    }
+
+    function fnInit() {
+        // Asignamos los eventos de validación del form.
+        $btnSolicitar.click(fnAlta);
+
+        //Deshabilitando 
+        setDomicilioF(true);
+
+        $chkNombreCunenta.click(function () {
+
+        });
+
+        $chkEnDomicilio.click(function () {
+            if ($(this).is(":checked")) // "this" refers to the element that fired the event
+            {
+                enDomicilio = true;
+            } else {
+                enDomicilio = false;
+            }
+        });
+
+        $chkMayorEdad.click(function () {
+           
+            if ($(this).is(":checked")) // "this" refers to the element that fired the event
+            {
+                mayorEdad = true;
+            } else
+            {
+                mayorEdad = false;
+            }
+
+        });
+
+        $chkFacturacion.click(function () {
+
+            if ($(this).is(":checked")) // "this" refers to the element that fired the event
+            {
+                facturacion = true;
+                setDomicilioF(false);
+            } else {
+                facturacion = false;
+                setDomicilioF(true);
+            }
+        });
+
+        $chkUsarDomicilio.click(function () {
+
+            if ($(this).is(":checked")) // "this" refers to the element that fired the event
+            {
+               
+                    $cpF.val($cp.val());
+                    $delegacionF.val($delegacion.val());
+                    $coloniaF.val($colonia.val());
+                    $cdpnF.val($cdpn.val());
+
+            } 
+
+        });
+
+    };
+
+    function fnAlta(e) {
+
+        e.preventDefault();
+
+        $formServicio.validate({
+            rules: {
+                SelectName: { valueNotEquals: "" }
+            },
+            messages: {
+                SelectName: { valueNotEquals: "Este campo es obligatorio." }
+            },
             highlight: function (input) {
-                console.log(input);
                 $(input).parents('.form-line').addClass('error');
             },
             unhighlight: function (input) {
                 $(input).parents('.form-line').removeClass('error');
             },
             errorPlacement: function (error, element) {
-                $(element).parents('.input-group').append(error);
+                $(element).parents('.form-group').append(error);
             }
         });
 
-       
-
-       
-
-    });
-
-    $(function () {
-        fnInit();
-    });
-
-    function fnInit() {
-        // Asignamos los eventos de validación del form.
-        $btnSignIn.click(fnAlta);
-    };
-
-    function fnAlta(e) {
-        e.preventDefault();
-
-        if ($formSignIn.valid()) {
+        if ($formServicio.valid()) {
 
             try {
                 var oUrl = 'Request/alta';
@@ -87,24 +159,29 @@ var login = function () {
 
                 var oData =
                 {
-                    "Nombre": $nombre.val(),
-                    "ApellidoPaterno": $apellidop.val(),
-                    "ApellidoMaterno": $apellidom.val(),
-                    "Titular": $titular.val(),
-                    "Parentesco": $parentezco.val(),
-                    "Estudio": $catalogo.val(),
+                    "EnDomicilio": enDomicilio,
+                    "NombrePaciente": $nombre.val(),
+                    "ApellidoMPaciente": $apellidop.val(),
+                    "ApellidoPPaciente": $apellidom.val(),
+                    "NombreTitular": $titular.val(),
+                    "Parentezco": $parentezco.val(),
+                    "EstudioId": $catalogo.val(),
 
-                    "CP": $cp.val(),
+                    "CodigoPostal": $cp.val(),
                     "Delegacion": $delegacion.val(),
                     "Colonia": $colonia.val(),
-                    "Calle": $calle.val(),
+                    "Calle": $cdpn.val(),
 
-                    "EmpresaFiscal": $empresa.val(),
-                    "EmpresaFiscalCP": $cp1.val(),
-                    "EmpresaFiscalDelegacion": $delega.val(),
-                    "EmpresaFiscalColonia": $colonia1.val(),
-                    "EmpresaFiscalCalle": $calle1.val(),
+                    "isFacturacion": facturacion,
+                    "EmpresaFiscal": $EmpresaF.val(),
+                    "EmpresaFiscalCP": $cpF.val(),
+                    "EmpresaFiscalDelegacion": $delegacionF.val(),
+                    "EmpresaFiscalColonia": $coloniaF.val(),
+                    "EmpresaFiscalCalle": $cdpnF.val(),
                 };
+
+                console.log(oData);
+
                 var oProcessMessage = 'Validando credenciales, espere por favor...';
                 var success = function (result) {
                     
@@ -120,7 +197,7 @@ var login = function () {
                         alert("error");
                     }
                 };
-                utils.fnExecuteWithResult(e, oUrl, oData, oProcessMessage, success, false, "Security");
+                utils.fnExecuteWithResult(e, oUrl, oData, oProcessMessage, success, true, "Originacion");
 
             }
             catch (e) {
@@ -128,4 +205,5 @@ var login = function () {
             }
         }
     };
+
 }();

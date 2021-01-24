@@ -68,7 +68,7 @@ namespace Genelab.API
             services.AddDbContext<GenelabContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SqlConnection")));
 
             services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
-                            .AddEntityFrameworkStores<GenelabContext>();
+                            .AddEntityFrameworkStores<GenelabContext>().AddDefaultTokenProviders();
 
         }
 
