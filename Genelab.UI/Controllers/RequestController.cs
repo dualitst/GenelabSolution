@@ -14,5 +14,10 @@ namespace Genelab.UI.Controllers
         {
             return View();
         }
+
+        public IActionResult IndexAdmin()
+        {
+            return View();
+        }
     }
 }

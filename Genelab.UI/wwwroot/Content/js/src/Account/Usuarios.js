@@ -26,7 +26,7 @@ var Usuarios = function () {
 
     var colDefs = [
         utils.fnAgGrid_ColumnBuilder({ header: "Usuario", field: "userName" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "Nombre", field: "fullName" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "Email", field: "email" }),
         utils.fnAgGrid_ColumnBuilder({ header: "Rol", field: "rol", sort:"asc" }),
         utils.fnAgGrid_ColumnBuilder({ header: "Activo", field: "activo" }),
         utils.fnAgGrid_ColumnBuilder({ header: "Acciones", noFilter: true, cellRenderer: cellRender_Acciones })
@@ -80,7 +80,7 @@ var Usuarios = function () {
     // Funciones manejo Grid
     //----------------------
     function llenaGrid() {
-        utils.fnAgGrid_SetRowsAPI(grdOptions, "usuarios/list", {}, false, "Originacion")
+        utils.fnAgGrid_SetRowsAPI(grdOptions, "Account/GetUsers", {}, true, "Originacion")
             .done(function (res) {
                 grdOptions = res;
             })

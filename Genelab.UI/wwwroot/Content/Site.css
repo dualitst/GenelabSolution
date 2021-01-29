@@ -27,3 +27,11 @@ textarea {
     padding: 8px 32px;
     font-size: 18px;
 }
+
+.hidden > div {
+    display: none;
+}
+
+.visible > div {
+    display: block;
+}

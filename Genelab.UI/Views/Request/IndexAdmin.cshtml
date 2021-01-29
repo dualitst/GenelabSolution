@@ -1,0 +1,208 @@
+﻿
+@{
+    ViewBag.Title = "Alta de servicio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row clearfix">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="body">
+
+                <h2>@ViewBag.Title.</h2>
+
+                <form id="formServicio" class="form-horizontal">
+                    <div class="msg"></div>
+                    <br /><br />
+
+
+                    <div class="col-md-10">
+                        <div class="form-check form-check-inline">
+
+                            <div class="col-md-3">
+                                <input class="form-check-input" type="checkbox" value="" id="chkNombreCunenta">
+                                <label class="form-check-label checkbox-inline" for="chkNombreCunenta">
+                                    Nombre de la cuenta
+                                </label>
+                            </div>
+
+                            <div class="col-md-3 col-md-offset-1">
+                                <input class="form-check-input" type="checkbox" value="" id="chkMayorEdad">
+                                <label class="form-check-label checkbox-inline" for="chkMayorEdad">
+                                    Es mayor de edad
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                    <br />
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Nombre</label>
+                        <div class="col-md-8 form-custom">
+                            <input type="text" class="form-control" id="Nombre" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Apellido Paterno</label>
+                        <div class="col-md-8 form-custom">
+                            <input type="text" class="form-control" id="ApellidoP" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Apellido Materno</label>
+                        <div class="col-md-8 form-custom">
+                            <input type="text" class="form-control" id="ApellidoM" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Nombre Titular</label>
+                        <div class="col-md-8 form-custom">
+                            <input type="text" class="form-control" id="Ntitular" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Parentezco</label>
+                        <div class="col-md-8 form-custom">
+                            <input type="text" class="form-control" id="Parentezco" required>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div>
+                            <label class="col-md-2 control-label">Catálogo</label>
+                            <div class="col-md-8 form-custom">
+                                <select id="Catalogo" name="" class="form-control" data-live-search="true" required>
+                                    <option value=1>Covid 19</option>
+                                    <option value=2>Influenza</option>
+                                    <option value=3>Pulmones</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <hr /><br />
+
+
+                    <div class="col-md-10">
+                        <div class="form-check form-check-inline">
+                            <div class="col-md-3">
+                                <input class="form-check-input" type="checkbox" value="" id="chkEnDomicilio">
+                                <label class="form-check-label checkbox-inline" for="chkEnDomicilio">
+                                    En domicilio
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <br /><br />
+
+                    <div class="input-group" id="divDomicilio">
+                        <span class="input-group-addon">
+
+                        </span>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">CP</label>
+                            <div class="col-md-8 form-custom">
+                                <input type="text" class="form-control" id="Cp" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Delegación</label>
+                            <div class="col-md-8 form-custom">
+                                <input type="text" class="form-control" id="Delegacion" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Colonia</label>
+                            <div class="col-md-8 form-custom">
+                                <input type="text" class="form-control" id="Colonia" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Calle, depto, número interno/externo</label>
+                            <div class="col-md-8 form-custom">
+                                <input type="text" class="form-control" id="Cdpn" required>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <hr><br />
+
+                    <div class="col-md-10">
+                        <div class="form-check form-check-inline">
+                            <div class="col-md-3">
+                                <input class="form-check-input" type="checkbox" value="" id="chkFacturacion">
+                                <label class="form-check-label checkbox-inline" for="chkFacturacion">
+                                    Facturación
+                                </label>
+                            </div>
+
+                            <div class="col-md-3 col-md-offset-1">
+                                <input class="form-check-input" type="checkbox" value="" id="chkUsarDomicilio">
+                                <label class="form-check-label checkbox-inline" for="chkUsarDomicilio">
+                                    Usar el domicilio capturado
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="input-group" id="divFacturacion">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Empresa Fiscal</label>
+                            <div class="col-md-8 form-custom">
+                                <input type="text" class="form-control" id="EmpresaF">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">cp</label>
+                            <div class="col-md-8 form-custom">
+                                <input type="text" class="form-control" id="CpF">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Colonia</label>
+                            <div class="col-md-8 form-custom">
+                                <input type="text" class="form-control" id="ColoniaF">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Delegacion</label>
+                            <div class="col-md-8 form-custom">
+                                <input type="text" class="form-control" id="DelegacionF">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Calle, depto, número interno/externo</label>
+                            <div class="col-md-8 form-custom">
+                                <input type="text" class="form-control" id="CdpnF">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" id="btnSolicitar" class="btn btn-primary" value="Solicitar servicio" />
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Content/js/src/Altas/Alta.js"></script>

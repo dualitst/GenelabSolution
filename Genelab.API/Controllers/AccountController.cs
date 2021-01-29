@@ -1,4 +1,6 @@
-﻿using Genelab.Common;
+﻿using Genelab.API.Models;
+using Genelab.Common;
+using Genelab.EmailService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -23,13 +25,16 @@ namespace Genelab.API.Controllers
         private readonly IConfiguration _configuration;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
-
+        private readonly IEmailSender _emailSender;
+        private RoleManager<IdentityRole> roleManager;
         public AccountController(IConfiguration configuration, UserManager<IdentityUser> userManager,
-                              SignInManager<IdentityUser> signInManager)
+                              SignInManager<IdentityUser> signInManager, IEmailSender emailSender, RoleManager<IdentityRole> roleMgr)
         {
             _configuration = configuration;
             _userManager = userManager;
             _signInManager = signInManager;
+            _emailSender = emailSender;
+            roleManager = roleMgr;
         }
 
 
@@ -42,7 +47,7 @@ namespace Genelab.API.Controllers
 
 
             var user = await _userManager.FindByEmailAsync(model.Email);
-
+            //var roles = roleManager.Roles.ToList();
             if (user != null)
             {
                 var result = await _userManager.CheckPasswordAsync(user, model.Password);
@@ -54,8 +59,9 @@ namespace Genelab.API.Controllers
                     var key = Encoding.ASCII.GetBytes(secretKey);
                     string role = "User";
 
-                    var isInRole = await _userManager.IsInRoleAsync(user, "Admin");
-                    if (isInRole)
+                    //var isInRole = await _userManager.IsInRoleAsync(user, "Admin");
+                    var roles = await _userManager.GetRolesAsync(user);
+                    if (roles.Contains("Admin"))
                         role = "Admin";
 
                     var tokenDescriptor = new SecurityTokenDescriptor
@@ -98,28 +104,49 @@ namespace Genelab.API.Controllers
         [HttpPost("Register")]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-          
-
-            var user = await _userManager.FindByNameAsync(model.Email);
-
-            if (user == null)
+            try
             {
-                user = new IdentityUser
+
+                var user = await _userManager.FindByNameAsync(model.Email);
+
+                if (user == null)
                 {
-                    UserName = model.Email,
-                    Email= model.Email,
-                    EmailConfirmed = true
-                };
-                await _userManager.CreateAsync(user, model.Password);
+                    user = new IdentityUser
+                    {
+                        UserName = model.Email,
+                        Email = model.Email,
+                        EmailConfirmed = true
+                    };
+                    await _userManager.CreateAsync(user, model.Password);
 
 
-                var data = new RespuestaAPI(user);
+                    var data = new RespuestaAPI(user);
+                    try
+                    {
 
-                return Ok(data);
+                        var message = new Message(new string[] { model.Email }, "Genelab registro", "Bienvenido a Genelab, Se ha dado de alta su cuenta satisfactoriamente.");
+                        _emailSender.SendEmail(message);
+                    }
+                    catch (Exception ex)
+                    {
+                        var dataRes = new RespuestaAPI(ex);
+
+                        return Ok(dataRes);
+                    }
+
+
+                    return Ok(data);
+                }
+                else
+                {
+                    Exception ex = new Exception("Error, cuenta de usuario ya existe");
+                    var data = new RespuestaAPI(ex);
+
+                    return Ok(data);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Exception ex = new Exception("Error, cuenta de usuario ya existe");
                 var data = new RespuestaAPI(ex);
 
                 return Ok(data);
@@ -174,12 +201,29 @@ namespace Genelab.API.Controllers
         [HttpPost]
         [AllowAnonymous]
         [HttpPost("GetUsers")]
-        public  ActionResult GetUsers()
+        public async Task<IActionResult> GetUsers()
         {
             try
             {
                 var result =  _userManager.Users.ToList();
-                var data = new RespuestaAPI(result);
+                List<UserModel> list = new List<UserModel>();
+
+                foreach (var obj in result)
+                {
+                    UserModel _user= new UserModel();
+                    if(obj.EmailConfirmed)
+                    _user.Activo = "Si";
+                    else
+                    _user.Activo = "No";
+                    _user.Email = obj.Email;
+                    _user.UserName = obj.UserName;
+
+                    var roles =await  _userManager.GetRolesAsync(obj);
+                    _user.Rol = roles.FirstOrDefault();
+
+                    list.Add(_user);
+                }
+                var data = new RespuestaAPI(list);
 
                     return Ok(data);
             }

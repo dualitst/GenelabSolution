@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,14 @@ namespace Genelab.UI.Controllers
     
     public class Account : Controller
     {
+        private readonly IConfiguration _configuration;
+
+        public Account(IConfiguration configuration)
+        {
+            _configuration = configuration;
+
+        }
+
         private void AddErrors(string error)
         {
            ModelState.AddModelError("", error);
@@ -39,6 +48,11 @@ namespace Genelab.UI.Controllers
         }
 
         public IActionResult Register()
+        {
+            return View();
+        }
+
+        public IActionResult RegisterAdmin()
         {
             return View();
         }
@@ -61,7 +75,7 @@ namespace Genelab.UI.Controllers
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             string error = string.Empty;
-            string Baseurl = "http://localhost:57537/api/account/register";
+            string Baseurl = _configuration.GetValue<string>("UrlLogin") + "/account/register";
             CancellationToken cancellationToken;
 
             using (var client = new HttpClient())
@@ -106,10 +120,59 @@ namespace Genelab.UI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterAdmin(RegisterViewModel model)
+        {
+            string error = string.Empty;
+            string Baseurl = _configuration.GetValue<string>("UrlLogin") + "/account/register";
+            CancellationToken cancellationToken;
+
+            using (var client = new HttpClient())
+            using (var request = new HttpRequestMessage(HttpMethod.Post, Baseurl))
+            {
+                var json = JsonConvert.SerializeObject(model);
+                using (var stringContent = new StringContent(json, Encoding.UTF8, "application/json"))
+                {
+                    request.Content = stringContent;
+
+                    using (var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false))
+                    {
+                        if (response.IsSuccessStatusCode)
+                        {
+                            string product = await response.Content.ReadAsStringAsync();
+
+                            RespuestaAPI contenResponse = JsonConvert.DeserializeObject<RespuestaAPI>(product);
+
+                            if (contenResponse.MessageType == 0)
+                            {
+                                response.EnsureSuccessStatusCode();
+                                //return RedirectToAction("Index", "Home");
+
+                                AddErrors("Se ha creado correctamente su cuenta");
+
+                            }
+                            else
+                                AddErrors("Error al crear la cuenta");
+                        }
+                        else
+                        {
+                            AddErrors("Error al crear la cuenta");
+                        }
+                    }
+                }
+            }
+
+            // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
+            return View(model);
+        }
+
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
         {
             string error = string.Empty;
-            string Baseurl = "http://localhost:57537/api/account/ResetPassword";
+            string Baseurl = _configuration.GetValue<string>("UrlLogin") + "/account/ResetPassword";
             CancellationToken cancellationToken;
             RespuestaAPI contenResponse = new RespuestaAPI();
 
@@ -157,7 +220,7 @@ namespace Genelab.UI.Controllers
         public async Task<ActionResult> Login(LoginViewModel model)
         {
             string error = string.Empty;
-            string Baseurl = "http://localhost:57537/api/account/login";
+            var Baseurl = _configuration.GetValue<string>("UrlLogin")+"/account/login";
             CancellationToken cancellationToken;
             string roleUsuario = string.Empty;
 

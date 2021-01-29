@@ -13,8 +13,11 @@ namespace Genelab.Database.Data
 
 		public DbSet<DatosFacturacion> DatosFacturacions { get; set; }
         public DbSet<Domicilio> Domicilios { get; set; }
-        public DbSet<Estatus> Estatus { get; set; }
-        public DbSet<Estudio> Estudios { get; set; }
+        public DbSet<EstatusResultado> EstatusResultado { get; set; }
+		public DbSet<EstatusPago> EstatusPago { get; set; }
+		public DbSet<EstatusFactura> EstatusFactura { get; set; }
+		public DbSet<EstatusProceso> EstatusProceso { get; set; }
+		public DbSet<Estudio> Estudios { get; set; }
         public DbSet<Pago> Pagos { get; set; }
         public DbSet<Resultado> Resultados { get; set; }
         public DbSet<Servicio> Servicios { get; set; }
@@ -62,7 +65,10 @@ namespace Genelab.Database.Data
 
 			//Se define el resto de los campos
 			modelBuilder.Entity<Servicio>().Property(t => t.EstudioId).HasColumnName("EstudioId").HasColumnType("int").IsRequired();
-			modelBuilder.Entity<Servicio>().Property(t => t.EstatusId).HasColumnName("EstatusId").HasColumnType("int").IsRequired();
+			modelBuilder.Entity<Servicio>().Property(t => t.EstatusProcesoId).HasColumnName("EstatusProcesoId").HasColumnType("int").IsRequired();
+			modelBuilder.Entity<Servicio>().Property(t => t.EstatusPagoId).HasColumnName("EstatusPagoId").HasColumnType("int").IsRequired();
+			modelBuilder.Entity<Servicio>().Property(t => t.EstatusFacturaId).HasColumnName("EstatusFacturaId").HasColumnType("int").IsRequired();
+			modelBuilder.Entity<Servicio>().Property(t => t.EstatusResultadoId).HasColumnName("EstatusResultadoId").HasColumnType("int").IsRequired();
 			modelBuilder.Entity<Servicio>().Property(t => t.UsuarioId).HasColumnName("UsuarioId").HasColumnType("nvarchar").IsRequired().HasMaxLength(256);
 			modelBuilder.Entity<Servicio>().Property(t => t.TipoServicioId).HasColumnName("TipoServicioId").HasColumnType("int").IsRequired();
 			modelBuilder.Entity<Servicio>().Property(t => t.FolioPago).HasColumnName("FolioPago").HasColumnType("varchar").IsRequired().HasMaxLength(50);
@@ -85,7 +91,9 @@ namespace Genelab.Database.Data
 			modelBuilder.Entity<DatosFacturacion>().Property(t => t.CodigoPostal).HasColumnName("CodigoPostal").HasColumnType("varchar").IsRequired().HasMaxLength(50);
 			modelBuilder.Entity<DatosFacturacion>().Property(t => t.Delegacion).HasColumnName("Delegacion").HasColumnType("varchar").IsRequired().HasMaxLength(150);
 			modelBuilder.Entity<DatosFacturacion>().Property(t => t.Colonia).HasColumnName("Colonia").HasColumnType("varchar").IsRequired().HasMaxLength(150);
-			modelBuilder.Entity<DatosFacturacion>().Property(t => t.Calle).HasColumnName("Calle").HasColumnType("varchar").IsRequired().HasMaxLength(250);
+			modelBuilder.Entity<DatosFacturacion>().Property(t => t.RfcF).HasColumnName("RfcF").HasColumnType("varchar").IsRequired().HasMaxLength(250);
+			modelBuilder.Entity<DatosFacturacion>().Property(t => t.EmailF).HasColumnName("EmailF").HasColumnType("varchar").HasMaxLength(250);
+			modelBuilder.Entity<DatosFacturacion>().Property(t => t.TelF).HasColumnName("TelF").HasColumnType("varchar").HasMaxLength(250);
 
 
 			modelBuilder.Entity<DatosFacturacion>().ToTable("DatosFacturacion");
@@ -106,18 +114,56 @@ namespace Genelab.Database.Data
 
 			modelBuilder.Entity<Domicilio>().ToTable("Domicilio");
 		}
-		protected void MapEstatus(ModelBuilder modelBuilder)
+		protected void MapEstatusPago(ModelBuilder modelBuilder)
 		{
 			//Se define campo que sera llave primaria
-			modelBuilder.Entity<Estatus>().HasKey(k => k.Id); // Propiedad que sera la Llave Primaria
-			modelBuilder.Entity<Estatus>().Property(t => t.Id).HasColumnName("Id").HasColumnType("int").UseIdentityColumn();
+			modelBuilder.Entity<EstatusPago>().HasKey(k => k.Id); // Propiedad que sera la Llave Primaria
+			modelBuilder.Entity<EstatusPago>().Property(t => t.Id).HasColumnName("Id").HasColumnType("int").UseIdentityColumn();
 
 			//Se define el resto de los campos
-			modelBuilder.Entity<Estatus>().Property(t => t.Nombre).HasColumnName("Nombre").HasColumnType("varchar").IsRequired().HasMaxLength(50);
+			modelBuilder.Entity<EstatusPago>().Property(t => t.Nombre).HasColumnName("Nombre").HasColumnType("varchar").IsRequired().HasMaxLength(50);
 
-			modelBuilder.Entity<Estatus>().ToTable("Estatus");
+			modelBuilder.Entity<EstatusPago>().ToTable("EstatusPago");
 		}
-		protected void MapEstudio(ModelBuilder modelBuilder)
+
+		protected void MapEstatusProceso(ModelBuilder modelBuilder)
+		{
+			//Se define campo que sera llave primaria
+			modelBuilder.Entity<EstatusProceso>().HasKey(k => k.Id); // Propiedad que sera la Llave Primaria
+			modelBuilder.Entity<EstatusProceso>().Property(t => t.Id).HasColumnName("Id").HasColumnType("int").UseIdentityColumn();
+
+			//Se define el resto de los campos
+			modelBuilder.Entity<EstatusProceso>().Property(t => t.Nombre).HasColumnName("Nombre").HasColumnType("varchar").IsRequired().HasMaxLength(50);
+
+			modelBuilder.Entity<EstatusProceso>().ToTable("EstatusProceso");
+		}
+
+		protected void MapEstatusResultado(ModelBuilder modelBuilder)
+        {
+            //Se define campo que sera llave primaria
+            modelBuilder.Entity<EstatusResultado>().HasKey(k => k.Id); // Propiedad que sera la Llave Primaria
+            modelBuilder.Entity<EstatusResultado>().Property(t => t.Id).HasColumnName("Id").HasColumnType("int").UseIdentityColumn();
+
+            //Se define el resto de los campos
+            modelBuilder.Entity<EstatusResultado>().Property(t => t.Nombre).HasColumnName("Nombre").HasColumnType("varchar").IsRequired().HasMaxLength(50);
+
+            modelBuilder.Entity<EstatusResultado>().ToTable("EstatusResultado");
+        }
+
+        protected void MapEstatusFactura(ModelBuilder modelBuilder)
+        {
+            //Se define campo que sera llave primaria
+            modelBuilder.Entity<EstatusFactura>().HasKey(k => k.Id); // Propiedad que sera la Llave Primaria
+            modelBuilder.Entity<EstatusFactura>().Property(t => t.Id).HasColumnName("Id").HasColumnType("int").UseIdentityColumn();
+
+			//Se define el resto de los camposEstatusResultado
+			modelBuilder.Entity<EstatusFactura>().Property(t => t.Nombre).HasColumnName("Nombre").HasColumnType("varchar").IsRequired().HasMaxLength(50);
+
+            modelBuilder.Entity<EstatusFactura>().ToTable("EstatusFactura");
+        }
+
+
+        protected void MapEstudio(ModelBuilder modelBuilder)
 		{
 			//Se define campo que sera llave primaria
 			modelBuilder.Entity<Estudio>().HasKey(k => k.Id); // Propiedad que sera la Llave Primaria
@@ -164,6 +210,10 @@ namespace Genelab.Database.Data
 			modelBuilder.Entity<ServicioDetalle>().Property(t => t.Delegacion).HasColumnName("Delegacion").HasColumnType("varchar").IsRequired().HasMaxLength(50);
 			modelBuilder.Entity<ServicioDetalle>().Property(t => t.Estado).HasColumnName("Estado").HasColumnType("varchar").IsRequired().HasMaxLength(50);
 			modelBuilder.Entity<ServicioDetalle>().Property(t => t.Pais).HasColumnName("Pais").HasColumnType("varchar").IsRequired().HasMaxLength(50);
+			modelBuilder.Entity<ServicioDetalle>().Property(t => t.Resultado).HasColumnName("Resultado").HasColumnType("varchar").IsRequired().HasMaxLength(50);
+			modelBuilder.Entity<ServicioDetalle>().Property(t => t.Ct).HasColumnName("Ct").HasColumnType("varchar").IsRequired().HasMaxLength(50);
+			modelBuilder.Entity<ServicioDetalle>().Property(t => t.Edad).HasColumnName("Edad").HasColumnType("varchar").IsRequired().HasMaxLength(10);
+
 
 			modelBuilder.Entity<ServicioDetalle>().ToTable("ServicioDetalle");
 		}
@@ -202,7 +252,10 @@ namespace Genelab.Database.Data
 			modelBuilder.Entity<Servicio>();
 			modelBuilder.Entity<DatosFacturacion>();
 			modelBuilder.Entity<Domicilio>();
-			modelBuilder.Entity<Estatus>();
+			modelBuilder.Entity<EstatusProceso>();
+			modelBuilder.Entity<EstatusPago>();
+			modelBuilder.Entity<EstatusResultado>();
+			modelBuilder.Entity<EstatusFactura>();
 			modelBuilder.Entity<Estudio>();
 			modelBuilder.Entity<DatosFacturacion>();
 			modelBuilder.Entity<ServicioDetalle>();
@@ -215,8 +268,11 @@ namespace Genelab.Database.Data
             MapServicio(modelBuilder);
             MapDatosFacturacion(modelBuilder);
             MapDomicilio(modelBuilder);
-            MapEstatus(modelBuilder);
-            MapEstudio(modelBuilder);
+            MapEstatusPago(modelBuilder);
+			MapEstatusResultado(modelBuilder);
+			MapEstatusFactura(modelBuilder);
+			MapEstatusProceso(modelBuilder);
+			MapEstudio(modelBuilder);
             MapServicioDatosFacturacion(modelBuilder);
             MapServicioDetalle(modelBuilder);
             MapServicioEstudio(modelBuilder);

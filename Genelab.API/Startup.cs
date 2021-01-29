@@ -1,4 +1,5 @@
 using Genelab.Database.Data;
+using Genelab.EmailService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Builder;
@@ -36,6 +37,9 @@ namespace Genelab.API
         {
             //Cambiar secreKey
             var key = Encoding.ASCII.GetBytes(Configuration.GetValue<string>("SecretKey"));
+            var emailConfig = Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>();
+            services.AddSingleton(emailConfig);
+
 
             services.AddCors(options =>
             {
@@ -67,8 +71,10 @@ namespace Genelab.API
             //Configuracion Identity
             services.AddDbContext<GenelabContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SqlConnection")));
 
-            services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()
                             .AddEntityFrameworkStores<GenelabContext>().AddDefaultTokenProviders();
+
+            services.AddScoped<IEmailSender, EmailSender>();
 
         }
 

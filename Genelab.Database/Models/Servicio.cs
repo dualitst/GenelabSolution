@@ -10,7 +10,10 @@ namespace Genelab.Database.Models
         
         public  int Id { get; set; }
         public  int EstudioId { get; set; }
-        public  int EstatusId { get; set; }
+        public  int EstatusProcesoId { get; set; }
+        public int EstatusPagoId { get; set; }
+        public int EstatusFacturaId { get; set; }
+        public int EstatusResultadoId { get; set; }
         public  string UsuarioId { get; set; }
         public  int TipoServicioId { get; set; }
         public  string FolioPago { get; set; }

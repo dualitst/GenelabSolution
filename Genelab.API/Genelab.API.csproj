@@ -23,6 +23,11 @@
   <ItemGroup>
     <ProjectReference Include="..\Genelab.Common\Genelab.Common.csproj" />
     <ProjectReference Include="..\Genelab.Database\Genelab.Database.csproj" />
+    <ProjectReference Include="..\Genelab.EmailService\Genelab.EmailService.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Email\" />
   </ItemGroup>
 
 

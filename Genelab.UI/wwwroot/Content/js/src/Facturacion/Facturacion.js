@@ -1,6 +1,6 @@
 ﻿/*eslint eqeqeq:0*/
 /// <summary>
-/// Nombre: Usuarios
+/// Nombre: Solicitud
 /// Descripcion: 
 /// Fecha de creación: 2021
 /// Autor: fromero
@@ -16,7 +16,7 @@
 /// </summary>
 
 
-var Usuarios = function () {
+var Solicitudes = function () {
     /// -------------------------------------------------------------------------
     /// Objetos
     /// -------------------------------------------------------------------------
@@ -25,13 +25,16 @@ var Usuarios = function () {
     var SessionData = utils.fnLocalData.get(utils.fnGlobals("Sesion"));
 
     var colDefs = [
-        utils.fnAgGrid_ColumnBuilder({ header: "Usuario", field: "id"}),
-        utils.fnAgGrid_ColumnBuilder({ header: "Nombre", field: "cliente" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "Paciente", field: "paciente" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "Fecha de Recepcion", field: "fecha" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "Estudio", field: "estudio" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "Estatus", field: "estatus" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "Acciones", noFilter:true, cellRenderer: cellRender_Acciones })
+        utils.fnAgGrid_ColumnBuilder({ header: "NOMBRE", field: "nombrePaciente" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "ESTUDIO", field: "estudioNombre" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "EDAD", field: "edad" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "RESULTADO", field: "resultado" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "CT", field: "ct" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RECEPCIÓN", field: "fechaHoraCreacion", sort: "asc" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RESULTADOS", field: "fechaHoraCreacion" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS", field: "estatusNombre" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "CARGAR FACTURA", noFilter: true, cellRenderer: cellRender_Pagar }),
+        utils.fnAgGrid_ColumnBuilder({ header: "ACCIONES", noFilter: true, cellRenderer: cellRender_Acciones })
     ];
 
     var $hdnIdDato = $("#hdnIdDato");
@@ -44,7 +47,7 @@ var Usuarios = function () {
     var $chkActivo = $("#chkActivo");
     var $btnGuardar = $("#btnGuardar");
 
-
+    var $tipoServicioDrop = $("#TipoServicioDrop");
 
     /// -------------------------------------------------------------------------
     /// Init
@@ -75,6 +78,8 @@ var Usuarios = function () {
                 //Alimentando agGrid
                 llenaGrid();
             });
+
+
     };
 
 
@@ -82,7 +87,8 @@ var Usuarios = function () {
     // Funciones manejo Grid
     //----------------------
     function llenaGrid() {
-        utils.fnAgGrid_SetRowsAPI(grdOptions, "Facturacion/list", {}, false, "Originacion")
+
+        utils.fnAgGrid_SetRowsAPI(grdOptions, "request/FacturaList", {}, false, "Originacion")
             .done(function (res) {
                 grdOptions = res;
             })
@@ -94,6 +100,7 @@ var Usuarios = function () {
             });
     }
 
+
     //Actualiza filtro
     function actualizaFiltro() {
         grdOptions.api.setQuickFilter(document.getElementById('txtFiltro').value);
@@ -103,9 +110,16 @@ var Usuarios = function () {
     function cellRender_Acciones(params) {
         var content = "";
 
-        content += "<a role='button' id='btnEditar_" + params.rowIndex + "' name='btnEditar_" + params.rowIndex + "' class='btn btn-info btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Editar' onclick='Codigos.fnModalRegistro(\"" + params.data.cve_codigo + "\",\"" + params.data.cve_catalogo + "\")'><i class='material-icons'>mode_edit</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
-        content += "<a role='button' id='btnEliminar_" + params.rowIndex + "' name='btnEliminar_" + params.rowIndex + "' class='btn btn-danger btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Eliminar' onclick='Codigos.fnConfirmEliminarRegistro(\"" + params.data.cve_codigo + "\",\"" + params.data.cve_catalogo + "\")'><i class='material-icons'>delete</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
+        content += "<a role='button' id='btnEditar_" + params.rowIndex + "' name='btnEditar_" + params.rowIndex + "' class='btn btn-info btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Editar' onclick='Solicitudes.fnModalRegistro(\"" + params.servicioId + "\")'><i class='material-icons'>mode_edit</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
+        //content += "<a role='button' id='btnEliminar_" + params.rowIndex + "' name='btnEliminar_" + params.rowIndex + "' class='btn btn-danger btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Eliminar' onclick='Codigos.fnConfirmEliminarRegistro(\"" + params.data.cve_codigo + "\",\"" + params.data.cve_catalogo + "\")'><i class='material-icons'>delete</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
 
+        return content;
+    }
+
+    function cellRender_Pagar(params) {
+        var content = "";
+
+        content += "<a role='button' id='btnAprobar_" + params.rowIndex + "' name='btnAprobar_" + params.rowIndex + "' class='btn btn-success btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Cargar factura de la solicitud' onclick='Solicitudes.fnPagar(\"" + params.data.servicioId + "\")'><i class='material-icons'>chrome_reader_mode</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
         return content;
     }
 
@@ -141,93 +155,56 @@ var Usuarios = function () {
     }
 
 
-    // Confirm guardar registro
-    //-------------------------
-    function confirmGuardarRegistro() {
-        //Validando
-        $frmDatos.validate({
-            rules: {
-                SelectName: { valueNotEquals: "" }
-            },
-            messages: {
-                SelectName: { valueNotEquals: "Este campo es obligatorio." }
-            },
-            highlight: function (input) {
-                $(input).parents('.form-line').addClass('error');
-            },
-            unhighlight: function (input) {
-                $(input).parents('.form-line').removeClass('error');
-            },
-            errorPlacement: function (error, element) {
-                $(element).parents('.form-group').append(error);
-            }
-        });
 
-        if ($frmDatos.valid()) {
-            utils.fnShowConfirmMessage("¿Está seguro que desea guardar los datos?",
-                function () {
-                    utils.fnGetAPIData($hdnIdDato.val() == "" ? "Codigos/Insert" : "Codigos/Update", {
-                        cve_codigo: $txtCodigo.val(),
-                        desc_codigo: $txtDescripcion.val(),
-                        cve_catalogo: $selCatalogo.val(),
-                        resolucion: $txtResolucion.val(),
-                        status: $chkActivo.prop("checked"),
-                        user_stamp: SessionData.id_usuario
-                    },
-                        "Originacion", function (result) {
-                            if (utils.fnValidResult(result)) {
-                                utils.fnShowSuccessMessage("Datos guardados con éxito!");
+    function PagarSolicitud(idSolicitud) {
 
-                                //Alimentando Grid
-                                llenaGrid();
-
-                                $(".close-modal").click();
-                            }
-                        });
-                },
-                function () {
-                    utils.fnShowInfoMessage("Se canceló la acción");
-                });
-        }
-    }
-
-
-    // Confirm eliminar registro
-    //--------------------------
-    function confirmEliminarRegistro(id_dato, cve_catalogo) {
-        if (typeof (id_dato) == "undefined") {
-            id_dato = 0;
-        }
-
-        utils.fnShowConfirmMessage("¿Está seguro que desea eliminar el registro: " + id_dato + "?",
+        utils.fnShowConfirmMessage("¿Está seguro que desea cargar la factura de la solicitud ?  " + idSolicitud + "?",
             function () {
-                utils.fnGetAPIData("Codigos/Delete", {
-                    cve_codigo: id_dato,
-                    cve_catalogo: cve_catalogo,
-                    user_stamp: SessionData.id_usuario
-                }, "Originacion", function (result) {
-                    if (utils.fnValidResult(result)) {
-                        utils.fnShowSuccessMessage("Registro eliminado con éxito!");
 
-                        //Alimentando Grid
-                        llenaGrid();
-                    }
-                });
+                try {
+                    var oUrl = 'Request/Facturado';
+                    var oData =
+                    {
+                        "IdSolicitud": idSolicitud,
+                    };
+
+
+                    var oProcessMessage = 'Validando información, espere por favor...';
+                    var success = function (result) {
+
+                        if (utils.fnValidResult(result)) {
+
+                            llenaGrid();
+
+                            setTimeout(
+                                function () {
+                                    utils.fnShowSuccessMessage("Se ha pasado a prepago la solicitud correctamente");
+                                }, 2000);
+
+                        }
+                        else {
+                            utils.fnShowSuccessMessage("Error, ha ocurrido un error al dar de alta el servicio");
+                        }
+                    };
+
+                    utils.fnExecuteWithResult(null, oUrl, oData, oProcessMessage, success, true, "Originacion");
+
+                }
+                catch (e) {
+                    utils.fnShowErrorMessage(e.message);
+                }
             },
             function () {
                 utils.fnShowInfoMessage("Se canceló la acción");
             });
+
     }
-
-
-
     /// -------------------------------------------------------------------------
     /// Objeto de regreso
     /// -------------------------------------------------------------------------
     return {
         fnActualizaFiltro: actualizaFiltro,
         fnModalRegistro: modalRegistro,
-        fnConfirmGuardarRegistro: confirmGuardarRegistro,
-        fnConfirmEliminarRegistro: confirmEliminarRegistro
+        fnPagar: PagarSolicitud
     }
 }();

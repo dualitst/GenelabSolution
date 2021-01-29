@@ -74,6 +74,9 @@ namespace Genelab.API.Models
             [Display(Name = "Correo electrónico")]
             public string Email { get; set; }
 
+            [Display(Name = "Rol")]
+            public string Role { get; set; }
+
             [Required]
             [StringLength(100, ErrorMessage = "El número de caracteres de {0} debe ser al menos {2}.", MinimumLength = 6)]
             [DataType(DataType.Password)]

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Genelab.Database.Migrations
 {
     [DbContext(typeof(GenelabContext))]
-    [Migration("20210120191622_addMigration")]
-    partial class addMigration
+    [Migration("20210127164213_initia")]
+    partial class initia
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,10 +30,7 @@ namespace Genelab.Database.Migrations
                         .UseIdentityColumn();
 
                     b.Property<string>("Calle")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("varchar(250)")
-                        .HasColumnName("Calle");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CodigoPostal")
                         .IsRequired()
@@ -47,15 +44,33 @@ namespace Genelab.Database.Migrations
                         .HasColumnType("varchar(150)")
                         .HasColumnName("Colonia");
 
-                    b.Property<int>("DelegacionId")
-                        .HasColumnType("int")
-                        .HasColumnName("DelegacionId");
+                    b.Property<string>("Delegacion")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)")
+                        .HasColumnName("Delegacion");
+
+                    b.Property<string>("EmailF")
+                        .HasMaxLength(250)
+                        .HasColumnType("varchar(250)")
+                        .HasColumnName("EmailF");
 
                     b.Property<string>("EmpresaFiscal")
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("varchar(250)")
                         .HasColumnName("EmpresaFiscal");
+
+                    b.Property<string>("RfcF")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("varchar(250)")
+                        .HasColumnName("RfcF");
+
+                    b.Property<string>("TelF")
+                        .HasMaxLength(250)
+                        .HasColumnType("varchar(250)")
+                        .HasColumnName("TelF");
 
                     b.HasKey("Id");
 
@@ -275,8 +290,8 @@ namespace Genelab.Database.Migrations
 
                     b.Property<string>("UsuarioId")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)")
                         .HasColumnName("UsuarioId");
 
                     b.Property<string>("UsuarioModificacion")
@@ -343,6 +358,12 @@ namespace Genelab.Database.Migrations
                         .HasColumnType("varchar(50)")
                         .HasColumnName("Colonia");
 
+                    b.Property<string>("Ct")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("Ct");
+
                     b.Property<string>("Delegacion")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -351,8 +372,8 @@ namespace Genelab.Database.Migrations
 
                     b.Property<string>("Edad")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
+                        .HasMaxLength(10)
+                        .HasColumnType("varchar(10)")
                         .HasColumnName("Edad");
 
                     b.Property<string>("Estado")
@@ -384,6 +405,12 @@ namespace Genelab.Database.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)")
                         .HasColumnName("Parentezco");
+
+                    b.Property<string>("Resultado")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("Resultado");
 
                     b.HasKey("Id");
 

@@ -8,6 +8,7 @@ namespace Genelab.API.Models
 {
     public class ServiciosConsultaModel : ServicioDetalle
     {
+        public int ServicioId { get; set; }
         public int EstudioId { get; set; }
         public int EstatusId { get; set; }
         public string UsuarioId { get; set; }

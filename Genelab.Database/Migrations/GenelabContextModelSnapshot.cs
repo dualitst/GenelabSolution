@@ -28,10 +28,7 @@ namespace Genelab.Database.Migrations
                         .UseIdentityColumn();
 
                     b.Property<string>("Calle")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("varchar(250)")
-                        .HasColumnName("Calle");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CodigoPostal")
                         .IsRequired()
@@ -51,11 +48,27 @@ namespace Genelab.Database.Migrations
                         .HasColumnType("varchar(150)")
                         .HasColumnName("Delegacion");
 
+                    b.Property<string>("EmailF")
+                        .HasMaxLength(250)
+                        .HasColumnType("varchar(250)")
+                        .HasColumnName("EmailF");
+
                     b.Property<string>("EmpresaFiscal")
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("varchar(250)")
                         .HasColumnName("EmpresaFiscal");
+
+                    b.Property<string>("RfcF")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("varchar(250)")
+                        .HasColumnName("RfcF");
+
+                    b.Property<string>("TelF")
+                        .HasMaxLength(250)
+                        .HasColumnType("varchar(250)")
+                        .HasColumnName("TelF");
 
                     b.HasKey("Id");
 
@@ -101,7 +114,7 @@ namespace Genelab.Database.Migrations
                     b.ToTable("Domicilio");
                 });
 
-            modelBuilder.Entity("Genelab.Database.Models.Estatus", b =>
+            modelBuilder.Entity("Genelab.Database.Models.EstatusFactura", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -117,7 +130,64 @@ namespace Genelab.Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Estatus");
+                    b.ToTable("EstatusFactura");
+                });
+
+            modelBuilder.Entity("Genelab.Database.Models.EstatusPago", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("Nombre");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EstatusPago");
+                });
+
+            modelBuilder.Entity("Genelab.Database.Models.EstatusProceso", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("Nombre");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EstatusProceso");
+                });
+
+            modelBuilder.Entity("Genelab.Database.Models.EstatusResultado", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("Nombre");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EstatusResultado");
                 });
 
             modelBuilder.Entity("Genelab.Database.Models.Estudio", b =>
@@ -237,9 +307,21 @@ namespace Genelab.Database.Migrations
                         .HasColumnName("Id")
                         .UseIdentityColumn();
 
-                    b.Property<int>("EstatusId")
+                    b.Property<int>("EstatusFacturaId")
                         .HasColumnType("int")
-                        .HasColumnName("EstatusId");
+                        .HasColumnName("EstatusFacturaId");
+
+                    b.Property<int>("EstatusPagoId")
+                        .HasColumnType("int")
+                        .HasColumnName("EstatusPagoId");
+
+                    b.Property<int>("EstatusProcesoId")
+                        .HasColumnType("int")
+                        .HasColumnName("EstatusProcesoId");
+
+                    b.Property<int>("EstatusResultadoId")
+                        .HasColumnType("int")
+                        .HasColumnName("EstatusResultadoId");
 
                     b.Property<int>("EstudioId")
                         .HasColumnType("int")
@@ -343,6 +425,12 @@ namespace Genelab.Database.Migrations
                         .HasColumnType("varchar(50)")
                         .HasColumnName("Colonia");
 
+                    b.Property<string>("Ct")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("Ct");
+
                     b.Property<string>("Delegacion")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -351,8 +439,8 @@ namespace Genelab.Database.Migrations
 
                     b.Property<string>("Edad")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
+                        .HasMaxLength(10)
+                        .HasColumnType("varchar(10)")
                         .HasColumnName("Edad");
 
                     b.Property<string>("Estado")
@@ -384,6 +472,12 @@ namespace Genelab.Database.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)")
                         .HasColumnName("Parentezco");
+
+                    b.Property<string>("Resultado")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("Resultado");
 
                     b.HasKey("Id");
 

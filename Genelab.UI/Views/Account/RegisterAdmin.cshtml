@@ -1,0 +1,89 @@
+﻿@{
+    ViewBag.Title = "Registrar cuenta";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Genelab.UI.Models.RegisterViewModel
+
+@{
+    List<SelectListItem> listItems = new List<SelectListItem>();
+    listItems.Add(new SelectListItem
+    {
+        Text = "Admin",
+        Value = "3AED39F0-28EA-430F-9EC0-463C96468F55",
+        Selected = true
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "Facturación",
+        Value = "63B293ED-074D-405D-9400-9C700B32DB01",
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "Caja",
+        Value = "9FF5A9F3-23C2-4F4E-9E6A-3E8F4E4B71EE",
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "Resultados",
+        Value = "D2F7C8EE-89E9-4520-9BFA-549F01B20A63",
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "Público",
+        Value = "F3D852DF-CA30-4417-AFB2-EE4EAA356E91",
+    });
+}
+
+<div class="row clearfix">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="body">
+
+                <h2>@ViewBag.Title.</h2>
+
+                @using (Html.BeginForm("RegisterAdmin", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <h4>Cree una cuenta nueva.</h4>
+                    <hr />
+                    <br />
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10 form-custom">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10 form-custom">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10 form-custom">
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10 form-custom">
+                            @Html.DropDownListFor(model => model.Role, listItems, "-- Select Status --")
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" class="btn btn-default" value="Registrarse" />
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>

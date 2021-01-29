@@ -1,103 +1,75 @@
 @{
-    ViewBag.Title = "Bandeja de resultados";
+    ViewData["Title"] = "Bandeja de resultados";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<style>
+    ul {
+        list-style: none outside none;
+        padding-left: 0;
+        margin: 0;
+    }
+
+    .demo .item {
+        margin-bottom: 60px;
+    }
+
+    .content-slider li {
+        background-color: #ed3020;
+        text-align: center;
+        color: #FFF;
+    }
+
+    .content-slider h3 {
+        margin: 0;
+        padding: 70px 0;
+    }
+
+    .demo {
+        width: 800px;
+    }
+</style>
 
 <div class="row clearfix">
     <div class="col-md-12">
         <div class="card">
             <div class="body">
-                <center>
-                    <h4>BANDEJA DE RESULTADOS</h4>
-                </center>
-                <hr />
+                <h2>@ViewBag.Title.</h2>
+                <h4>Solicitudes validadas por recepción pendientes de carga de resultados</h4>
+
+                <br /><br /><br />
+                <div class="row clearfix">
+                    <div class="form-inline">
+                        <div class="col-md-2 col-md-offset-1">
+                            <select id="" name="" class="form-control" data-live-search="true" required>
+                                <option value="Empresa" selected>Empresa</option>
+                                <option value="1">Finsoft SA</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
                 <br />
-                <center>
-                    <div>
-                        <div style="margin-left: 5%;">
-
-                            <div class="item col-md-11">
-
-
-                                <button class="btn btn-dark">Usuarios</button>
-
-                                <button class="btn btn-dark">Solicitudes</button>
-
-                                <button class="btn btn-dark">Caja</button>
-
-                                <button class="btn btn-dark">Carga de Resultados</button>
-
-                                <button class="btn btn-dark">Facturación</button>
-
-                                <button class="btn btn-dark">Reportes</button>
-
-
-                            </div>
-                        </div>
-                    </div>
-                </center>
-
-                <div class="row clearfix">
-                    <div class="col-md-4">
-                        <input type="search" class="form-control" placeholder="Buscar" />
-                    </div>
-                    <div class="col-md-4">
-                        <div class="col-md-4">
-                            <div class="form-line">
-                                <select id="" name="" class="form-control" data-live-search="true" required>
-                                    <option selected>Por Estatus</option>
-                                    <option value="Recepcion">Recepcion</option>
-                                    <option value="En Proceso">En Proceso</option>
-                                    <option value="Finalizado">Finalizado</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="col-md-4">
-                            <div class="form-line">
-                                <select id="" name="" class="form-control" data-live-search="true" required>
-                                    <option value="Empresa" selected>Empresa</option>
-                                    <option value="*">1</option>
-                                    <option value="*">2</option>
-                                    <option value="*">3</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="row clearfix">
                     <div class="col-md-12">
-
                         <br />
-                        <div id="grdDatos" style="height: 600px;" class="ag-theme-material ag-compact"></div>
+                        <br />
+                        <div id="grdDatos" style="height:600px;" class="ag-theme-material ag-compact"></div>
                     </div>
                 </div>
-                <div class="row clearfix">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <center>
-                                <div class="body">
-                                    <h2>RESULTADOS</h2>
 
-                                    <div class="form-group">
-                                        
-                                        <textarea class="form-control form-control-lg" id="exampleFormControlTextarea1" rows="3" placeholder="comentarios"></textarea>
-                                    </div>
-                                    <h5>subir CFDI*pdf</h5>
-                                    <input type="file">
-
-                                </div>
-                            </center>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
-    <div >
-        
-    </div>
-    
+</div>
 
-                    <script src="~/Content/js/src/BandResult/BanR.js"></script>
+<script src="~/Content/js/src/BandResult/BandR.js"></script>
+
+<script language="javascript" type="text/javascript">
+
+    $(document).ready(function () {
+    });
+
+</script>
+
+

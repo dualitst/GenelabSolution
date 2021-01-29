@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Genelab.Database.Migrations
 {
-    public partial class addMigration : Migration
+    public partial class initia : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -54,9 +54,12 @@ namespace Genelab.Database.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     EmpresaFiscal = table.Column<string>(type: "varchar(250)", maxLength: 250, nullable: false),
                     CodigoPostal = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
-                    DelegacionId = table.Column<int>(type: "int", nullable: false),
+                    Delegacion = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false),
                     Colonia = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false),
-                    Calle = table.Column<string>(type: "varchar(250)", maxLength: 250, nullable: false)
+                    RfcF = table.Column<string>(type: "varchar(250)", maxLength: 250, nullable: false),
+                    EmailF = table.Column<string>(type: "varchar(250)", maxLength: 250, nullable: true),
+                    TelF = table.Column<string>(type: "varchar(250)", maxLength: 250, nullable: true),
+                    Calle = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -150,7 +153,7 @@ namespace Genelab.Database.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     EstudioId = table.Column<int>(type: "int", nullable: false),
                     EstatusId = table.Column<int>(type: "int", nullable: false),
-                    UsuarioId = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
+                    UsuarioId = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
                     TipoServicioId = table.Column<int>(type: "int", nullable: false),
                     FolioPago = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
                     FechaHoraCreacion = table.Column<DateTime>(type: "datetime", nullable: false),
@@ -189,12 +192,14 @@ namespace Genelab.Database.Migrations
                     ApellidoMPaciente = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
                     NombreTitular = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
                     Parentezco = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
-                    Edad = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
+                    Edad = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: false),
                     CodigoPostal = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
                     Colonia = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
                     Delegacion = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
                     Estado = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
-                    Pais = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
+                    Pais = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
+                    Resultado = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
+                    Ct = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {

@@ -443,10 +443,6 @@
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
                             <li><a href="javascript:void(0)"><i class="material-icons">person</i>Mi perfil</a></li>
-                            <!--<li><a href="javascript:lefSideNav.menuSeleccionado(0)"><i class="material-icons">create</i>Administración</a></li>
-                            <li><a href="javascript:lefSideNav.menuSeleccionado(1)"><i class="material-icons">person</i>Crédito</a></li>
-                            <li><a href="javascript:lefSideNav.menuSeleccionado(2)"><i class="material-icons">attach_money</i>Banco</a></li>
-                            <li><a href="javascript:lefSideNav.menuSeleccionado(3)"><i class="material-icons">gps_fixed</i>Cobranza</a></li>-->
                             <li role="seperator" class="divider"></li>
                             <li><a href="javascript:ManageAccount.SingOut();"><i class="material-icons">input</i>Cerrar sesión</a></li>
                         </ul>
@@ -467,8 +463,8 @@
                                 <span>Usuarios</span>
                             </a>
                             <ul class="ml-menu">
-                                <li><a href="#">Consulta</a></li>
-                                <li><a href="#">Nuevo usuario</a></li>
+                                <li>@Html.ActionLink("Consulta", "Search", "Account", null, null)</li>
+                                <li>@Html.ActionLink("Nuevo usuario", "RegisterAdmin", "Account", null, null)</li>
                             </ul>
                         </li>
 
@@ -478,8 +474,8 @@
                                 <span>Solicitudes</span>
                             </a>
                             <ul class="ml-menu">
-                                <li><a href="#">Consulta</a></li>
-                                <li><a href="#">Alta servicio</a></li>
+                                <li>@Html.ActionLink("Consulta", "Index", "BandRequest", null, null)</li>
+                                <li>@Html.ActionLink("Alta servicio", "IndexAdmin", "Request", null, null)</li>
                             </ul>
                         </li>
 
@@ -489,19 +485,22 @@
                                 <span>Caja</span>
                             </a>
                             <ul class="ml-menu">
-                                <li><a href="#">Consulta</a></li>
-                                <li><a href="#">Pago</a></li>
+                                <li>@Html.ActionLink("Consulta", "Index", "BandPay", null, null)</li>
                             </ul>
                         </li>
+                        
+
                         <li>
                             <a href="javascript:void(0);" class="menu-toggle">
                                 <i class="material-icons">list</i>
                                 <span>Carga resultados</span>
                             </a>
                             <ul class="ml-menu">
-                                <li><a href="#">Consulta</a></li>
+
+                                <li>@Html.ActionLink("Consulta", "Index", "BandResult", null, null)</li>
                             </ul>
                         </li>
+
 
                         <li>
                             <a href="javascript:void(0);" class="menu-toggle">
@@ -509,8 +508,8 @@
                                 <span>Facturación</span>
                             </a>
                             <ul class="ml-menu">
-                                <li><a href="#">Consulta</a></li>
-                                <li><a href="#">Nueva factura</a></li>
+                                <li>@Html.ActionLink("Consulta", "Index", "BandFacturacion", null, null)</li>
+                                @*<li><a href="#">Nueva factura</a></li>*@
                             </ul>
                         </li>
 

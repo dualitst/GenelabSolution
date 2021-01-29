@@ -36,20 +36,20 @@ namespace Genelab.API.Controllers
                 List<UserModel> listUsers = new List<UserModel>();
 
                 userModel1.UserName = "fabian.romero@genelab.com";
-                userModel1.FullName = "Fabian Romero";
-                userModel1.Correo = "fabian.romero@genelab.com";
+                userModel1.Email = "Fabian Romero";
+                userModel1.Email = "fabian.romero@genelab.com";
                 userModel1.Activo = "Si";
                 userModel1.Rol = "Administrador";
 
                 userModel2.UserName = "victor.gonzalez@genelab.com";
-                userModel2.FullName = "Victor Gonzalez";
-                userModel2.Correo = "victor.gonzalez@genelab.com";
+                userModel2.Email = "Victor Gonzalez";
+                userModel2.Email = "victor.gonzalez@genelab.com";
                 userModel2.Activo = "Si";
                 userModel2.Rol = "Analista";
 
                 userModel3.UserName = "arturo.gomez@genelab.com";
-                userModel3.FullName = "Arturo Gomez";
-                userModel3.Correo = "arturo.gomez@genelab.com";
+                userModel3.Email = "Arturo Gomez";
+                userModel3.Email = "arturo.gomez@genelab.com";
                 userModel3.Activo = "Si";
                 userModel3.Rol = "Facturacion";
 
@@ -81,20 +81,20 @@ namespace Genelab.API.Controllers
                 List<UserModel> listUsers = new List<UserModel>();
 
                 userModel1.UserName = "EDUARDO LOPEZ SANCHEZ";
-                userModel1.FullName = "COVID-19";
-                userModel1.Correo = "COVID";
+                userModel1.Email = "COVID-19";
+                userModel1.Email = "COVID";
                 userModel1.Activo = "EN PROCESO";
                 userModel1.Rol = "01-01-2021";
 
                 userModel2.UserName = "EDUARDO LOPEZ SANCHEZ";
-                userModel2.FullName = "COVID-19";
-                userModel2.Correo = "COVID";
+                userModel2.Email = "COVID-19";
+                userModel2.Email = "COVID";
                 userModel2.Activo = "ENTREGADO";
                 userModel2.Rol = "01-01-2021";
 
                 userModel3.UserName = "EDUARDO LOPEZ SANCHEZ";
-                userModel3.FullName = "COVID-19";
-                userModel3.Correo = "COVID";
+                userModel3.Email = "COVID-19";
+                userModel3.Email = "COVID";
                 userModel3.Activo = "EN PROCESO";
                 userModel3.Rol = "01-01-2021";
 

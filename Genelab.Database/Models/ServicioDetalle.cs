@@ -19,5 +19,7 @@ namespace Genelab.Database.Models
         public  string Delegacion { get; set; }
         public  string Estado { get; set; }
         public  string Pais { get; set; }
+        public string Resultado { get; set; }
+        public string Ct { get; set; }
     }
 }

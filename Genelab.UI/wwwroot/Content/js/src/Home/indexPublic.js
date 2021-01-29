@@ -27,10 +27,11 @@ var DatosPublico = function () {
     var colDefs = [
         utils.fnAgGrid_ColumnBuilder({ header: "NOMBRE", field: "nombrePaciente" }),
         utils.fnAgGrid_ColumnBuilder({ header: "ESTUDIO", field: "estudioNombre" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "EDAD", field: "edad" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "RESULTADO", field: "resultado" }),
         utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RECEPCIÓN", field: "fechaHoraCreacion", sort: "asc" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE ENTREGA", field: "fechaHoraCreacion" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS", field: "estatusNombre" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "Acciones", noFilter: true, cellRenderer: cellRender_Acciones })
+        utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RESULTADOS", field: "fechaHoraCreacion" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS", field: "estatusNombre" })
     ];
 
     var $btnSolicitar = $("#btnSolicitar");
