@@ -4,14 +4,16 @@ using Genelab.Database.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Genelab.Database.Migrations
 {
     [DbContext(typeof(GenelabContext))]
-    partial class GenelabContextModelSnapshot : ModelSnapshot
+    [Migration("20210202035124_cambiosPacienteList")]
+    partial class cambiosPacienteList
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -308,21 +310,25 @@ namespace Genelab.Database.Migrations
                         .UseIdentityColumn();
 
                     b.Property<string>("CodigoPostal")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)")
                         .HasColumnName("CodigoPostal");
 
                     b.Property<string>("Colonia")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)")
                         .HasColumnName("Colonia");
 
                     b.Property<string>("Delegacion")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)")
                         .HasColumnName("Delegacion");
 
                     b.Property<string>("Estado")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)")
                         .HasColumnName("Estado");
@@ -352,11 +358,13 @@ namespace Genelab.Database.Migrations
                         .HasColumnName("FechaHoraModificacion");
 
                     b.Property<string>("FolioPago")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)")
                         .HasColumnName("FolioPago");
 
                     b.Property<string>("Pais")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)")
                         .HasColumnName("Pais");
@@ -450,6 +458,7 @@ namespace Genelab.Database.Migrations
                         .HasColumnName("NombrePaciente");
 
                     b.Property<string>("NombreTitular")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)")
                         .HasColumnName("NombreTitular");

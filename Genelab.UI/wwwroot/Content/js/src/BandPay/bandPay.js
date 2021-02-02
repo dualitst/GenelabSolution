@@ -26,6 +26,7 @@ var Solicitudes = function () {
     var SessionData = utils.fnLocalData.get(utils.fnGlobals("Sesion"));
     var $modalCargar = $('#modalCargar');
     var $idSolicitud = $('#IdSolicitud');
+    var $tarjeta = $('#Tarjeta'); 
 
     var colDefs = [
         utils.fnAgGrid_ColumnBuilder({ header: "NOMBRE", field: "nombrePaciente" }),
@@ -35,7 +36,7 @@ var Solicitudes = function () {
         utils.fnAgGrid_ColumnBuilder({ header: "CT", field: "ct" }),
         utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RECEPCIÓN", field: "fechaHoraCreacion", sort: "asc" }),
         utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RESULTADOS", field: "fechaHoraCreacion" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS", field: "estatusNombre" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS", field: "estatusPagoNombre" }),
         utils.fnAgGrid_ColumnBuilder({ header: "PAGAR", noFilter: true, cellRenderer: cellRender_Pagar }),
         utils.fnAgGrid_ColumnBuilder({ header: "ACCIONES", noFilter: true, cellRenderer: cellRender_Acciones })
     ];
@@ -84,7 +85,18 @@ var Solicitudes = function () {
                 llenaGrid();
             });
 
-        
+        $('input:radio[name=tipoPagoRad]').change(function () {
+            if (this.value == 'TARJETA') {
+                $tarjeta.prop("disabled", false);
+            }
+            else if (this.value == 'EFECTIVO') {
+                $tarjeta.prop("disabled", true);
+
+            } else if (this.value == 'TRANSFERENCIA') {
+                $tarjeta.prop("disabled", true);
+            }
+            
+        });
     };
 
 

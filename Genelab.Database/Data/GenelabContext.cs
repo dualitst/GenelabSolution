@@ -64,19 +64,24 @@ namespace Genelab.Database.Data
 			modelBuilder.Entity<Servicio>().Property(t => t.Id).HasColumnName("Id").HasColumnType("int").UseIdentityColumn();
 
 			//Se define el resto de los campos
-			modelBuilder.Entity<Servicio>().Property(t => t.EstudioId).HasColumnName("EstudioId").HasColumnType("int").IsRequired();
+			
 			modelBuilder.Entity<Servicio>().Property(t => t.EstatusProcesoId).HasColumnName("EstatusProcesoId").HasColumnType("int").IsRequired();
 			modelBuilder.Entity<Servicio>().Property(t => t.EstatusPagoId).HasColumnName("EstatusPagoId").HasColumnType("int").IsRequired();
 			modelBuilder.Entity<Servicio>().Property(t => t.EstatusFacturaId).HasColumnName("EstatusFacturaId").HasColumnType("int").IsRequired();
 			modelBuilder.Entity<Servicio>().Property(t => t.EstatusResultadoId).HasColumnName("EstatusResultadoId").HasColumnType("int").IsRequired();
 			modelBuilder.Entity<Servicio>().Property(t => t.UsuarioId).HasColumnName("UsuarioId").HasColumnType("nvarchar").IsRequired().HasMaxLength(256);
 			modelBuilder.Entity<Servicio>().Property(t => t.TipoServicioId).HasColumnName("TipoServicioId").HasColumnType("int").IsRequired();
-			modelBuilder.Entity<Servicio>().Property(t => t.FolioPago).HasColumnName("FolioPago").HasColumnType("varchar").IsRequired().HasMaxLength(50);
+			modelBuilder.Entity<Servicio>().Property(t => t.FolioPago).HasColumnName("FolioPago").HasColumnType("varchar").HasMaxLength(50);
 			modelBuilder.Entity<Servicio>().Property(t => t.FechaHoraCreacion).HasColumnName("FechaHoraCreacion").HasColumnType("datetime").IsRequired();
 			modelBuilder.Entity<Servicio>().Property(t => t.FechaHoraModificacion).HasColumnName("FechaHoraModificacion").HasColumnType("datetime").IsRequired();
 			modelBuilder.Entity<Servicio>().Property(t => t.UsuarioCreacion).HasColumnName("UsuarioCreacion").HasColumnType("varchar").IsRequired().HasMaxLength(50);
 			modelBuilder.Entity<Servicio>().Property(t => t.UsuarioModificacion).HasColumnName("UsuarioModificacion").HasColumnType("varchar").IsRequired().HasMaxLength(50);
-			modelBuilder.Entity<Servicio>().Property(t => t.ServicioDetalleID).HasColumnName("ServicioDetalleID").HasColumnType("int").IsRequired();
+			modelBuilder.Entity<Servicio>().Property(t => t.CodigoPostal).HasColumnName("CodigoPostal").HasColumnType("varchar").HasMaxLength(50);
+			modelBuilder.Entity<Servicio>().Property(t => t.Colonia).HasColumnName("Colonia").HasColumnType("varchar").HasMaxLength(50);
+			modelBuilder.Entity<Servicio>().Property(t => t.Delegacion).HasColumnName("Delegacion").HasColumnType("varchar").HasMaxLength(50);
+			modelBuilder.Entity<Servicio>().Property(t => t.Estado).HasColumnName("Estado").HasColumnType("varchar").HasMaxLength(50);
+			modelBuilder.Entity<Servicio>().Property(t => t.Pais).HasColumnName("Pais").HasColumnType("varchar").HasMaxLength(50);
+
 
 			modelBuilder.Entity<Servicio>().ToTable("Servicio");
 		}
@@ -202,17 +207,13 @@ namespace Genelab.Database.Data
 			modelBuilder.Entity<ServicioDetalle>().Property(t => t.NombrePaciente).HasColumnName("NombrePaciente").HasColumnType("varchar").IsRequired().HasMaxLength(50);
 			modelBuilder.Entity<ServicioDetalle>().Property(t => t.ApellidoPPaciente).HasColumnName("ApellidoPPaciente").HasColumnType("varchar").IsRequired().HasMaxLength(50);
 			modelBuilder.Entity<ServicioDetalle>().Property(t => t.ApellidoMPaciente).HasColumnName("ApellidoMPaciente").HasColumnType("varchar").IsRequired().HasMaxLength(50);
-			modelBuilder.Entity<ServicioDetalle>().Property(t => t.NombreTitular).HasColumnName("NombreTitular").HasColumnType("varchar").IsRequired().HasMaxLength(50);
+			modelBuilder.Entity<ServicioDetalle>().Property(t => t.NombreTitular).HasColumnName("NombreTitular").HasColumnType("varchar").HasMaxLength(50);
 			modelBuilder.Entity<ServicioDetalle>().Property(t => t.Parentezco).HasColumnName("Parentezco").HasColumnType("varchar").IsRequired().HasMaxLength(50);
-			modelBuilder.Entity<ServicioDetalle>().Property(t => t.Edad).HasColumnName("Edad").HasColumnType("varchar").IsRequired().HasMaxLength(50);
-			modelBuilder.Entity<ServicioDetalle>().Property(t => t.CodigoPostal).HasColumnName("CodigoPostal").HasColumnType("varchar").IsRequired().HasMaxLength(50);
-			modelBuilder.Entity<ServicioDetalle>().Property(t => t.Colonia).HasColumnName("Colonia").HasColumnType("varchar").IsRequired().HasMaxLength(50);
-			modelBuilder.Entity<ServicioDetalle>().Property(t => t.Delegacion).HasColumnName("Delegacion").HasColumnType("varchar").IsRequired().HasMaxLength(50);
-			modelBuilder.Entity<ServicioDetalle>().Property(t => t.Estado).HasColumnName("Estado").HasColumnType("varchar").IsRequired().HasMaxLength(50);
-			modelBuilder.Entity<ServicioDetalle>().Property(t => t.Pais).HasColumnName("Pais").HasColumnType("varchar").IsRequired().HasMaxLength(50);
+			
 			modelBuilder.Entity<ServicioDetalle>().Property(t => t.Resultado).HasColumnName("Resultado").HasColumnType("varchar").IsRequired().HasMaxLength(50);
 			modelBuilder.Entity<ServicioDetalle>().Property(t => t.Ct).HasColumnName("Ct").HasColumnType("varchar").IsRequired().HasMaxLength(50);
-			modelBuilder.Entity<ServicioDetalle>().Property(t => t.Edad).HasColumnName("Edad").HasColumnType("varchar").IsRequired().HasMaxLength(10);
+			modelBuilder.Entity<ServicioDetalle>().Property(t => t.AnioNacimiento).HasColumnName("AnioNacimiento").HasColumnType("datetime");
+			modelBuilder.Entity<ServicioDetalle>().Property(t => t.EstudioId).HasColumnName("EstudioId").HasColumnType("int").IsRequired();
 
 
 			modelBuilder.Entity<ServicioDetalle>().ToTable("ServicioDetalle");

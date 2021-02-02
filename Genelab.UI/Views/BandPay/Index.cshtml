@@ -37,10 +37,10 @@
                 <h2>@ViewBag.Title.</h2>
                 <h4>Solicitudes validadas por recepción pendientes de pago</h4>
 
-                <br /><br /><br />
+                <br />
                 <div class="row clearfix">
                     <div class="form-inline">
-                        <div class="col-md-2 col-md-offset-1">
+                        <div class="col-md-2">
                             <select id="" name="" class="form-control" data-live-search="true" required>
                                 <option value="Empresa" selected>Empresa</option>
                                 <option value="1">Finsoft SA</option>
@@ -52,8 +52,7 @@
                 <br />
                 <div class="row clearfix">
                     <div class="col-md-12">
-                        <br />
-                        <br />
+
                         <div id="grdDatos" style="height:600px;" class="ag-theme-material ag-compact"></div>
                     </div>
                 </div>
@@ -84,7 +83,7 @@
                             <div class="col-md-3">
                                 <input class="form-check-input message_pri" type="radio" name="tipoPagoRad" id="inlineRadio1" value="EFECTIVO">
                                 <label class="form-check-label radio-inline" for="inlineRadio1">
-                                    Efectvo
+                                    Efectivo
                                 </label>
                             </div>
 
@@ -105,11 +104,11 @@
                         <br /><br /><br />
                     </div>
                     
-
+                    <br />
                     <div class="form-group">
                         <label class="col-md-2 control-label">Tarjeta</label>
                         <div class="col-md-10 form-custom">
-                            <input type="text" class="form-control" maxlength="30" id="Tarjeta" name="Tarjeta" required>
+                            <input type="text" class="form-control" maxlength="30" id="Tarjeta" name="Tarjeta" disabled>
                         </div>
                     </div>
 
@@ -124,7 +123,7 @@
                     <div class="form-group">
                         <label class="col-md-2 control-label">Subir comprobante</label>
                         <div class="col-md-10 form-custom">
-                            <input type="file" class="form-control btn btn-default" id="ComprobanteP" name="ComprobanteP" required>
+                            <input type="file" class="form-control  btn-secondary" id="ComprobanteP" name="ComprobanteP" required>
                         </div>
                     </div>
 
@@ -135,7 +134,7 @@
                     <div class="form-group">
 
                         <div class="col-md-offset-8 col-md-2">
-                            <input type="button" id="btnPagar" class="btn btn-secondary" data-dismiss="modal" value="Cancelar" />
+                            <input type="button" id="btnCancelar" class="btn btn-secondary" data-dismiss="modal" value="Cancelar" />
                         </div>
 
                         <div class="col-md-2">

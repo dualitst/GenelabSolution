@@ -5,11 +5,14 @@ using System.Text;
 
 namespace Genelab.Database.Models
 {
+    public class Paciente {
+
+      
+    }
     public class Servicio
     {
         
-        public  int Id { get; set; }
-        public  int EstudioId { get; set; }
+        public  int Id { get; set; }     
         public  int EstatusProcesoId { get; set; }
         public int EstatusPagoId { get; set; }
         public int EstatusFacturaId { get; set; }
@@ -18,10 +21,14 @@ namespace Genelab.Database.Models
         public  int TipoServicioId { get; set; }
         public  string FolioPago { get; set; }
         public  DateTime FechaHoraCreacion { get; set; }
-        public  DateTime FechaHoraModificacion { get; set; }
+        public  DateTime FechaHoraModificacion { get; set; }    
         public  string UsuarioCreacion { get; set; }
         public  string UsuarioModificacion { get; set; }
-        public  int ServicioDetalleID { get; set; }
+        public string CodigoPostal { get; set; }
+        public string Colonia { get; set; }
+        public string Delegacion { get; set; }
+        public string Estado { get; set; }
+        public string Pais { get; set; }
     }
 
 }

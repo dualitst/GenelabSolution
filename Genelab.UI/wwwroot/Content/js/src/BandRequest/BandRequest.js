@@ -32,8 +32,11 @@ var Solicitudes = function () {
         utils.fnAgGrid_ColumnBuilder({ header: "CT", field: "ct" }),
         utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RECEPCIÓN", field: "fechaHoraCreacion", sort: "asc" }),
         utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RESULTADOS", field: "fechaHoraCreacion" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS", field: "estatusNombre" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "APROBAR", noFilter: true, cellRenderer: cellRender_Aprobar }),
+        utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS RECEPCIÓN", field: "estatusProcesoNombre" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS PAGO", field: "estatusPagoNombre" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS RESULTADO", field: "estatusResultadoNombre" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS FACTURA", field: "estatusFacturaNombre" }),
+        //utils.fnAgGrid_ColumnBuilder({ header: "APROBAR", noFilter: true, cellRenderer: cellRender_Aprobar }),
         utils.fnAgGrid_ColumnBuilder({ header: "ACCIONES", noFilter: true, cellRenderer: cellRender_Acciones })
     ];
     
@@ -129,11 +132,15 @@ var Solicitudes = function () {
 
     // cellRender Acciones
     function cellRender_Acciones(params) {
+
         var content = "";
 
-        content += "<a role='button' id='btnEditar_" + params.rowIndex + "' name='btnEditar_" + params.rowIndex + "' class='btn btn-info btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Editar' onclick='Solicitudes.fnModalRegistro(\"" + params.servicioId + "\")'><i class='material-icons'>mode_edit</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
-        //content += "<a role='button' id='btnEliminar_" + params.rowIndex + "' name='btnEliminar_" + params.rowIndex + "' class='btn btn-danger btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Eliminar' onclick='Codigos.fnConfirmEliminarRegistro(\"" + params.data.cve_codigo + "\",\"" + params.data.cve_catalogo + "\")'><i class='material-icons'>delete</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
-
+        //console.log(params.data.estatusProcesoId);
+        if (params.data.estatusProcesoId == 1) {
+            content += "<a role='button' id='btnEditar_" + params.rowIndex + "' name='btnEditar_" + params.rowIndex + "' class='btn btn-info btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Editar' onclick='Solicitudes.fnEditar(\"" + params.data.servicioId + "\")'><i class='material-icons'>mode_edit</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
+            content += "<a role='button' id='btnAprobar_" + params.rowIndex + "' name='btnAprobar_" + params.rowIndex + "' class='btn btn-success btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Aprobar para pago' onclick='Solicitudes.fnAprobar(\"" + params.data.servicioId + "\")'><i class='material-icons'>assignment_turned_in</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
+            //content += "<a role='button' id='btnEliminar_" + params.rowIndex + "' name='btnEliminar_" + params.rowIndex + "' class='btn btn-danger btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Eliminar' onclick='Codigos.fnConfirmEliminarRegistro(\"" + params.data.cve_codigo + "\",\"" + params.data.cve_catalogo + "\")'><i class='material-icons'>delete</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
+        }
         return content;
     }
 
@@ -185,6 +192,12 @@ var Solicitudes = function () {
     function enSitio() {
 
         llenaGridEnSitio();
+    }
+
+    function EditarSolicitud(idSolicitud) {
+        alert(JSON.stringify(idSolicitud));
+        alert(idSolicitud);
+        alert(JSON.parse(idSolicitud));
     }
 
     function AprobarParaPago(idSolicitud) {
@@ -240,7 +253,8 @@ var Solicitudes = function () {
     /// -------------------------------------------------------------------------
     return {
         fnActualizaFiltro: actualizaFiltro,
-        fnModalRegistro: modalRegistro,
-        fnAprobar: AprobarParaPago
+        fnEditar: EditarSolicitud,
+        fnAprobar: AprobarParaPago,
+
     }
 }();

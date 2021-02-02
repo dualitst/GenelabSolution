@@ -1,9 +1,9 @@
 ﻿/*eslint eqeqeq:0*/
 /// <summary>
-/// Nombre: login
+/// Nombre: solicitud
 /// Descripcion: 
 /// Fecha de creación: 180410
-/// Autor: vgonzalez
+/// Autor: fabian
 /// 
 /// Modificaciones:
 /// -----------------------------------------------------------------------------
@@ -15,7 +15,7 @@
 /// -----------------------------------------------------------------------------
 
 /// </summary>
-var login = function () {
+var Solicitud = function () {
     // Objetos
     var $btnSolicitar = $('#btnSolicitar');
     var $formServicio = $('#formServicio');
@@ -27,7 +27,6 @@ var login = function () {
     var $titular = $('#Ntitular');
     var $parentesco = $('#Parentesco');
     var $catalogo = $('#Catalogo');
-    var $edad = $('#Edad');
 
     //domicilio
     var $tel = $('#Tel');
@@ -44,7 +43,6 @@ var login = function () {
     var $cdpnF = $('#CdpnF');
 
     var $chkNombreCunenta = $('#chkNombreCunenta');
-    var $chkMayorEdad = $('#chkMayorEdad');
     var $chkEnDomicilio = $('#chkEnDomicilio');
     var $chkFacturacion = $('#chkFacturacion');
     var $chkUsarDomicilio = $('#chkUsarDomicilio');
@@ -54,13 +52,20 @@ var login = function () {
     var $tipoPersona = $('#tipoPersona');
     var $divMoral = $('#divMoral');
     var $divFisica = $('#divFisica');
-    var $RfcFFisica= $('#RfcFFisica');
+    var $RfcFFisica = $('#RfcFFisica');
+    var $AnioNacimiento = $('#AnioNacimiento');
     
     //parametros para check
     var mayorEdad = false;
     var enDomicilio = false;
     var facturacion = false;
     var tipoPersona = "";
+    var $btnAgregar = $('#btnAgregar');
+    //parametros para paciente
+    var pacientesList = [];
+    var $btnCancelar = $('#btnCancelar');
+    var $btnGuardar = $('#btnGuardar');
+    var editObjectPaciente = {}
 
     $(function () {
         fnInit();
@@ -105,21 +110,26 @@ var login = function () {
             }
         });
 
-        $chkMayorEdad.click(function () {
-           
-            if ($(this).is(":checked")) // "this" refers to the element that fired the event
-            {
-                mayorEdad = true;
-                $("#divMayorEdad").removeClass("visible").addClass("hidden");
-                $edad.val(18);
-            } else
-            {
-                mayorEdad = false;
-                $("#divMayorEdad").removeClass("hidden").addClass("visible");
-                $edad.val(17);
-            }
-
+        $btnAgregar.click(function () {
+            AddPaciente();
         });
+
+        $btnCancelar.click(function () {
+            $("#divAgregar").removeClass("hidden").addClass("visible");
+
+            $("#divCancelar").removeClass("visible").addClass("hidden");
+            $("#divGuardar").removeClass("visible").addClass("hidden");
+            cleanPaciente();
+        });
+
+        $btnGuardar.click(function () {
+            $("#divAgregar").removeClass("hidden").addClass("visible");
+            $("#divCancelar").removeClass("visible").addClass("hidden");
+            $("#divGuardar").removeClass("visible").addClass("hidden");
+
+            GuardarCambios();
+        });
+        
 
         $chkFacturacion.click(function () {
 
@@ -127,6 +137,8 @@ var login = function () {
             {
                 facturacion = true;
                 setDomicilioF(false);
+                cleanFacturacionMoral();
+                cleanFacturacionFisica();
                 $("#divFacturacion").removeClass("hidden").addClass("visible");
 
             } else {
@@ -134,8 +146,8 @@ var login = function () {
                 setDomicilioF(true);
                 $("#divFacturacion").removeClass("visible").addClass("hidden");
                 $chkUsarDomicilio.attr('checked', false);
-                cleanFacturacion();
-  
+                cleanFacturacionMoral();
+                cleanFacturacionFisica();
             }
         });
 
@@ -150,29 +162,13 @@ var login = function () {
                 
             }
             else {
-                cleanFacturacion();
+                cleanFacturacionMoral();
+                cleanFacturacionFisica();
+            }
+
+        });
+
  
-            }
-
-        });
-
-        $edad.change(function () {
-            console.log($edad.val());
-            if ($edad.val() >= 18) {
-                mayorEdad = true;
-                $chkMayorEdad.prop('checked', true);
-      
-                $("#divMayorEdad").removeClass("visible").addClass("hidden");
-            }
-            else {
-                mayorEdad = false;
-                $chkMayorEdad.prop('checked', false);
-
-                $("#divMayorEdad").removeClass("hidden").addClass("visible");
-                $("#divMayorEdad").removeClass("hidden").addClass("visible");
-            }
-        });
-
         $tipoPersona.change(function () {
             if ($tipoPersona.val() == "MORAL") {
                 mayorEdad = true;
@@ -180,6 +176,7 @@ var login = function () {
 
                 $divMoral.removeClass("hidden").addClass("visible");
                 $divFisica.removeClass("visible").addClass("hidden");
+                cleanFacturacionFisica();
             }
             else {
                 mayorEdad = false;
@@ -187,12 +184,115 @@ var login = function () {
 
                 $divFisica.removeClass("hidden").addClass("visible");
                 $divMoral.removeClass("visible").addClass("hidden");
+                cleanFacturacionMoral();
             }
         });
 
     };
 
-    function cleanFacturacion() {
+    function GuardarCambios() {
+        var idPacienteEdit = editObjectPaciente.Id;
+
+        //eliminamos
+        pacientesList = $.grep(pacientesList, function (e) {
+            return e.Id != idPacienteEdit;
+        });
+
+        editObjectPaciente.NombrePaciente= $nombre.val();
+        editObjectPaciente.ApellidoPPaciente= $apellidop.val();
+        editObjectPaciente.ApellidoMPaciente=$apellidom.val();
+        editObjectPaciente.Parentezco= $parentesco.val();
+        editObjectPaciente.EstudioId= $catalogo.val();
+        editObjectPaciente.AnioNacimiento=$AnioNacimiento.val();
+        editObjectPaciente.NombreTitular= $titular.val();
+        editObjectPaciente.EstudioNombre = $("#Catalogo option:selected").text();
+
+        //insertamos el nuevo actualizado
+        pacientesList.push(editObjectPaciente);
+
+        $('#table_body').html("");
+
+        $.each(pacientesList, function (index, value) {
+            var tBody = "";
+            var content = '<tr id="' + value.Id + '"><td>' + value.NombrePaciente + " " + value.ApellidoPPaciente + " " + value.ApellidoMPaciente + '</td><td>' + value.EstudioNombre + '</td><td>' + value.AnioNacimiento + '</td><td>' + value.Parentezco + '</td>';
+            content += "<td><a role='button' id='btnEditar_" + value.Id + "' name='btnEditar_" + value.Id + "' class='btn btn-info btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Editar' onclick='Solicitud.fnEditar(\"" + value.Id + "\")'><i class='material-icons'>mode_edit</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
+            content += "<a role='button' id='btnEliminar_" + value.Id + "' name='btnEliminar_" + value.Id + "' class='btn btn-danger btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Eliminar' onclick='Solicitud.fnEliminar(\"" + value.Id + "\")'><i class='material-icons'>delete</i></a>&nbsp;&nbsp;&nbsp;&nbsp;<td>";
+
+            tBody = tBody + content;
+
+            $('#table_body').append(tBody);
+        });
+
+        cleanPaciente();
+    }
+
+    function AddPaciente() {
+
+        if (validInfo() == false) {
+            utils.fnShowWarningMessage("Favor de completar toda la información requerida del paciente");
+            return;
+        }
+
+        var idPaciente = create_UUID();
+        
+        var _pacienteObj =
+        {
+            "Id": idPaciente,
+            "NombrePaciente": $nombre.val(),
+            "ApellidoMPaciente": $apellidop.val(),
+            "ApellidoPPaciente": $apellidom.val(),
+            "NombreTitular": $titular.val(),
+            "Parentezco": $parentesco.val(),
+            "EstudioId": $catalogo.val(),
+            "EstudioNombre": $("#Catalogo option:selected").text(),
+            "AnioNacimiento": $AnioNacimiento.val()
+        }
+
+        pacientesList.push(_pacienteObj);
+
+      
+        $('#table_body').html("");
+        
+        $.each(pacientesList, function (index, value) {
+            var tBody = "";
+            var content = '<tr id="' + value.Id + '"><td>' + value.NombrePaciente + " " + value.ApellidoPPaciente + " " + value.ApellidoMPaciente + '</td><td>' + value.EstudioNombre + '</td><td>' + value.AnioNacimiento + '</td><td>' + value.Parentezco + '</td>';
+            content += "<td><a role='button' id='btnEditar_" + value.Id + "' name='btnEditar_" + value.Id + "' class='btn btn-info btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Editar' onclick='Solicitud.fnEditar(\"" + value.Id + "\")'><i class='material-icons'>mode_edit</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
+            content += "<a role='button' id='btnEliminar_" + value.Id + "' name='btnEliminar_" + value.Id + "' class='btn btn-danger btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Eliminar' onclick='Solicitud.fnEliminar(\"" + value.Id + "\")'><i class='material-icons'>delete</i></a>&nbsp;&nbsp;&nbsp;&nbsp;<td>";
+
+            tBody = tBody+ content;
+
+            $('#table_body').append(tBody);
+        });
+
+        console.log(pacientesList);
+
+        cleanPaciente();
+
+    }
+
+    function create_UUID() {
+        var dt = new Date().getTime();
+        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = (dt + Math.random() * 16) % 16 | 0;
+            dt = Math.floor(dt / 16);
+            return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        });
+        return uuid;
+    }
+
+
+    function cleanPaciente() {
+        $nombre.val("");
+        $apellidop.val("");
+        $apellidom.val("");
+        $parentesco.val("");
+        $catalogo.val(1);
+        $parentesco.val("");
+        $AnioNacimiento.val("");
+        $titular.val("");
+    }
+
+    function cleanFacturacionMoral() {
         $RfcF.val("");
         $EmailF.val("");
         $TelF.val("");
@@ -201,6 +301,11 @@ var login = function () {
         $delegacionF.val("");
         $coloniaF.val("");
         $cdpnF.val("");
+    }
+
+
+    function cleanFacturacionFisica() {
+        $RfcFFisica.val("");
     }
 
     function cleanDomicilio() {
@@ -213,7 +318,7 @@ var login = function () {
 
     function validFacturacion() {
 
-        if ($tipoPersona == "MORAL") {
+        if ($tipoPersona.val() == "MORAL") {
             if ($RfcF.val() == "" ||
                 $EmailF.val() == "" ||
                 $TelF.val() == "" ||
@@ -251,15 +356,10 @@ var login = function () {
             $apellidom.val() == "" ||
             $parentesco.val() == "" ||
             $catalogo.val() == "" ||
-            $edad.val() == "")
+            $AnioNacimiento.val() == "" ||
+            $parentesco.val()=="")
             return false
-        else {
 
-            if ($edad.val() < 18 && $titular.val() == "")
-                return false
-            else
-                return true;
-        }
     }
 
     function fnAlta(e) {
@@ -268,10 +368,10 @@ var login = function () {
 
         $formServicio.validate({
             rules: {
-                SelectName: { valueNotEquals: "" }
+                required: { valueNotEquals: "" }
             },
             messages: {
-                SelectName: { valueNotEquals: "Este campo es obligatorio." }
+                required: { valueNotEquals: "Este campo es obligatorio." }
             },
             highlight: function (input) {
                 $(input).parents('.form-line').addClass('error');
@@ -284,22 +384,25 @@ var login = function () {
             }
         });
 
-        if (validInfo()==false) {
-            utils.fnShowWarningMessage("Favor de completar toda la información requerida del paciente");
-            return;
-        }
-
-        if (enDomicilio == true && validDomicilio() == false) {
-            utils.fnShowWarningMessage("Favor de completar toda la información requerida para la prueba en domicilio");
-            return;
-        }
-
-        if (facturacion == true && validFacturacion() == false) {
-            utils.fnShowWarningMessage("Favor de completar toda la información requerida para la facturación");
-            return;
-        }
+        
 
         if ($formServicio.valid()) {
+
+
+            if (pacientesList.length<=0) {
+                utils.fnShowWarningMessage("Favor de registrar por lo menos un paciente");
+                return;
+            }
+
+            if (enDomicilio == true && validDomicilio() == false) {
+                utils.fnShowWarningMessage("Favor de completar toda la información requerida para la prueba en domicilio");
+                return;
+            }
+
+            if (facturacion == true && validFacturacion() == false) {
+                utils.fnShowWarningMessage("Favor de completar toda la información requerida para la facturación");
+                return;
+            }
 
             try {
                 var oUrl = 'Request/alta';
@@ -312,14 +415,15 @@ var login = function () {
 
                 var oData =
                 {
+                    "Pacientes": pacientesList,
                     "EnDomicilio": enDomicilio,
-                    "NombrePaciente": $nombre.val(),
-                    "ApellidoMPaciente": $apellidop.val(),
-                    "ApellidoPPaciente": $apellidom.val(),
-                    "NombreTitular": $titular.val(),
-                    "Parentezco": $parentesco.val(),
-                    "EstudioId": $catalogo.val(),
-                    "Edad": $edad.val(),
+                    //"NombrePaciente": $nombre.val(),
+                    //"ApellidoMPaciente": $apellidop.val(),
+                    //"ApellidoPPaciente": $apellidom.val(),
+                    //"NombreTitular": $titular.val(),
+                    //"Parentezco": $parentesco.val(),
+                    //"EstudioId": $catalogo.val(),
+                    //"AnioNacimiento": $AnioNacimiento.val(),
 
                     "CodigoPostal": $cp.val(),
                     "Delegacion": $delegacion.val(),
@@ -368,5 +472,54 @@ var login = function () {
             }
         }
     };
+
+    function EditarPaciente(idPaciente) {
+
+       var  editPaciente = $.grep(pacientesList, function (e) {
+            return e.Id == idPaciente;
+       });
+
+        $("#divAgregar").removeClass("visible").addClass("hidden");
+
+        $("#divCancelar").removeClass("hidden").addClass("visible");
+        $("#divGuardar").removeClass("hidden").addClass("visible");
+
+     
+        $nombre.val(editPaciente[0].NombrePaciente); 
+        $apellidop.val(editPaciente[0].ApellidoPPaciente);
+        $apellidom.val(editPaciente[0].ApellidoMPaciente);
+        $parentesco.val(editPaciente[0].Parentezco);
+        $catalogo.val(editPaciente[0].EstudioId); 
+        $AnioNacimiento.val(editPaciente[0].AnioNacimiento); 
+        $titular.val(editPaciente[0].NombreTitular);
+
+        //temporal para editar
+        editObjectPaciente = editPaciente[0];
+
+        console.log(editPaciente[0]);
+    }
+
+    function EliminarPaciente(idPaciente) {
+     
+
+        $('table > tbody  > tr').each(function (index, tr) {
+            if (tr.id == idPaciente) {
+                tr.remove();
+            }
+        });
+
+        pacientesList = $.grep(pacientesList, function (e) {
+            return e.Id != idPaciente;
+        });
+
+    }
+
+    /// -------------------------------------------------------------------------
+    /// Objeto de regreso
+    /// -------------------------------------------------------------------------
+    return {
+        fnEditar: EditarPaciente,
+        fnEliminar: EliminarPaciente,
+    }
 
 }();
