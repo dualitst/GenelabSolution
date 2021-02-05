@@ -1,15 +1,18 @@
-﻿using Genelab.Database.Models;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace Genelab.API.Models
+namespace Genelab.Database.ComplexTypes
 {
-    public class ServiciosConsultaModel : ServicioDetalle
+    [Keyless]
+    public class SelectResultList_Result
     {
+        public int Id { get; set; }
+        public string NombreTitular { get; set; }
+        public string NombrePaciente { get; set; }
         public int EstatusProcesoId { get; set; }
-        public int EstatusPagooId { get; set; }
+        public int EstatusPagoId { get; set; }
         public int EstatusFacturaId { get; set; }
         public int EstatusResultadoId { get; set; }
         public string UsuarioId { get; set; }
@@ -20,8 +23,8 @@ namespace Genelab.API.Models
         public string EstatusPagoNombre { get; set; }
         public string EstatusResultadoNombre { get; set; }
         public string EstatusFacturaNombre { get; set; }
-        public DateTime FechaHoraCreacion { get; set; }
-        public DateTime FechaHoraModificacion { get; set; }
+        public string FechaHoraCreacion { get; set; }
+        public string FechaHoraModificacion { get; set; }
         public string UsuarioCreacion { get; set; }
         public string UsuarioModificacion { get; set; }
         public int ServicioDetalleID { get; set; }
@@ -34,5 +37,9 @@ namespace Genelab.API.Models
         public string Delegacion { get; set; }
 
         public string Estado { get; set; }
+        public DateTime? AnioNacimiento { get; set; }
+        public string Resultado { get; set; }
+        public string Ct { get; set; }
+        public int EstudioId { get; set; }
     }
 }

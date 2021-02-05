@@ -20,11 +20,16 @@ var Solicitudes = function () {
     /// -------------------------------------------------------------------------
     /// Objetos
     /// -------------------------------------------------------------------------
+    var sitioAPI = "http://localhost:57537/api";
+    //var sitioAPI = "http://www.fiinsoft.mx/Genelab/api/api";
     var grdOptions = {};
     var $grdDatos = document.querySelector('#grdDatos');
-    var SessionData = utils.fnLocalData.get(utils.fnGlobals("Sesion"));
+    var $modalCargar = $('#modalCargar');
+    var $idSolicitud = $('#IdSolicitud');
+    var $comentarios = $('#Comentarios');  
 
     var colDefs = [
+        utils.fnAgGrid_ColumnBuilder({ header: "ID", field: "id" }),
         utils.fnAgGrid_ColumnBuilder({ header: "NOMBRE", field: "nombrePaciente" }),
         utils.fnAgGrid_ColumnBuilder({ header: "ESTUDIO", field: "estudioNombre" }),
         utils.fnAgGrid_ColumnBuilder({ header: "EDAD", field: "edad" }),
@@ -36,26 +41,12 @@ var Solicitudes = function () {
         utils.fnAgGrid_ColumnBuilder({ header: "ACCIONES", noFilter: true, cellRenderer: cellRender_Acciones })
     ];
 
-    var $hdnIdDato = $("#hdnIdDato");
-    var $hdnCveCatalogo = $("#hdnCveCatalogo");
-    var $frmDatos = $("#frmDatos");
-    var $txtCodigo = $("#txtCodigo");
-    var $txtDescripcion = $("#txtDescripcion");
-    var $selCatalogo = $("#selCatalogo");
-    var $txtResolucion = $("#txtResolucion");
-    var $chkActivo = $("#chkActivo");
-    var $btnGuardar = $("#btnGuardar");
-
-    var $tipoServicioDrop = $("#TipoServicioDrop");
-
     /// -------------------------------------------------------------------------
     /// Init
     /// -------------------------------------------------------------------------
     $(document).ready(function () {
         fnInit();
     });
-
-
 
     /// -------------------------------------------------------------------------
     /// Funciones
@@ -78,10 +69,8 @@ var Solicitudes = function () {
                 llenaGrid();
             });
 
-
+        InitialCarga();
     };
-
-
 
     // Funciones manejo Grid
     //----------------------
@@ -99,89 +88,78 @@ var Solicitudes = function () {
             });
     }
 
-
-    //Actualiza filtro
-    function actualizaFiltro() {
-        grdOptions.api.setQuickFilter(document.getElementById('txtFiltro').value);
-    }
-
     // cellRender Acciones
     function cellRender_Acciones(params) {
         var content = "";
 
         if (params.data.estatusProcesoId == 2) {
             //content += "<a role='button' id='btnEditar_" + params.rowIndex + "' name='btnEditar_" + params.rowIndex + "' class='btn btn-info btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Editar' onclick='Solicitudes.fnModalRegistro(\"" + params.servicioId + "\")'><i class='material-icons'>mode_edit</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
-            content += "<a role='button' id='btnAprobar_" + params.rowIndex + "' name='btnAprobar_" + params.rowIndex + "' class='btn btn-success btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Cargar resultado' onclick='Solicitudes.fnCargar(\"" + params.data.servicioId + "\")'><i class='material-icons'>assignment</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
+            content += "<a role='button' id='btnAprobar_" + params.rowIndex + "' name='btnAprobar_" + params.rowIndex + "' class='btn btn-success btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Cargar resultado' onclick='Solicitudes.fnCargar(\"" + params.data.id + "\")'><i class='material-icons'>assignment</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
         }
         return content;
     }
 
-    function cellRender_Pagar(params) {
-        var content = "";
-        
-            content += "<a role='button' id='btnAprobar_" + params.rowIndex + "' name='btnAprobar_" + params.rowIndex + "' class='btn btn-success btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Registrar el pago' onclick='Solicitudes.fnCargar(\"" + params.data.servicioId + "\")'><i class='material-icons'>assignment</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
-        
-            return content;
+
+    function InitialCarga() {
+        $(function () {
+            $("#form_pago").on("submit", function (e) {
+                e.preventDefault();
+                //init submit==========================================
+                utils.fnShowConfirmMessage("¿Está seguro que desea guardar el resultado de la solicitud ?",
+                    function () {
+
+                        var oUrl = sitioAPI + '/Request/Resultado';
+                        var formData = new FormData(document.getElementById("form_pago"));
+
+                        formData.append("IdSolicitud", $idSolicitud.val());
+                        //formData.append("Comentarios", $comentarios.val());
+
+                        $.ajax({
+                            url: oUrl,
+                            type: "post",
+                            dataType: "html",
+                            data: formData,
+                            cache: false,
+                            contentType: false,
+                            processData: false
+                        })
+                            .done(function (res) {
+
+                                setTimeout(
+                                    function () {
+                                        utils.fnShowSuccessMessage("Se ha registrado el pago correctamente la solicitud correctamente");
+                                        $modalCargar.modal('toggle');
+                                        clearModal();
+                                        llenaGrid();
+                                    }, 2000);
+
+                            }).fail(function (jqXHR, textStatus, errorThrown) {
+                                utils.fnShowErrorMessage(JSON.stringify(jqXHR));
+                            });
+
+
+
+                    },
+                    function () {
+                        utils.fnShowInfoMessage("Se canceló la acción");
+                    });
+                //end submit===========================================
+            });
+        });
     }
 
-
-    // Modal registro
-    //---------------
-    function modalRegistro(id_dato, cve_catalogo) {
-
-        $('#modalAgregar').modal('show');
+    function clearModal() {
+        $comentarios.val("");
     }
-
 
     function CargarResultado(idSolicitud) {
-
-        utils.fnShowConfirmMessage("¿Está seguro que desea cargar el resultado de la solicitud ?  " + idSolicitud + "?",
-            function () {
-
-                try {
-                    var oUrl = 'Request/Resultado';
-                    var oData =
-                    {
-                        "IdSolicitud": idSolicitud,
-                    };
-
-
-                    var oProcessMessage = 'Validando información, espere por favor...';
-                    var success = function (result) {
-
-                        if (utils.fnValidResult(result)) {
-
-                            llenaGrid();
-
-                            setTimeout(
-                                function () {
-                                    utils.fnShowSuccessMessage("Se ha pasado a prepago la solicitud correctamente");
-                                }, 2000);
-
-                        }
-                        else {
-                            utils.fnShowSuccessMessage("Error, ha ocurrido un error al dar de alta el servicio");
-                        }
-                    };
-
-                    utils.fnExecuteWithResult(null, oUrl, oData, oProcessMessage, success, true, "Originacion");
-
-                }
-                catch (e) {
-                    utils.fnShowErrorMessage(e.message);
-                }
-            },
-            function () {
-                utils.fnShowInfoMessage("Se canceló la acción");
-            });
-
+        $idSolicitud.val(idSolicitud);
+        $modalCargar.modal('show');
     }
     /// -------------------------------------------------------------------------
     /// Objeto de regreso
     /// -------------------------------------------------------------------------
     return {
-        fnActualizaFiltro: actualizaFiltro,
-        fnModalRegistro: modalRegistro,
         fnCargar: CargarResultado
     }
 }();

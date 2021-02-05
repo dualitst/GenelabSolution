@@ -29,9 +29,10 @@ namespace Genelab.API.Models
         public string FolioPago { get; set; }
         public bool isFacturacion { get; set; }
         public bool EnDomicilio { get; set; }
-        
+
 
         //DATOS FACTURACION
+        public string TipoPersona { get; set; }
         public string EmpresaFiscalCP { get; set; }
         public string EmpresaFiscalDelegacion { get; set; }
         public string EmpresaFiscalColonia { get; set; }
@@ -50,10 +51,22 @@ namespace Genelab.API.Models
      
     }
 
-    public class RequestPagoModel
+    public class RequestResultFileModel
     {
         public string IdSolicitud { get; set; }
+        public string Comentarios { get; set; }
+        public IFormFile ComprobanteP { get; set; }
+    }
 
+    public class RequestFacturaFileModel
+    {
+        public string IdSolicitud { get; set; }
+        public string Comentarios { get; set; }
+        public IFormFile ComprobanteP { get; set; }
+    }
+    public class RequestPagoModel
+    {
+      
     }
 
     public class RequestPagoFileModel

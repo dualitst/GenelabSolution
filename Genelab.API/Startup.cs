@@ -1,4 +1,5 @@
 using Genelab.Database.Data;
+using Genelab.Database.Repositories;
 using Genelab.EmailService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.OAuth;
@@ -75,6 +76,8 @@ namespace Genelab.API
                             .AddEntityFrameworkStores<GenelabContext>().AddDefaultTokenProviders();
 
             services.AddScoped<IEmailSender, EmailSender>();
+
+            services.AddScoped<IMemberRepository, MemberRepository>();
 
         }
 

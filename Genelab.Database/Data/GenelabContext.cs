@@ -1,7 +1,9 @@
-﻿using Genelab.Database.Models;
+﻿using Genelab.Database.ComplexTypes;
+using Genelab.Database.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Genelab.Database.Data
 {
@@ -26,7 +28,19 @@ namespace Genelab.Database.Data
 
         public DbSet<ServicioEstudio> ServicioEstudios { get; set; }
         public DbSet<TipoServicio> TipoServicios { get; set; }
+		public DbSet<Empresa> Empresas { get; set; }
 
+		// from stored procedures
+		[NotMapped]
+		public virtual DbSet<SelectResultList_Result> SelectResultList { get; set; }
+		[NotMapped]
+		public virtual DbSet<SelectPayList_Result> SelectPayList { get; set; }
+		[NotMapped]
+		public virtual DbSet<SelectSitioList_Result> SelectSitioList { get; set; }
+		[NotMapped]
+		public virtual DbSet<SelectDomicilioList_Result> SelectDomicilioList { get; set; }
+
+		
 		/// <summary>
 		/// Metodo que genera el ORM de datos, para la entidad Anexo
 		/// </summary>
@@ -100,8 +114,26 @@ namespace Genelab.Database.Data
 			modelBuilder.Entity<DatosFacturacion>().Property(t => t.EmailF).HasColumnName("EmailF").HasColumnType("varchar").HasMaxLength(250);
 			modelBuilder.Entity<DatosFacturacion>().Property(t => t.TelF).HasColumnName("TelF").HasColumnType("varchar").HasMaxLength(250);
 
-
 			modelBuilder.Entity<DatosFacturacion>().ToTable("DatosFacturacion");
+
+		}
+
+		protected void MapEmpresas(ModelBuilder modelBuilder)
+		{
+			//Se define campo que sera llave primaria
+			modelBuilder.Entity<Empresa>().HasKey(k => k.Id); // Propiedad que sera la Llave Primaria
+			modelBuilder.Entity<Empresa>().Property(t => t.Id).HasColumnName("Id").HasColumnType("int").UseIdentityColumn();
+
+			//Se define el resto de los campos
+			modelBuilder.Entity<Empresa>().Property(t => t.EmpresaFiscal).HasColumnName("EmpresaFiscal").HasColumnType("varchar").IsRequired().HasMaxLength(250);
+			modelBuilder.Entity<Empresa>().Property(t => t.CodigoPostal).HasColumnName("CodigoPostal").HasColumnType("varchar").IsRequired().HasMaxLength(50);
+			modelBuilder.Entity<Empresa>().Property(t => t.Delegacion).HasColumnName("Delegacion").HasColumnType("varchar").IsRequired().HasMaxLength(150);
+			modelBuilder.Entity<Empresa>().Property(t => t.Colonia).HasColumnName("Colonia").HasColumnType("varchar").IsRequired().HasMaxLength(150);
+			modelBuilder.Entity<Empresa>().Property(t => t.RfcF).HasColumnName("RfcF").HasColumnType("varchar").IsRequired().HasMaxLength(250);
+			modelBuilder.Entity<Empresa>().Property(t => t.EmailF).HasColumnName("EmailF").HasColumnType("varchar").HasMaxLength(250);
+			modelBuilder.Entity<Empresa>().Property(t => t.TelF).HasColumnName("TelF").HasColumnType("varchar").HasMaxLength(250);
+
+			modelBuilder.Entity<Empresa>().ToTable("Empresa");
 
 		}
 		protected void MapDomicilio(ModelBuilder modelBuilder)
@@ -262,6 +294,7 @@ namespace Genelab.Database.Data
 			modelBuilder.Entity<ServicioDetalle>();
 			modelBuilder.Entity<ServicioEstudio>();
 			modelBuilder.Entity<TipoServicio>();
+			modelBuilder.Entity<Empresa>();
 
 
 			MapPago(modelBuilder);
@@ -278,7 +311,9 @@ namespace Genelab.Database.Data
             MapServicioDetalle(modelBuilder);
             MapServicioEstudio(modelBuilder);
             MapTipoServicio(modelBuilder);
-        }
+			MapEmpresas(modelBuilder);
+
+		}
 
 		
 

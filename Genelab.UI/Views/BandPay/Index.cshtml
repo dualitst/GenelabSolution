@@ -4,6 +4,9 @@
 }
 
 <style>
+
+   
+
     ul {
         list-style: none outside none;
         padding-left: 0;
@@ -27,6 +30,22 @@
 
     .demo {
         width: 800px;
+    }
+
+    .button-wrap {
+        position: relative;
+    }
+
+    input[type="file"] {
+        /*position: absolute;
+        z-index: -1;
+        top: 6px;
+        left: 0;
+        font-size: 15px;*/
+        /*color: rgb(153,153,153);*/
+        /*color:black;*/
+/*        background-color:black;
+        color:white;*/
     }
 </style>
 
@@ -122,8 +141,8 @@
 
                     <div class="form-group">
                         <label class="col-md-2 control-label">Subir comprobante</label>
-                        <div class="col-md-10 form-custom">
-                            <input type="file" class="form-control  btn-secondary" id="ComprobanteP" name="ComprobanteP" required>
+                        <div class="col-md-10">
+                            <input type="file" class="form-control" value="" id="ComprobanteP" name="ComprobanteP" required>
                         </div>
                     </div>
 

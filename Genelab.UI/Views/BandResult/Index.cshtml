@@ -61,6 +61,60 @@
     </div>
 </div>
 
+<div class="modal fade" id="modalCargar" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="defaultModalLabel">Registrar pago</h4>
+            </div>
+            <div class="modal-body">
+
+
+                <div class="col-md-3" hidden>
+                    <input type="text" class="form-control" maxlength="30" id="IdSolicitud" name="idSolicitud">
+                </div>
+
+                <form id="form_pago" class="form-horizontal" enctype="multipart/form-data" method="post">
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Comentarios</label>
+                        <div class="col-md-10 form-custom">
+                            <textarea id="Comentarios" name="textarea" maxlength="250" placeholder="Ingrese un comentario" rows="3" cols="50"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Subir comprobante</label>
+                        <div class="col-md-10">
+                            <input type="file" class="form-control" value="" id="ComprobanteP" name="ComprobanteP" required>
+                        </div>
+                    </div>
+
+
+                    <br />
+                    <br />
+
+                    <div class="form-group">
+
+                        <div class="col-md-offset-8 col-md-2">
+                            <input type="button" id="btnCancelar" class="btn btn-secondary" data-dismiss="modal" value="Cancelar" />
+                        </div>
+
+                        <div class="col-md-2">
+                            <input type="submit" id="btnPagar" class="btn btn-primary" value="Guardad pago" />
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="~/Content/js/src/BandResult/BandR.js"></script>
 
 <script language="javascript" type="text/javascript">

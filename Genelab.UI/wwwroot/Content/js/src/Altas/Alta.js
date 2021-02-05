@@ -442,6 +442,7 @@ var Solicitud = function () {
                     "EmpresaFiscalDelegacion": $delegacionF.val(),
                     "EmpresaFiscalColonia": $coloniaF.val(),
                     "EmpresaFiscalCalle": $cdpnF.val(),
+                    "TipoPersona": $tipoPersona.val(),
                 };
 
                 console.log(oData);
