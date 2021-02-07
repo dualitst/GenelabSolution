@@ -66,6 +66,7 @@ var Solicitud = function () {
     var $btnCancelar = $('#btnCancelar');
     var $btnGuardar = $('#btnGuardar');
     var editObjectPaciente = {}
+    var $chkSoyYo = $('#chkSoyYo');
 
     $(function () {
         fnInit();
@@ -87,12 +88,22 @@ var Solicitud = function () {
     function fnInit() {
         // Asignamos los eventos de validación del form.
         $btnSolicitar.click(fnAlta);
-
         //Deshabilitando 
         setDomicilioF(true);
 
         $chkNombreCunenta.click(function () {
 
+        });
+
+        $chkSoyYo.click(function () {
+
+            if ($(this).is(":checked")) // "this" refers to the element that fired the event
+            {
+                $("#divParentesco").removeClass("visible").addClass("hidden");
+            } else {
+                $("#divParentesco").removeClass("hidden").addClass("visible");
+               
+            }
         });
 
         $chkEnDomicilio.click(function () {

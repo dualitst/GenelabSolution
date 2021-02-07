@@ -1,0 +1,64 @@
+﻿@{
+    ViewData["Title"] = "Consulta Empresas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    ul {
+        list-style: none outside none;
+        padding-left: 0;
+        margin: 0;
+    }
+
+    .demo .item {
+        margin-bottom: 60px;
+    }
+
+    .content-slider li {
+        background-color: #ed3020;
+        text-align: center;
+        color: #FFF;
+    }
+
+    .content-slider h3 {
+        margin: 0;
+        padding: 70px 0;
+    }
+
+    .demo {
+        width: 800px;
+    }
+</style>
+
+<div class="row clearfix">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="body">
+                <h2>@ViewBag.Title.</h2>
+                <h4>Empresas.</h4>
+
+             
+
+                <br />
+                <div class="row clearfix">
+                    <div class="col-md-12">
+                        <div id="grdDatos" style="height:600px;" class="ag-theme-material ag-compact"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@*AQUI VA TU JS*@
+<script src="~/Content/js/src/BandRequest/BandRequest.js"></script>
+
+<script language="javascript" type="text/javascript">
+
+    $(document).ready(function () {
+    });
+
+</script>
+
+

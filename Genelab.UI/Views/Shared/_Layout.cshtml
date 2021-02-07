@@ -48,7 +48,7 @@
     <link href="~/Content/css/ag-grid-css/ag-theme-material.css" rel="stylesheet" />
     <link href="~/Content/css/ag-grid-css/compiled-icons.css" rel="stylesheet" />
     <link href="~/Content/css/lightslider.min.css" rel="stylesheet" />
-    
+
     <!-- DropZone Css -->
     <link href="~/Content/js/plugins/dropzone/dropzone.css" rel="stylesheet" />
 
@@ -184,6 +184,7 @@
     <!-- Js Layout (Global) -->
     <script src="~/Content/js/src/Account/ManageAccount.js?v=@{ @Configuration.GetSection("AppSettings")["fiinsoft_version"]; }"></script>
     <script src="~/Content/js/src/Shared/pages/_Layout.js?v=@{ @Configuration.GetSection("AppSettings")["fiinsoft_version"]; }"></script>
+
 
 </head>
 <body class="theme-blue">
@@ -488,7 +489,7 @@
                                 <li>@Html.ActionLink("Consulta", "Index", "BandPay", null, null)</li>
                             </ul>
                         </li>
-                        
+
 
                         <li>
                             <a href="javascript:void(0);" class="menu-toggle">
@@ -510,6 +511,18 @@
                             <ul class="ml-menu">
                                 <li>@Html.ActionLink("Consulta", "Index", "BandFacturacion", null, null)</li>
                                 @*<li><a href="#">Nueva factura</a></li>*@
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="javascript:void(0);" class="menu-toggle">
+                                <i class="material-icons">list</i>
+                                <span>Empresas</span>
+                            </a>
+                            <ul class="ml-menu">
+                                <li>@Html.ActionLink("Consulta de Empresas", "Index", "Empresas", null, null)</li>
+                                @*AQUI VAN TUS VISTAS*@
+                                <li>@Html.ActionLink("Alta servicio", "IndexAdmin", "Request", null, null)</li>
                             </ul>
                         </li>
 
