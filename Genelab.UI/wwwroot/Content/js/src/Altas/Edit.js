@@ -104,7 +104,51 @@ var Solicitud = function () {
         }
     }
 
+    function ConsultaSolicitud() {
+
+        var idSol = GetParameterValues("IdSolicitud");
+
+        try {
+
+            var oUrl = 'Request/consulta';
+            var oData =
+            {
+                "IdSolicitud": idSol,
+            };
+
+            var oProcessMessage = 'Validando información, espere por favor...';
+            var success = function (result) {
+
+                console.log(result);
+                if (utils.fnValidResult(result)) {
+
+                    //utils.fnShowSuccessMessage("Se ha creado el servicio correctamente");
+
+                    SetSolicitud(result.Data);
+
+                }
+                else {
+                    utils.fnShowSuccessMessage("Error, ha ocurrido un error al dar de alta el servicio");
+                }
+            };
+            utils.fnExecuteWithResult(null, oUrl, oData, oProcessMessage, success, true, "Originacion");
+
+        }
+        catch (e) {
+            utils.fnShowErrorMessage(e.message);
+        }
+
+    }
+
+    function SetSolicitud(data) {
+
+
+    }
+
     function fnInit() {
+
+        
+        ConsultaSolicitud();
         // Asignamos los eventos de validación del form.
         $btnSolicitar.click(fnAlta);
         //Deshabilitando 
@@ -205,7 +249,6 @@ var Solicitud = function () {
             GuardarCambios();
         });
 
-
         $chkFacturacion.click(function () {
 
             if ($(this).is(":checked")) // "this" refers to the element that fired the event
@@ -242,7 +285,6 @@ var Solicitud = function () {
             }
 
         });
-
 
         $tipoPersona.change(function () {
             if ($tipoPersona.val() == "MORAL") {
@@ -594,6 +636,16 @@ var Solicitud = function () {
         });
 
     }
+
+    function GetParameterValues(param) {
+        var url = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < url.length; i++) {
+            var urlparam = url[i].split('=');
+            if (urlparam[0] == param) {
+                return urlparam[1];
+            }
+        }
+    }  
 
     /// -------------------------------------------------------------------------
     /// Objeto de regreso

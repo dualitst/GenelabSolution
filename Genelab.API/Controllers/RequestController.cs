@@ -865,7 +865,7 @@ namespace Genelab.API.Controllers
         #region consulta solicitud
 
         [HttpPost("Consulta")]
-        public IActionResult Consulta(int idSolicitud)
+        public IActionResult Consulta(ConsultaSolicitudModel oModel)
         {
             try
             {
@@ -873,7 +873,7 @@ namespace Genelab.API.Controllers
 
 
                 //Servicio servicio = new Servicio();
-                var oServicio = _context.Servicios.Where(x => x.Id.Equals(idSolicitud)).FirstOrDefault();
+                var oServicio = _context.Servicios.Where(x => x.Id.Equals(int.Parse(oModel.IdSolicitud))).FirstOrDefault();
 
                 //Filter specific claim    
                 Claim claim = User.Claims.Where(x => x.Type == ClaimTypes.Email).FirstOrDefault();
@@ -904,7 +904,9 @@ namespace Genelab.API.Controllers
                     servicio.Delegacion = oServicio.Delegacion;
                     servicio.Pais = oServicio.Pais;
 
-                var _pacientes = _context.ServicioDetalles.Where(x => x.ServicioId.Equals(idSolicitud)).ToList();
+                var _pacientes = _context.ServicioDetalles.Where(x => x.ServicioId.Equals(int.Parse(oModel.IdSolicitud))).ToList();
+
+                List<DetalleConsultaModel> listPacientes = new List<DetalleConsultaModel>();
 
                 foreach (var objPaciente in _pacientes)
                 {
@@ -921,20 +923,22 @@ namespace Genelab.API.Controllers
                     servicioDetalle.EstudioId = objPaciente.EstudioId;
                     servicioDetalle.ServicioId = servicio.Id;//AQUI VA LA RELACION
 
-                    servicio.Pacientes.Add(servicioDetalle);
+                    listPacientes.Add(servicioDetalle);
                 }
 
-                ServicioDatosFacturacion _facturacion = _context.ServicioDatosFacturacions.Where(x => x.ServicioId.Equals(idSolicitud)).FirstOrDefault();
+                servicio.Pacientes = listPacientes;
+
+                ServicioDatosFacturacion _facturacion = _context.ServicioDatosFacturacions.Where(x => x.ServicioId.Equals(oModel.IdSolicitud)).FirstOrDefault();
                 
                 if (_facturacion!=null)
                 {
-                    //DatosFacturacion datos = new DatosFacturacion();
                     var infoFacturacion = _context.DatosFacturacions.Where(x => x.Id.Equals(_facturacion.DatosFacturacionId)).FirstOrDefault();
 
                     FacturacionConsultaModel datos =new FacturacionConsultaModel();
 
                     if (infoFacturacion.TipoPersona == "MORAL")
                     {
+                        datos.TipoPersona = infoFacturacion.TipoPersona;
                         datos.EmpresaFiscal = infoFacturacion.EmpresaFiscal;
                         datos.Colonia = infoFacturacion.Colonia;
                         datos.CodigoPostal = infoFacturacion.CodigoPostal;
@@ -946,6 +950,7 @@ namespace Genelab.API.Controllers
                     }
                     else
                     {
+                        datos.TipoPersona = infoFacturacion.TipoPersona;
                         datos.EmpresaFiscal = string.Empty;
                         datos.Colonia = string.Empty;
                         datos.CodigoPostal = string.Empty;
@@ -956,16 +961,7 @@ namespace Genelab.API.Controllers
                         datos.TelF = string.Empty;
                     }
 
-                    //ServicioDatosFacturacion servDatosFac = new ServicioDatosFacturacion();
-                    //servDatosFac.DatosFacturacionId = datos.Id;
-                    //servDatosFac.ServicioId = servicio.Id;
-
-                    //_context.ServicioDatosFacturacions.Add(servDatosFac);
-                    //_context.SaveChanges();
                 }
-
-
-
 
                 var data = new RespuestaAPI(servicio);
 
