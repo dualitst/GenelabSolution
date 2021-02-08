@@ -12,6 +12,7 @@ namespace Genelab.API.Models
     }
     public class DetalleConsultaModel : ServicioDetalle
     { 
+        public string EstudioNombre { get; set; }
     }
 
     public class FacturacionConsultaModel : DatosFacturacion

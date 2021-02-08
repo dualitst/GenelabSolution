@@ -196,9 +196,8 @@ var Solicitudes = function () {
     }
 
     function EditarSolicitud(idSolicitud) {
-        alert(JSON.stringify(idSolicitud));
-        alert(idSolicitud);
-        alert(JSON.parse(idSolicitud));
+        var url = "/Request/EditAdmin?IdSolicitud=" + idSolicitud;
+        window.location.href = url; 
     }
 
     function AprobarParaPago(idSolicitud) {

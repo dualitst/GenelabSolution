@@ -142,7 +142,23 @@ var Solicitud = function () {
 
     function SetSolicitud(data) {
 
+        pacientesList = data.pacientes;
+        console.log(pacientesList);
 
+        $('#table_body').html("");
+
+        $.each(pacientesList, function (index, value) {
+            var tBody = "";
+            var content = '<tr id="' + value.id + '"><td>' + value.nombrePaciente + " " + value.apellidoPPaciente + " " + value.apellidoMPaciente + '</td><td>' + value.estudioNombre + '</td><td>' + value.anioNacimiento + '</td><td>' + value.parentezco + '</td>';
+            content += "<td><a role='button' id='btnEditar_" + value.id + "' name='btnEditar_" + value.id + "' class='btn btn-info btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Editar' onclick='Solicitud.fnEditar(\"" + value.id + "\")'><i class='material-icons'>mode_edit</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
+            content += "<a role='button' id='btnEliminar_" + value.id + "' name='btnEliminar_" + value.id + "' class='btn btn-danger btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Eliminar' onclick='Solicitud.fnEliminar(\"" + value.id + "\")'><i class='material-icons'>delete</i></a>&nbsp;&nbsp;&nbsp;&nbsp;<td>";
+
+            tBody = tBody + content;
+
+            $('#table_body').append(tBody);
+        });
+
+        
     }
 
     function fnInit() {

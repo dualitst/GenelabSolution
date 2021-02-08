@@ -4,14 +4,16 @@ using Genelab.Database.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Genelab.Database.Migrations
 {
     [DbContext(typeof(GenelabContext))]
-    partial class GenelabContextModelSnapshot : ModelSnapshot
+    [Migration("20210208185805_addcalle")]
+    partial class addcalle
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -216,9 +218,6 @@ namespace Genelab.Database.Migrations
 
                     b.Property<DateTime?>("AnioNacimiento")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Calle")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CodigoPostal")
                         .HasColumnType("nvarchar(max)");
@@ -947,25 +946,6 @@ namespace Genelab.Database.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("EstatusFactura");
-                });
-
-            modelBuilder.Entity("Genelab.Database.Models.EstatusMuestra", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("Id")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("Nombre");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("EstatusMuestra");
                 });
 
             modelBuilder.Entity("Genelab.Database.Models.EstatusPago", b =>

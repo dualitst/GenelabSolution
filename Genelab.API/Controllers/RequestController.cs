@@ -116,118 +116,13 @@ namespace Genelab.API.Controllers
 
         #region Bandeja de resultados
         [HttpPost("FacturaList")]
-        public IActionResult FacturaList()
+        public async Task<IActionResult> FacturaList()
         {
             try
             {
 
-                List<Servicio> listServicios = new List<Servicio>();
-                List<ServicioDetalle> listServiciosDetalles = new List<ServicioDetalle>();
-                List<ServiciosConsultaModel> result = new List<ServiciosConsultaModel>();
-
-                listServicios = (from o in _context.Servicios
-                                 join se in _context.ServicioDatosFacturacions
-                                 on o.Id equals se.ServicioId
-                                 where o.EstatusProcesoId == 2 &&
-                                       o.EstatusPagoId == 2 &&//SOLO IMPORTA QUE NO ESTEN PAGADOS
-                                       o.EstatusFacturaId == 1//SOLO IMPORTA QUE NO ESTEN PAGADOS
-                                 select o).ToList();
-
-                listServiciosDetalles = (from o in _context.ServicioDetalles
-                                         join p in _context.Servicios on o.ServicioId equals p.Id
-                                         join se in _context.ServicioDatosFacturacions on p.Id equals se.ServicioId
-                                         where p.EstatusProcesoId == 2 &&
-                                         p.EstatusPagoId == 2 &&//SOLO IMPORTA QUE NO ESTEN PAGADOS
-                                         p.EstatusFacturaId == 1//SOLO IMPORTA QUE NO ESTEN PAGADOS
-                                         select o).ToList();
-
-                foreach (var serviDetalle in listServiciosDetalles)
-                {
-                    ServiciosConsultaModel objSer = new ServiciosConsultaModel();
-                    var serv = listServicios.Where(x => x.Id == serviDetalle.ServicioId).FirstOrDefault();
-
-                    //objSer.CodigoPostal = serv.CodigoPostal;
-                    //objSer.Colonia = serv.Colonia.ToUpper();
-                    //objSer.Delegacion = serv.Delegacion.ToUpper();
-                    //objSer.Estado = serv.Estado;
-                    if (serv.TipoServicioId == 2)
-                    {
-                        objSer.CodigoPostal = serv.CodigoPostal;
-                        objSer.Colonia = serv.Colonia.ToUpper();
-                        objSer.Delegacion = serv.Delegacion.ToUpper();
-                        objSer.Estado = serv.Estado;
-                    }
-
-                    if (serviDetalle != null)
-                    {
-                        objSer.ServicioId = serv.Id;
-                        objSer.ApellidoMPaciente = serviDetalle.ApellidoMPaciente;
-                        objSer.ApellidoPPaciente = serviDetalle.ApellidoPPaciente;
-                        objSer.EstatusProcesoId = serv.EstatusProcesoId;
-                        objSer.FechaHoraCreacion = serv.FechaHoraCreacion;
-                        objSer.NombrePaciente = serviDetalle.NombrePaciente.ToUpper() + " " + serviDetalle.ApellidoPPaciente.ToUpper() + " " + serviDetalle.ApellidoMPaciente.ToUpper();
-                        objSer.NombreTitular = (serviDetalle.NombreTitular == null) ? serviDetalle.NombreTitular.ToUpper() : null;
-                        objSer.EstudioId = serviDetalle.EstudioId;
-
-                        if (serviDetalle.Resultado == string.Empty)//CAMBIAR POR EL CATALOGO
-                            objSer.Resultado = "PENDIENTE";
-                        else
-                            objSer.Resultado = serviDetalle.Resultado;
-
-                        var estatus = (from o in _context.EstatusFactura
-                                       where o.Id == serv.EstatusFacturaId
-                                       select o).FirstOrDefault();
-
-                        //LOGICA PARA MOSTRAR LOS DISTINTOS ESTATUS
-                        if (estatus != null)
-                        {
-                            objSer.EstatusProcesoNombre = estatus.Nombre.ToUpper();
-                        }
-
-                        var estatusPago = (from o in _context.EstatusPago
-                                           where o.Id == serv.EstatusPagoId
-                                           select o).FirstOrDefault();
-
-                        if (estatusPago != null)
-                        {
-                            objSer.EstatusPagoNombre = estatusPago.Nombre.ToUpper();
-                        }
-
-
-
-                        var estatusFactura = (from o in _context.EstatusFactura
-                                              where o.Id == serv.EstatusFacturaId
-                                              select o).FirstOrDefault();
-
-                        if (estatusFactura != null)
-                        {
-                            objSer.EstatusFacturaNombre = estatusFactura.Nombre.ToUpper();
-                        }
-
-                        var estatusResultado = (from o in _context.EstatusResultado
-                                                where o.Id == serv.EstatusResultadoId
-                                                select o).FirstOrDefault();
-
-                        if (estatusResultado != null)
-                        {
-                            objSer.EstatusResultadoNombre = estatusResultado.Nombre.ToUpper();
-                        }
-
-                        var estudio = (from o in _context.Estudios
-                                       where o.Id == serviDetalle.EstudioId
-                                       select o).FirstOrDefault();
-                        if (estudio != null)
-                        {
-                            objSer.EstudioNombre = estudio.Nombre.ToUpper();
-                        }
-
-                        result.Add(objSer);
-                    }
-                }
-
-                var list = result.OrderByDescending(x => x.FechaHoraCreacion);
-
-                var data = new RespuestaAPI(list);
+                var result = await _repository.SelectFacturaList();
+                var data = new RespuestaAPI(result);
 
                 return Ok(data);
             }
@@ -243,111 +138,20 @@ namespace Genelab.API.Controllers
         #region Mis solicitudes sitio publico
 
         [HttpPost("MyList")]
-        public IActionResult MisResultados()
+        public async Task<IActionResult> MisResultados()
         {
             try
-            {
-
-                List<Servicio> listServicios = new List<Servicio>();
-                List<ServicioDetalle> listServiciosDetalles = new List<ServicioDetalle>();
-                List<ServiciosConsultaModel> result = new List<ServiciosConsultaModel>();
-
-                //Filter specific claim    
+            {  //Filter specific claim    
                 Claim claim = User.Claims.Where(x => x.Type == ClaimTypes.Email).FirstOrDefault();
+                string usuario=string.Empty;
 
-                listServicios = (from o in _context.Servicios.Where(x => x.UsuarioId == claim.Value)
-                                 select o).ToList();
+                if (claim != null)
+                    usuario = claim.Value;
 
-                listServiciosDetalles = (from o in _context.ServicioDetalles
-                                         join p in _context.Servicios on o.ServicioId equals p.Id
-                                         where p.UsuarioId == claim.Value
-                                         select o).ToList();
+                var result = await _repository.SelectMyList(usuario);
+                var data = new RespuestaAPI(result);
 
-                foreach (var serviDetalle in listServiciosDetalles)
-                {
-                    ServiciosConsultaModel objSer = new ServiciosConsultaModel();
-                    var serv = listServicios.Where(x => x.Id == serviDetalle.ServicioId).FirstOrDefault();
-
-                    if (serv.TipoServicioId == 2)
-                    {
-                        objSer.CodigoPostal = serv.CodigoPostal;
-                        objSer.Colonia = serv.Colonia.ToUpper();
-                        objSer.Delegacion = serv.Delegacion.ToUpper();
-                        objSer.Estado = serv.Estado;
-                    }
-
-
-                    if (serviDetalle != null)
-                    {
-                        objSer.ServicioId = serv.Id;
-                        objSer.ApellidoMPaciente = serviDetalle.ApellidoMPaciente;
-                        objSer.ApellidoPPaciente = serviDetalle.ApellidoPPaciente;
-                        objSer.EstatusProcesoId = serv.EstatusProcesoId;
-                        objSer.FechaHoraCreacion = serv.FechaHoraCreacion;
-                        objSer.NombrePaciente = serviDetalle.NombrePaciente.ToUpper() + " " + serviDetalle.ApellidoPPaciente.ToUpper() + " " + serviDetalle.ApellidoMPaciente.ToUpper();
-                        objSer.NombreTitular = (serviDetalle.NombreTitular == null) ? serviDetalle.NombreTitular.ToUpper() : null;
-                        objSer.EstudioId = serviDetalle.EstudioId;
-
-                        if (serviDetalle.Resultado == string.Empty)//CAMBIAR POR EL CATALOGO
-                            objSer.Resultado = "PENDIENTE";
-                        else
-                            objSer.Resultado = serviDetalle.Resultado;
-
-                        var estatus = (from o in _context.EstatusProceso
-                                       where o.Id == serv.EstatusProcesoId
-                                       select o).FirstOrDefault();
-
-                        //LOGICA PARA MOSTRAR LOS DISTINTOS ESTATUS
-                        if (estatus != null)
-                        {
-                            objSer.EstatusProcesoNombre = estatus.Nombre.ToUpper();
-                        }
-
-                        var estatusPago = (from o in _context.EstatusPago
-                                           where o.Id == serv.EstatusPagoId
-                                           select o).FirstOrDefault();
-
-                        if (estatusPago != null)
-                        {
-                            objSer.EstatusPagoNombre = estatusPago.Nombre.ToUpper();
-                        }
-
-
-
-                        var estatusFactura = (from o in _context.EstatusFactura
-                                              where o.Id == serv.EstatusFacturaId
-                                              select o).FirstOrDefault();
-
-                        if (estatusFactura != null)
-                        {
-                            objSer.EstatusFacturaNombre = estatusFactura.Nombre.ToUpper();
-                        }
-
-                        var estatusResultado = (from o in _context.EstatusResultado
-                                                where o.Id == serv.EstatusResultadoId
-                                                select o).FirstOrDefault();
-
-                        if (estatusResultado != null)
-                        {
-                            objSer.EstatusResultadoNombre = estatusResultado.Nombre.ToUpper();
-                        }
-
-                        var estudio = (from o in _context.Estudios
-                                       where o.Id == serviDetalle.EstudioId
-                                       select o).FirstOrDefault();
-                        if (estudio != null)
-                        {
-                            objSer.EstudioNombre = estudio.Nombre.ToUpper();
-                        }
-
-                        result.Add(objSer);
-                    }
-                }
-
-                var list = result.OrderByDescending(x => x.FechaHoraCreacion);
-
-                var data = new RespuestaAPI(list);
-
+              
                 return Ok(data);
             }
             catch (Exception ex)
@@ -358,110 +162,17 @@ namespace Genelab.API.Controllers
         }
 
         [HttpPost("MyBill")]
-        public IActionResult MisFacturas()
+        public async Task<IActionResult> MisFacturas()
         {
             try
-            {
-
-                List<Servicio> listServicios = new List<Servicio>();
-                List<ServicioDetalle> listServiciosDetalles = new List<ServicioDetalle>();
-                List<ServiciosConsultaModel> result = new List<ServiciosConsultaModel>();
-
-                //Filter specific claim    
+            { //Filter specific claim    
                 Claim claim = User.Claims.Where(x => x.Type == ClaimTypes.Email).FirstOrDefault();
+                string usuario = string.Empty;
 
-                listServicios = (from serv in _context.Servicios
-                                 join fact in _context.ServicioDatosFacturacions on serv.Id equals fact.ServicioId
-                                 where serv.UsuarioId == claim.Value
-                                 //Where(x => x.UsuarioId == claim.Value)
-                                 select serv).ToList();
+                if (claim != null)
+                    usuario = claim.Value;
 
-                listServiciosDetalles = (from o in _context.ServicioDetalles
-                                         select o).ToList();
-
-                if(listServiciosDetalles.Count>0)
-                foreach (var serviDetalle in listServiciosDetalles)
-                {
-                    ServiciosConsultaModel objSer = new ServiciosConsultaModel();
-                    var serv = listServicios.Where(x => x.Id == serviDetalle.ServicioId).FirstOrDefault();
-
-                    if (serv.TipoServicioId == 2)
-                    {
-                        objSer.CodigoPostal = serv.CodigoPostal;
-                        objSer.Colonia = serv.Colonia.ToUpper();
-                        objSer.Delegacion = serv.Delegacion.ToUpper();
-                        objSer.Estado = serv.Estado;
-                    }
-
-
-                    if (serviDetalle != null)
-                    {
-
-                        objSer.ServicioId = serv.Id;
-                        objSer.ApellidoMPaciente = serviDetalle.ApellidoMPaciente;
-                        objSer.ApellidoPPaciente = serviDetalle.ApellidoPPaciente;
-                        objSer.EstatusProcesoId = serv.EstatusProcesoId;
-                        objSer.FechaHoraCreacion = serv.FechaHoraCreacion;
-                        objSer.NombrePaciente = serviDetalle.NombrePaciente.ToUpper() + " " + serviDetalle.ApellidoPPaciente.ToUpper() + " " + serviDetalle.ApellidoMPaciente.ToUpper();
-                        objSer.NombreTitular = serviDetalle.NombreTitular.ToUpper();
-                        objSer.EstudioId = serviDetalle.EstudioId;
-
-                        if (serviDetalle.Resultado == string.Empty)//CAMBIAR POR EL CATALOGO
-                            objSer.Resultado = "PENDIENTE";
-                        else
-                            objSer.Resultado = serviDetalle.Resultado;
-
-                        var estatus = (from o in _context.EstatusProceso
-                                       where o.Id == serv.EstatusProcesoId
-                                       select o).FirstOrDefault();
-
-                        //LOGICA PARA MOSTRAR LOS DISTINTOS ESTATUS
-                        if (estatus != null)
-                        {
-                            objSer.EstatusProcesoNombre = estatus.Nombre.ToUpper();
-                        }
-
-                        var estatusPago = (from o in _context.EstatusPago
-                                           where o.Id == serv.EstatusPagoId
-                                           select o).FirstOrDefault();
-
-                        if (estatusPago != null)
-                        {
-                            objSer.EstatusPagoNombre = estatusPago.Nombre.ToUpper();
-                        }
-
-
-
-                        var estatusFactura = (from o in _context.EstatusFactura
-                                              where o.Id == serv.EstatusFacturaId
-                                              select o).FirstOrDefault();
-
-                        if (estatusFactura != null)
-                        {
-                            objSer.EstatusFacturaNombre = estatusFactura.Nombre.ToUpper();
-                        }
-
-                        var estatusResultado = (from o in _context.EstatusResultado
-                                                where o.Id == serv.EstatusResultadoId
-                                                select o).FirstOrDefault();
-
-                        if (estatusResultado != null)
-                        {
-                            objSer.EstatusResultadoNombre = estatusResultado.Nombre.ToUpper();
-                        }
-
-                        var estudio = (from o in _context.Estudios
-                                       where o.Id == serviDetalle.EstudioId
-                                       select o).FirstOrDefault();
-                        if (estudio != null)
-                        {
-                            objSer.EstudioNombre = estudio.Nombre.ToUpper();
-                        }
-
-                        result.Add(objSer);
-                    }
-                }
-
+                var result = await _repository.SelectMyBillList(usuario);
                 var data = new RespuestaAPI(result);
 
                 return Ok(data);
@@ -492,20 +203,15 @@ namespace Genelab.API.Controllers
                 servicio.EstatusProcesoId = 1;
                 servicio.EstatusPagoId = 1;
                 servicio.EstatusFacturaId = 1;
-                servicio.EstatusResultadoId = 1;
-
-
+                servicio.FechaHoraVisita = DateTime.Parse(model.FechaHoraVisita);
                 servicio.FechaHoraCreacion = DateTime.Now;
                 servicio.FechaHoraModificacion = DateTime.Now;
                 servicio.FolioPago = string.Empty;
 
-
-
                 if (claim != null)
                 {
-                    servicio.UsuarioId = claim.Value;
-                    servicio.UsuarioModificacion = claim.Value;
                     servicio.UsuarioCreacion = claim.Value;
+                    servicio.UsuarioModificacion = claim.Value;
                 }
 
                 //Tipo de servicio
@@ -513,6 +219,7 @@ namespace Genelab.API.Controllers
                 {
                     servicio.TipoServicioId = 2;
                     ///CAMBIOS
+                    servicio.Calle = model.Calle;
                     servicio.CodigoPostal = model.CodigoPostal;
                     servicio.Colonia = model.Colonia;
                     servicio.Estado = string.Empty;
@@ -541,6 +248,13 @@ namespace Genelab.API.Controllers
                     servicioDetalle.AnioNacimiento = DateTime.Parse(objPaciente.AnioNacimiento);
                     servicioDetalle.EstudioId = int.Parse(objPaciente.EstudioId);
                     servicioDetalle.ServicioId = servicio.Id;//AQUI VA LA RELACION
+
+                    //nuevos campos
+                    servicioDetalle.EstatusMuestraId = 1;
+                    servicioDetalle.FechaHoraMuestra = DateTime.Now;
+
+                    servicioDetalle.EstatusResultadoId = 1;
+                    servicioDetalle.FechaHoraResultado = DateTime.Now;
 
                     _context.ServicioDetalles.Add(servicioDetalle);
                     _context.SaveChanges();
@@ -622,12 +336,14 @@ namespace Genelab.API.Controllers
                 {
                     solicitud.EstatusProcesoId = 2;//EN PROCESO
                     solicitud.FechaHoraModificacion = DateTime.Now;
-
+                   
                     if (claim != null)
                     {
-
                         solicitud.UsuarioModificacion = claim.Value;
+                        solicitud.UsuarioIdPrepago = claim.Value;
+                        solicitud.FechaHoraPago = DateTime.Now;
                     }
+                    
                 }
 
                 _context.Servicios.Attach(solicitud);
@@ -710,6 +426,8 @@ namespace Genelab.API.Controllers
                     if (claim != null)
                     {
                         solicitud.UsuarioModificacion = claim.Value;
+                        solicitud.UsuarioIdPago = claim.Value;
+                        solicitud.FechaHoraPago = DateTime.Now;
                     }
 
                     Guid idFile = Guid.NewGuid();
@@ -762,7 +480,7 @@ namespace Genelab.API.Controllers
                 if (solicitud != null)
                 {
                     solicitud.EstatusProcesoId = 2;//EN PROCESO
-                    solicitud.EstatusResultadoId = 2;//INDICANDO RESULTADO CARGADO
+                    //solicitud.EstatusResultadoId = 2;//INDICANDO RESULTADO CARGADO
                     solicitud.FechaHoraModificacion = DateTime.Now;
 
                     if (claim != null)
@@ -826,6 +544,8 @@ namespace Genelab.API.Controllers
                     if (claim != null)
                     {
                         solicitud.UsuarioModificacion = claim.Value;
+                        solicitud.UsuarioIdFactura = claim.Value;
+                        solicitud.FechaHoraFactura = DateTime.Now;
                     }
 
                     Guid idFile = Guid.NewGuid();
@@ -882,14 +602,13 @@ namespace Genelab.API.Controllers
                 servicio.EstatusProcesoId = oServicio.EstatusProcesoId;
                 servicio.EstatusPagoId = oServicio.EstatusPagoId;
                 servicio.EstatusFacturaId = oServicio.EstatusFacturaId;
-                servicio.EstatusResultadoId = oServicio.EstatusResultadoId;
+                //servicio.EstatusResultadoId = oServicio.EstatusResultadoId;
 
                 servicio.FechaHoraCreacion = oServicio.FechaHoraCreacion;
                 servicio.FechaHoraModificacion = oServicio.FechaHoraModificacion;
                 servicio.FolioPago = oServicio.FolioPago;
 
 
-                    servicio.UsuarioId = oServicio.UsuarioId;
                     servicio.UsuarioModificacion = oServicio.UsuarioModificacion;
                     servicio.UsuarioCreacion = oServicio.UsuarioCreacion;
 
@@ -922,7 +641,7 @@ namespace Genelab.API.Controllers
                     servicioDetalle.AnioNacimiento = objPaciente.AnioNacimiento;
                     servicioDetalle.EstudioId = objPaciente.EstudioId;
                     servicioDetalle.ServicioId = servicio.Id;//AQUI VA LA RELACION
-
+                    servicioDetalle.EstudioNombre = _context.Estudios.Where(x => x.Id.Equals(objPaciente.EstudioId)).Select(x=>x.Nombre).FirstOrDefault();
                     listPacientes.Add(servicioDetalle);
                 }
 

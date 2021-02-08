@@ -1,0 +1,134 @@
+﻿@{
+    ViewData["Title"] = "Bandeja de toma de muestras";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+
+
+
+    ul {
+        list-style: none outside none;
+        padding-left: 0;
+        margin: 0;
+    }
+
+    .demo .item {
+        margin-bottom: 60px;
+    }
+
+    .content-slider li {
+        background-color: #ed3020;
+        text-align: center;
+        color: #FFF;
+    }
+
+    .content-slider h3 {
+        margin: 0;
+        padding: 70px 0;
+    }
+
+    .demo {
+        width: 800px;
+    }
+
+    .button-wrap {
+        position: relative;
+    }
+
+    input[type="file"] {
+        /*position: absolute;
+        z-index: -1;
+        top: 6px;
+        left: 0;
+        font-size: 15px;*/
+        /*color: rgb(153,153,153);*/
+        /*color:black;*/
+        /*        background-color:black;
+        color:white;*/
+    }
+</style>
+
+<div class="row clearfix">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="body">
+                <h2>@ViewBag.Title.</h2>
+                <h4>Solicitudes de tipo domicilio, validadas por recepción y pendientes de toma de muestra</h4>
+
+                <br />
+                <div class="row clearfix">
+                    <div class="form-inline">
+                        <div class="col-md-2">
+                            <select id="" name="" class="form-control" data-live-search="true" required>
+                                <option value="Empresa" selected>Empresa</option>
+                                <option value="1">Finsoft SA</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <br />
+                <div class="row clearfix">
+                    <div class="col-md-12">
+
+                        <div id="grdDatos" style="height:600px;" class="ag-theme-material ag-compact"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalCargar" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="defaultModalLabel">Registrar toma de muestra</h4>
+            </div>
+            <div class="modal-body">
+
+
+                <div class="col-md-3" hidden>
+                    <input type="text" class="form-control" maxlength="30" id="IdSolicitud" name="idSolicitud">
+                </div>
+
+                <form id="form_pago" class="form-horizontal" enctype="multipart/form-data" method="post">
+
+
+                    <div class="form-group">
+
+
+                        <h4 style="text-align:center; color:black">¿Desea confirmar la toma de la muestra para el paciente </h4>
+                        <h4 style="text-align:center; color:black" id="pacienteSolicitud">?</h4>
+                        <br />
+                        <div class="col-md-offset-8 col-md-2 col-xs-offset-8 col-xs-2">
+                            <input type="button" id="btnCancelar" class="btn btn-secondary" data-dismiss="modal" value="Cancelar" />
+                        </div>
+
+                        <div class="col-md-2 col-xs-2">
+                            <input type="submit" id="btnPagar" class="btn btn-primary" value="Confirmar" />
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Content/js/src/BanMuestra/BanMuestra.js"></script>
+
+<script language="javascript" type="text/javascript">
+
+    $(document).ready(function () {
+    });
+
+</script>
+
+

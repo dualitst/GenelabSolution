@@ -1,5 +1,6 @@
 ﻿using Genelab.Database.ComplexTypes;
 using Genelab.Database.Data;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,37 @@ namespace Genelab.Database.Repositories
         {
             List<SelectDomicilioList_Result> members = new List<SelectDomicilioList_Result>();
             var result = await _context.SelectDomicilioList.FromSqlRaw($"SelectDomicilioList").ToListAsync();
+            return result;
+        }
+
+        public async Task<List<SelectFacturaList_Result>> SelectFacturaList()
+        {
+            List<SelectFacturaList_Result> members = new List<SelectFacturaList_Result>();
+            var result = await _context.SelectFacturaList.FromSqlRaw($"SelectFacturaList").ToListAsync();
+            return result;
+        }
+
+        public async Task<List<SelectMuestraList_Result>> SelectMuestraList()
+        {
+            List<SelectMuestraList_Result> members = new List<SelectMuestraList_Result>();
+            var result = await _context.SelectMuestraList.FromSqlRaw($"SelectMuestraList").ToListAsync();
+            return result;
+        }
+        public async Task<List<SelectMyList_Result>> SelectMyList(string usuario)
+        {
+            List<SelectMyList_Result> members = new List<SelectMyList_Result>();
+            var usuarioId = new SqlParameter("@usuarioId", usuario);
+
+            var result = await _context.SelectMyList.FromSqlRaw($"SelectMyList", usuarioId).ToListAsync();
+            return result;
+        }
+
+        public async Task<List<SelectMyBillList_Result>> SelectMyBillList(string usuario)
+        {
+            List<SelectMyBillList_Result> members = new List<SelectMyBillList_Result>();
+            var usuarioId = new SqlParameter("@usuarioId", usuario);
+
+            var result = await _context.SelectMyBillList.FromSqlRaw($"SelectMyBill", usuarioId).ToListAsync();
             return result;
         }
     }

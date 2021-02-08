@@ -16,6 +16,15 @@ namespace Genelab.Database.Repositories
 
         Task<List<SelectDomicilioList_Result>> SelectDomicilioList();
 
+        Task<List<SelectFacturaList_Result>> SelectFacturaList();
 
+        Task<List<SelectMuestraList_Result>> SelectMuestraList();
+
+        Task<List<SelectMyList_Result>> SelectMyList(string usuario);
+        Task<List<SelectMyBillList_Result>> SelectMyBillList(string usuario);
+
+        
     }
+
+
 }

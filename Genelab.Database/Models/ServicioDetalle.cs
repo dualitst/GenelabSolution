@@ -14,6 +14,12 @@ namespace Genelab.Database.Models
         public  string NombreTitular { get; set; }
         public  string Parentezco { get; set; }     
         public string Resultado { get; set; }
+        public int EstatusResultadoId { get; set; }
+        public string UsuarioIdResultado { get; set; }
+        public DateTime? FechaHoraResultado { get; set; }
+        public int EstatusMuestraId { get; set; }
+        public string UsuarioMuestraId { get; set; }
+        public DateTime? FechaHoraMuestra { get; set; }
         public string Ct { get; set; }
         public int EstudioId { get; set; }
         public DateTime? AnioNacimiento { get; set; }

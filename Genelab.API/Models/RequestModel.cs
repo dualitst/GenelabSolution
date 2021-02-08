@@ -20,7 +20,8 @@ namespace Genelab.API.Models
     public class RequestModel
     {
         public int Id { get; set; }
-        
+
+        public string Calle { get; set; }
         public string CodigoPostal { get; set; }
         public string Colonia { get; set; }
         public string Delegacion { get; set; }
@@ -29,6 +30,8 @@ namespace Genelab.API.Models
         public string FolioPago { get; set; }
         public bool isFacturacion { get; set; }
         public bool EnDomicilio { get; set; }
+
+        public string FechaHoraVisita { get; set; }
 
 
         //DATOS FACTURACION
