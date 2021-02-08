@@ -16,5 +16,6 @@ namespace Genelab.Database.Models
         public string EmailF { get; set; }
         public string TelF { get; set; }
         public string Calle { get; set; }
+        public string TipoPersona { get; set; }
     }
 }

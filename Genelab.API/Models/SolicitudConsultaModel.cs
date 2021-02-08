@@ -1,0 +1,20 @@
+﻿using Genelab.Database.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Genelab.API.Models
+{
+    public class SolicitudConsultaModel : Servicio
+    {
+        public List<DetalleConsultaModel> Pacientes { get; set; }
+    }
+    public class DetalleConsultaModel : ServicioDetalle
+    { 
+    }
+
+    public class FacturacionConsultaModel : DatosFacturacion
+    {
+    }
+}

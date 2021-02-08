@@ -57,7 +57,7 @@ namespace Genelab.API.Controllers
         {
             try
             {
-                var result = await _repository.SelectPayList();
+                var result = await _repository.SelectDomicilioList();
                 var data = new RespuestaAPI(result);
 
                 return Ok(data);
@@ -562,6 +562,7 @@ namespace Genelab.API.Controllers
                         datos.EmailF = model.EmailF;
                         datos.RfcF = model.RfcF;
                         datos.TelF = model.TelF;
+                        datos.TipoPersona = model.TipoPersona;
                     }
                     else
                     {
@@ -573,6 +574,7 @@ namespace Genelab.API.Controllers
                         datos.EmailF = string.Empty;
                         datos.RfcF = model.RfcF;
                         datos.TelF = string.Empty;
+                        datos.TipoPersona = model.TipoPersona;
                     }
 
                     _context.DatosFacturacions.Add(datos);
@@ -860,5 +862,122 @@ namespace Genelab.API.Controllers
 
         #endregion
 
+        #region consulta solicitud
+
+        [HttpPost("Consulta")]
+        public IActionResult Consulta(int idSolicitud)
+        {
+            try
+            {
+                SolicitudConsultaModel servicio = new SolicitudConsultaModel();
+
+
+                //Servicio servicio = new Servicio();
+                var oServicio = _context.Servicios.Where(x => x.Id.Equals(idSolicitud)).FirstOrDefault();
+
+                //Filter specific claim    
+                Claim claim = User.Claims.Where(x => x.Type == ClaimTypes.Email).FirstOrDefault();
+
+                //Inicializa todos los estados de la solicitud
+                servicio.EstatusProcesoId = oServicio.EstatusProcesoId;
+                servicio.EstatusPagoId = oServicio.EstatusPagoId;
+                servicio.EstatusFacturaId = oServicio.EstatusFacturaId;
+                servicio.EstatusResultadoId = oServicio.EstatusResultadoId;
+
+                servicio.FechaHoraCreacion = oServicio.FechaHoraCreacion;
+                servicio.FechaHoraModificacion = oServicio.FechaHoraModificacion;
+                servicio.FolioPago = oServicio.FolioPago;
+
+
+                    servicio.UsuarioId = oServicio.UsuarioId;
+                    servicio.UsuarioModificacion = oServicio.UsuarioModificacion;
+                    servicio.UsuarioCreacion = oServicio.UsuarioCreacion;
+
+                //Tipo de servicio
+                //if (model.EnDomicilio)
+                //{
+                    servicio.TipoServicioId = oServicio.TipoServicioId;
+                    ///CAMBIOS
+                    servicio.CodigoPostal = oServicio.CodigoPostal;
+                    servicio.Colonia = oServicio.Colonia;
+                    servicio.Estado = oServicio.Estado;
+                    servicio.Delegacion = oServicio.Delegacion;
+                    servicio.Pais = oServicio.Pais;
+
+                var _pacientes = _context.ServicioDetalles.Where(x => x.ServicioId.Equals(idSolicitud)).ToList();
+
+                foreach (var objPaciente in _pacientes)
+                {
+                    DetalleConsultaModel servicioDetalle = new DetalleConsultaModel();
+
+                    servicioDetalle.NombrePaciente = objPaciente.NombrePaciente;
+                    servicioDetalle.ApellidoMPaciente = objPaciente.ApellidoPPaciente;
+                    servicioDetalle.ApellidoPPaciente = objPaciente.ApellidoMPaciente;
+                    servicioDetalle.NombreTitular = objPaciente.NombreTitular;
+                    servicioDetalle.Parentezco = objPaciente.Parentezco;
+                    servicioDetalle.Resultado = objPaciente.Resultado;
+                    servicioDetalle.Ct = objPaciente.Ct;
+                    servicioDetalle.AnioNacimiento = objPaciente.AnioNacimiento;
+                    servicioDetalle.EstudioId = objPaciente.EstudioId;
+                    servicioDetalle.ServicioId = servicio.Id;//AQUI VA LA RELACION
+
+                    servicio.Pacientes.Add(servicioDetalle);
+                }
+
+                ServicioDatosFacturacion _facturacion = _context.ServicioDatosFacturacions.Where(x => x.ServicioId.Equals(idSolicitud)).FirstOrDefault();
+                
+                if (_facturacion!=null)
+                {
+                    //DatosFacturacion datos = new DatosFacturacion();
+                    var infoFacturacion = _context.DatosFacturacions.Where(x => x.Id.Equals(_facturacion.DatosFacturacionId)).FirstOrDefault();
+
+                    FacturacionConsultaModel datos =new FacturacionConsultaModel();
+
+                    if (infoFacturacion.TipoPersona == "MORAL")
+                    {
+                        datos.EmpresaFiscal = infoFacturacion.EmpresaFiscal;
+                        datos.Colonia = infoFacturacion.Colonia;
+                        datos.CodigoPostal = infoFacturacion.CodigoPostal;
+                        datos.Delegacion = infoFacturacion.Delegacion;
+                        datos.Calle = infoFacturacion.Calle;
+                        datos.EmailF = infoFacturacion.EmailF;
+                        datos.RfcF = infoFacturacion.RfcF;
+                        datos.TelF = infoFacturacion.TelF;
+                    }
+                    else
+                    {
+                        datos.EmpresaFiscal = string.Empty;
+                        datos.Colonia = string.Empty;
+                        datos.CodigoPostal = string.Empty;
+                        datos.Delegacion = string.Empty;
+                        datos.Calle = string.Empty;
+                        datos.EmailF = string.Empty;
+                        datos.RfcF = infoFacturacion.RfcF;
+                        datos.TelF = string.Empty;
+                    }
+
+                    //ServicioDatosFacturacion servDatosFac = new ServicioDatosFacturacion();
+                    //servDatosFac.DatosFacturacionId = datos.Id;
+                    //servDatosFac.ServicioId = servicio.Id;
+
+                    //_context.ServicioDatosFacturacions.Add(servDatosFac);
+                    //_context.SaveChanges();
+                }
+
+
+
+
+                var data = new RespuestaAPI(servicio);
+
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+
+                return Ok(ex);
+            }
+        }
+
+        #endregion
     }
 }

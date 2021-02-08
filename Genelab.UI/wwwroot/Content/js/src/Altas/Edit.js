@@ -54,7 +54,7 @@ var Solicitud = function () {
     var $divFisica = $('#divFisica');
     var $RfcFFisica = $('#RfcFFisica');
     var $AnioNacimiento = $('#AnioNacimiento');
-    
+
     //parametros para check
     var mayorEdad = false;
     var enDomicilio = false;
@@ -140,7 +140,7 @@ var Solicitud = function () {
                 esMenorEdad = false;
                 $("#divMayorEdad").removeClass("visible").addClass("hidden");
             }
-          
+
         });
 
 
@@ -204,7 +204,7 @@ var Solicitud = function () {
 
             GuardarCambios();
         });
-        
+
 
         $chkFacturacion.click(function () {
 
@@ -234,7 +234,7 @@ var Solicitud = function () {
                 $delegacionF.val($delegacion.val());
                 $coloniaF.val($colonia.val());
                 $cdpnF.val($cdpn.val());
-                
+
             }
             else {
                 cleanFacturacionMoral();
@@ -243,7 +243,7 @@ var Solicitud = function () {
 
         });
 
- 
+
         $tipoPersona.change(function () {
             if ($tipoPersona.val() == "MORAL") {
                 mayorEdad = true;
@@ -273,13 +273,13 @@ var Solicitud = function () {
             return e.Id != idPacienteEdit;
         });
 
-        editObjectPaciente.NombrePaciente= $nombre.val();
-        editObjectPaciente.ApellidoPPaciente= $apellidop.val();
-        editObjectPaciente.ApellidoMPaciente=$apellidom.val();
-        editObjectPaciente.Parentezco= $parentesco.val();
-        editObjectPaciente.EstudioId= $catalogo.val();
-        editObjectPaciente.AnioNacimiento=$AnioNacimiento.val();
-        editObjectPaciente.NombreTitular= $titular.val();
+        editObjectPaciente.NombrePaciente = $nombre.val();
+        editObjectPaciente.ApellidoPPaciente = $apellidop.val();
+        editObjectPaciente.ApellidoMPaciente = $apellidom.val();
+        editObjectPaciente.Parentezco = $parentesco.val();
+        editObjectPaciente.EstudioId = $catalogo.val();
+        editObjectPaciente.AnioNacimiento = $AnioNacimiento.val();
+        editObjectPaciente.NombreTitular = $titular.val();
         editObjectPaciente.EstudioNombre = $("#Catalogo option:selected").text();
 
         //insertamos el nuevo actualizado
@@ -314,7 +314,7 @@ var Solicitud = function () {
         //agregando cada estudio con su info
         $.each(estudioList, function (index, value) {
             var idPaciente = create_UUID();
-            var estudioNombreList = $("#Catalogo option[value='" + value+"']").text()
+            var estudioNombreList = $("#Catalogo option[value='" + value + "']").text()
 
             var _pacienteObj =
             {
@@ -335,14 +335,14 @@ var Solicitud = function () {
 
 
         $('#table_body').html("");
-        
+
         $.each(pacientesList, function (index, value) {
             var tBody = "";
             var content = '<tr id="' + value.Id + '"><td>' + value.NombrePaciente + " " + value.ApellidoPPaciente + " " + value.ApellidoMPaciente + '</td><td>' + value.EstudioNombre + '</td><td>' + value.AnioNacimiento + '</td><td>' + value.Parentezco + '</td>';
             content += "<td><a role='button' id='btnEditar_" + value.Id + "' name='btnEditar_" + value.Id + "' class='btn btn-info btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Editar' onclick='Solicitud.fnEditar(\"" + value.Id + "\")'><i class='material-icons'>mode_edit</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
             content += "<a role='button' id='btnEliminar_" + value.Id + "' name='btnEliminar_" + value.Id + "' class='btn btn-danger btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Eliminar' onclick='Solicitud.fnEliminar(\"" + value.Id + "\")'><i class='material-icons'>delete</i></a>&nbsp;&nbsp;&nbsp;&nbsp;<td>";
 
-            tBody = tBody+ content;
+            tBody = tBody + content;
 
             $('#table_body').append(tBody);
         });
@@ -392,11 +392,11 @@ var Solicitud = function () {
     }
 
     function cleanDomicilio() {
-         $tel.val("");
-         $cp.val("");
-         $delegacion.val("");
-         $colonia.val("");
-         $cdpn.val("");
+        $tel.val("");
+        $cp.val("");
+        $delegacion.val("");
+        $colonia.val("");
+        $cdpn.val("");
     }
 
     function validFacturacion() {
@@ -433,13 +433,13 @@ var Solicitud = function () {
     }
 
     function validInfo() {
-     
+
         if ($nombre.val() == "" ||
             $apellidop.val() == "" ||
             $apellidom.val() == "" ||
             $parentesco.val() == "" ||
             $catalogo.val() == "" ||
-            $AnioNacimiento.val() == "" )
+            $AnioNacimiento.val() == "")
             return false
 
         if (esMenorEdad == true && $titular.val() == "")
@@ -472,12 +472,12 @@ var Solicitud = function () {
             }
         });
 
-        
+
 
         if ($formServicio.valid()) {
 
 
-            if (pacientesList.length<=0) {
+            if (pacientesList.length <= 0) {
                 utils.fnShowWarningMessage("Favor de registrar por lo menos un paciente");
                 return;
             }
@@ -529,7 +529,7 @@ var Solicitud = function () {
 
                 var oProcessMessage = 'Validando información, espere por favor...';
                 var success = function (result) {
-                    
+
 
                     console.log(result);
                     if (utils.fnValidResult(result)) {
@@ -539,7 +539,7 @@ var Solicitud = function () {
                         //setTimeout(function () {
                         //    window.location = '/home/indexpublic'; 
                         //}, 3000);
-                       
+
                     }
                     else {
                         utils.fnShowSuccessMessage("Error, ha ocurrido un error al dar de alta el servicio");
@@ -556,22 +556,22 @@ var Solicitud = function () {
 
     function EditarPaciente(idPaciente) {
 
-       var  editPaciente = $.grep(pacientesList, function (e) {
+        var editPaciente = $.grep(pacientesList, function (e) {
             return e.Id == idPaciente;
-       });
+        });
 
         $("#divAgregar").removeClass("visible").addClass("hidden");
 
         $("#divCancelar").removeClass("hidden").addClass("visible");
         $("#divGuardar").removeClass("hidden").addClass("visible");
 
-     
-        $nombre.val(editPaciente[0].NombrePaciente); 
+
+        $nombre.val(editPaciente[0].NombrePaciente);
         $apellidop.val(editPaciente[0].ApellidoPPaciente);
         $apellidom.val(editPaciente[0].ApellidoMPaciente);
         $parentesco.val(editPaciente[0].Parentezco);
-        $catalogo.val(editPaciente[0].EstudioId); 
-        $AnioNacimiento.val(editPaciente[0].AnioNacimiento); 
+        $catalogo.val(editPaciente[0].EstudioId);
+        $AnioNacimiento.val(editPaciente[0].AnioNacimiento);
         $titular.val(editPaciente[0].NombreTitular);
 
         //temporal para editar
@@ -581,7 +581,7 @@ var Solicitud = function () {
     }
 
     function EliminarPaciente(idPaciente) {
-     
+
 
         $('table > tbody  > tr').each(function (index, tr) {
             if (tr.id == idPaciente) {

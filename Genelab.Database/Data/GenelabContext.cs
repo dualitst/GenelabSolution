@@ -113,6 +113,7 @@ namespace Genelab.Database.Data
 			modelBuilder.Entity<DatosFacturacion>().Property(t => t.RfcF).HasColumnName("RfcF").HasColumnType("varchar").IsRequired().HasMaxLength(250);
 			modelBuilder.Entity<DatosFacturacion>().Property(t => t.EmailF).HasColumnName("EmailF").HasColumnType("varchar").HasMaxLength(250);
 			modelBuilder.Entity<DatosFacturacion>().Property(t => t.TelF).HasColumnName("TelF").HasColumnType("varchar").HasMaxLength(250);
+			modelBuilder.Entity<DatosFacturacion>().Property(t => t.TipoPersona).HasColumnName("TipoPersona").HasColumnType("varchar").HasMaxLength(250);
 
 			modelBuilder.Entity<DatosFacturacion>().ToTable("DatosFacturacion");
 
