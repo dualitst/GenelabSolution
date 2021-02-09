@@ -70,6 +70,7 @@ var Solicitud = function () {
     var $chkNoSoyYo = $('#chkNoSoyYo');
     var esMenorEdad = false;
     var esMiCuenta = false;
+    var $fechaVisita = $('#FechaVisita'); 
 
     $(function () {
         fnInit();
@@ -90,6 +91,23 @@ var Solicitud = function () {
         today = yyyy + '-' + mm + '-' + dd;
 
         $AnioNacimiento.attr('max', today);
+    }
+
+    function InitDateMin() {
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+
+        today = yyyy + '-' + mm + '-' + dd;
+        
+        $fechaVisita.attr('min', today);
     }
 
     function setDomicilioF(activo) {
@@ -163,7 +181,8 @@ var Solicitud = function () {
 
     function fnInit() {
 
-        
+        InitDateMin();
+
         ConsultaSolicitud();
         // Asignamos los eventos de validación del form.
         $btnSolicitar.click(fnAlta);
@@ -484,7 +503,8 @@ var Solicitud = function () {
             $cp.val() == "" ||
             $delegacion.val() == "" ||
             $colonia.val() == "" ||
-            $cdpn.val() == "")
+            $cdpn.val() == "" ||
+            $fechaVisita.val()=="")
             return false;
         else
             return true;
@@ -567,6 +587,7 @@ var Solicitud = function () {
                     "Delegacion": $delegacion.val(),
                     "Colonia": $colonia.val(),
                     "Calle": $cdpn.val(),
+                    "FechaVisita": $fechaVisita.val(),
 
                     //NUEVOS
                     "RfcF": rfc,

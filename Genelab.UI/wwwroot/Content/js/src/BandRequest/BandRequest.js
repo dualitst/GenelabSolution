@@ -202,7 +202,7 @@ var Solicitudes = function () {
 
     function AprobarParaPago(idSolicitud) {
 
-        utils.fnShowConfirmMessage("¿Está seguro que desea pasar a prepago la solicitud ?  " + idSolicitud + "?",
+        utils.fnShowConfirmMessage("¿Está seguro que se ha validado la información de la solicitud ?  " + idSolicitud + "?",
             function () {
 
                 try {

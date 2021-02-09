@@ -4,28 +4,59 @@
     Layout = "~/Views/Shared/_LayoutPublico.cshtml";
 }
 
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-<!-- JS & CSS library of MultiSelect plugin -->
-<script src="~/Content/js/plugins/multi-select/js/jquery.multi-select.js"></script>
-<link rel="stylesheet" href="~/Content/js/plugins/multi-select/css/multi-select.css">
-
-
 <div class="row clearfix">
     <div class="col-md-12">
+
+
+
         <div class="card">
             <div class="body">
 
                 <h2>@ViewBag.Title.</h2>
                 <br />
 
+
+
                 <form id="formServicio" class="form-horizontal">
                     <div class="msg"></div>
+
+                    <div class="col-md-12 col-xs-12">
+                        <div class="form-check form-check-inline">
+                            <div class="col-md-12 col-xs-12">
+                                <label class="form-check-label checkbox-inline" for="chkSoyYo">
+                                    ¿Quiere usar los datos de su cuenta?
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <div class="col-md-1 col-md-offset-1 col-xs-1 col-xs-offset-1">
+
+                                <input class="form-check-input" type="checkbox" checked value="" id="chkNoSoyYo">
+                                <label class="form-check-label checkbox-inline" for="chkNoSoyYo">
+                                    No
+                                </label>
+
+
+                            </div>
+
+                            <div class="col-md-1 col-xs-1">
+
+                                <input class="form-check-input" type="checkbox" value="" id="chkSoyYo">
+                                <label class="form-check-label checkbox-inline" for="chkSoyYo">
+                                    Si
+                                </label>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
                     <div class="form-group">
-                        <label class="col-md-2 control-label">Nombre</label>
+                        <label class="col-md-2 control-label">Nombres</label>
                         <div class="col-md-8 form-custom">
-                            <input type="text" placeholder="Nombre de la persona que se realizará el estudio" maxlength="50" class="form-control" id="Nombre">
+                            <input type="text" placeholder="Nombres de la persona que se realizará el estudio" maxlength="50" class="form-control" id="Nombre">
                         </div>
                     </div>
 
@@ -44,38 +75,50 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-2 control-label">Fecha de nacimiento</label>
-                        <div class="col-md-8 form-custom">
-                            <input type="date" id="AnioNacimiento" name="AnioNacimiento">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-md-2 control-label">Parentesco</label>
-                        <div class="col-md-8 form-custom">
-                            <input type="text" placeholder="Parentesco con la persona que se realizará el estudio" maxlength="50" class="form-control" id="Parentesco">
-                        </div>
-                    </div>
-
-
-                    <div class="form-group">
                         <div>
                             <label class="col-md-2 control-label">Catálogo</label>
                             <div class="col-md-8 form-custom">
-                                <select name="Catalogo" id="Catalogo" multiple="multiple">
+                                <select name="Catalogo" id="Catalogo" multiple>
                                     <option value=1 selected>Covid 19</option>
                                     <option value=2>Influenza</option>
-                                    <option value=3>Pulmones</option>
+                                    <option value=4>Pulmones</option>
                                 </select>
                             </div>
                         </div>
-
                     </div>
 
-                    <div class="form-group" id="divMayorEdad">
-                        <label class="col-md-2 control-label">Nombre Titular</label>
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Fecha de nacimiento de quien se realizará el estudio</label>
                         <div class="col-md-8 form-custom">
-                            <input type="text" class="form-control" placeholder="Tutor del menor" id="Ntitular" maxlength="50">
+                            <input type="date" id="AnioNacimiento" title="Fecha de nacimiento de la persona que se realizará el estudio" name="AnioNacimiento">
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group hidden" id="divMayorEdad">
+
+                        <div class="col-md-12 col-xs-12">
+                            <div class="form-check form-check-inline">
+                                <div class="col-md-12 col-xs-12">
+                                    <label class="form-check-label checkbox-inline" for="chkEnDomicilio">
+                                        En caso de ser menor de edad ingresar el nombre del tutor
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <label class="col-md-2 control-label">Nombre Tutor</label>
+                        <div class="col-md-8 form-custom">
+                            <input type="text" class="form-control" placeholder="Nombre completo del tutor del menor que se realizará el estudio" id="Ntitular" maxlength="50">
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="divParentesco">
+                        <label class="col-md-2 control-label">Parentesco</label>
+                        <div class="col-md-8 form-custom">
+                            <input type="text" placeholder="Parentesco con la persona que se realizará el estudio" maxlength="50" class="form-control" id="Parentesco">
                         </div>
                     </div>
 
@@ -143,6 +186,12 @@
                     <hr />
                     <br />
 
+                    <div class="form-group inDomicilio hidden">
+                        <label class="col-md-2 control-label">Fecha de visita</label>
+                        <div class="col-md-8 form-custom">
+                            <input type="date" id="FechaVisita" title="Fecha en la que se realizará la toma de muestra a domicilio" name="FechaVisita">
+                        </div>
+                    </div>
 
                     <div class="form-group inDomicilio hidden">
                         <label class="col-md-2 control-label">Teléfono</label>
@@ -356,3 +405,4 @@
 </div>
 
 <script src="~/Content/js/src/Altas/Alta.js"></script>
+

@@ -25,12 +25,14 @@ namespace Genelab.API.Controllers
     {
         private readonly GenelabContext _context;
         private readonly IMemberRepository _repository;
+        private readonly UserManager<ApplicationUser> _userManager;
         public RequestController(GenelabContext context, 
-                                UserManager<IdentityUser> userManager,
+                                UserManager<ApplicationUser> userManager,
                                 IMemberRepository repository)
         {
             _context = context;
             _repository = repository;
+            _userManager = userManager;
         }
 
 
@@ -184,6 +186,32 @@ namespace Genelab.API.Controllers
             }
         }
 
+        [HttpPost("UserData")]
+        public async Task<IActionResult> UserData(CurrentUserModel oModel)
+        {
+            try
+            {  //Filter specific claim    
+                Claim claim = User.Claims.Where(x => x.Type == ClaimTypes.Email).FirstOrDefault();
+                string usuario = string.Empty;
+
+                if (claim != null)
+                    usuario = claim.Value;
+
+                var _user=await _userManager.FindByNameAsync(usuario);
+
+                var data = new RespuestaAPI(_user);
+
+
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+
+                return Ok(ex);
+            }
+        }
+
+
         #endregion
 
 
@@ -203,7 +231,11 @@ namespace Genelab.API.Controllers
                 servicio.EstatusProcesoId = 1;
                 servicio.EstatusPagoId = 1;
                 servicio.EstatusFacturaId = 1;
-                servicio.FechaHoraVisita = DateTime.Parse(model.FechaHoraVisita);
+                if (model.FechaHoraVisita != null && model.FechaHoraVisita != "")
+                    servicio.FechaHoraVisita = DateTime.Parse(model.FechaHoraVisita);
+                else
+                    servicio.FechaHoraVisita = DateTime.Now;
+
                 servicio.FechaHoraCreacion = DateTime.Now;
                 servicio.FechaHoraModificacion = DateTime.Now;
                 servicio.FolioPago = string.Empty;

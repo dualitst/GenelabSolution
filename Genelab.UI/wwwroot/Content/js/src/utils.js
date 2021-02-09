@@ -35,8 +35,8 @@ var utils = function () {
     /// -----------------------------------------------------------------------------
     var sites = {};
     //SERVER SANDBOX - CLIENTES
-    //sites["Security"] = "http://www.fiinsoft.mx/Genelab/api/api/"; //TEMPORAL SITE API FABIAN
-    //sites["Originacion"] = "http://www.fiinsoft.mx/Genelab/api/api/";//TEMPORAL SITE API FABIAN
+    sites["Security"] = "http://www.fiinsoft.mx/Genelab/api/api/"; //TEMPORAL SITE API FABIAN
+    sites["Originacion"] = "http://www.fiinsoft.mx/Genelab/api/api/";//TEMPORAL SITE API FABIAN
     sites["Security"] = "http://localhost:57537/api/"; //TEMPORAL SITE API FABIAN
     sites["Originacion"] = "http://localhost:57537/api/";//TEMPORAL SITE API FABIAN
     sites["Bancos"] = "http://localhost/Finsoft.WebAPI.Bancos/fiinsoftapi/";

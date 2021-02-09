@@ -72,8 +72,10 @@ namespace Genelab.API
             //Configuracion Identity
             services.AddDbContext<GenelabContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SqlConnection")));
 
-            services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()
                             .AddEntityFrameworkStores<GenelabContext>().AddDefaultTokenProviders();
+
+            services.AddScoped<Microsoft.AspNetCore.Identity.IUserClaimsPrincipalFactory<ApplicationUser>, AppClaimsPrincipalFactory>();
 
             services.AddScoped<IEmailSender, EmailSender>();
 

@@ -22,7 +22,7 @@ namespace Genelab.API.Controllers
         private readonly GenelabContext _context;
         private readonly IMemberRepository _repository;
         public BanMuestraController(GenelabContext context,
-                                UserManager<IdentityUser> userManager,
+                                UserManager<ApplicationUser> userManager,
                                 IMemberRepository repository)
         {
             _context = context;

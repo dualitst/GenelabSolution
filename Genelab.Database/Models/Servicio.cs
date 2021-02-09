@@ -38,7 +38,7 @@ namespace Genelab.Database.Models
         public string Pais { get; set; }
 
         //DATOS NUEVOS PARA DOMICILIO
-        public DateTime FechaHoraVisita { get; set; }
+        public DateTime? FechaHoraVisita { get; set; }
     }
 
 }

@@ -16,8 +16,30 @@
                         @Html.AntiForgeryToken()
                         <h4>Cree una cuenta nueva.</h4>
                         <hr />
-                        <br />
                         @Html.ValidationSummary("", new { @class = "text-danger" })
+                        <br />
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Nombre, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10 form-custom">
+                                @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ApellidoPaterno, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10 form-custom">
+                                @Html.TextBoxFor(m => m.ApellidoPaterno, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ApellidoMaterno, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10 form-custom">
+                                @Html.TextBoxFor(m => m.ApellidoMaterno, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <br />
+
                         <div class="form-group">
                             @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
                             <div class="col-md-10 form-custom">

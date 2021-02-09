@@ -25,13 +25,25 @@ var DatosPublico = function () {
     var SessionData = utils.fnLocalData.get(utils.fnGlobals("Sesion"));
 
     var colDefs = [
+        utils.fnAgGrid_ColumnBuilder({ header: "ID", field: "id" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "NOMBRE", field: "nombrePaciente" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "ESTUDIO", field: "estudioNombre" }),    
+        utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RECEPCIÓN", field: "fechaHoraCreacion", sort: "asc" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS PAGO", field: "estatusPagoNombre" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS FACTURA", field: "estatusFacturaNombre" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "USUARIO", field: "usuarioId" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "RESULTADO", field: "resultado" })
+    ];
+
+    var colDefsFactura = [
+        utils.fnAgGrid_ColumnBuilder({ header: "ID", field: "id" }),
         utils.fnAgGrid_ColumnBuilder({ header: "NOMBRE", field: "nombrePaciente" }),
         utils.fnAgGrid_ColumnBuilder({ header: "ESTUDIO", field: "estudioNombre" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "EDAD", field: "edad" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "RESULTADO", field: "resultado" }),
         utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RECEPCIÓN", field: "fechaHoraCreacion", sort: "asc" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RESULTADOS", field: "fechaHoraCreacion" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS", field: "estatusNombre" })
+        utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS PAGO", field: "estatusPagoNombre" }),
+        //utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS FACTURA", field: "estatusFacturaNombre" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "USUARIO", field: "usuarioId" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "RESULTADO", field: "resultado" })
     ];
 
     var $btnSolicitar = $("#btnSolicitar");

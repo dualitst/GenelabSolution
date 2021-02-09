@@ -20,8 +20,8 @@ var Solicitudes = function () {
     /// -------------------------------------------------------------------------
     /// Objetos
     /// -------------------------------------------------------------------------
-    var sitioAPI = "http://localhost:57537/api";
-    //var sitioAPI = "http://www.fiinsoft.mx/Genelab/api/api";
+    //var sitioAPI = "http://localhost:57537/api";
+    var sitioAPI = "http://www.fiinsoft.mx/Genelab/api/api";
     var grdOptions = {};
     var $grdDatos = document.querySelector('#grdDatos');
     var $modalCargar = $('#modalCargar');
@@ -41,18 +41,6 @@ var Solicitudes = function () {
         utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS", field: "estatusPagoNombre" }),
         utils.fnAgGrid_ColumnBuilder({ header: "ACCIONES", noFilter: true, cellRenderer: cellRender_Pagar })
     ];
-
-    var $hdnIdDato = $("#hdnIdDato");
-    var $hdnCveCatalogo = $("#hdnCveCatalogo");
-    var $frmDatos = $("#frmDatos");
-    var $txtCodigo = $("#txtCodigo");
-    var $txtDescripcion = $("#txtDescripcion");
-    var $selCatalogo = $("#selCatalogo");
-    var $txtResolucion = $("#txtResolucion");
-    var $chkActivo = $("#chkActivo");
-    var $btnGuardar = $("#btnGuardar");
-
-    var $tipoServicioDrop = $("#TipoServicioDrop");
 
     /// -------------------------------------------------------------------------
     /// Init
@@ -204,8 +192,6 @@ var Solicitudes = function () {
     /// Objeto de regreso
     /// -------------------------------------------------------------------------
     return {
-        fnActualizaFiltro: actualizaFiltro,
-        fnModalRegistro: modalRegistro,
         fnPagar: PagarSolicitud
     }
 }();

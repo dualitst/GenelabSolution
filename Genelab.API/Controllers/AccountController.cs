@@ -1,5 +1,6 @@
 ﻿using Genelab.API.Models;
 using Genelab.Common;
+using Genelab.Database.Data;
 using Genelab.EmailService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -23,12 +24,12 @@ namespace Genelab.API.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private RoleManager<IdentityRole> roleManager;
-        public AccountController(IConfiguration configuration, UserManager<IdentityUser> userManager,
-                              SignInManager<IdentityUser> signInManager, IEmailSender emailSender, RoleManager<IdentityRole> roleMgr)
+        public AccountController(IConfiguration configuration, UserManager<ApplicationUser> userManager,
+                              SignInManager<ApplicationUser> signInManager, IEmailSender emailSender, RoleManager<IdentityRole> roleMgr)
         {
             _configuration = configuration;
             _userManager = userManager;
@@ -111,12 +112,16 @@ namespace Genelab.API.Controllers
 
                 if (user == null)
                 {
-                    user = new IdentityUser
+                    user = new ApplicationUser
                     {
                         UserName = model.Email,
                         Email = model.Email,
-                        EmailConfirmed = true
+                        EmailConfirmed = true,
+                        Nombre=model.Nombre,
+                        ApellidoPaterno = model.ApellidoPaterno,
+                        ApellidoMaterno=model.ApellidoMaterno
                     };
+
                     await _userManager.CreateAsync(user, model.Password);
 
 

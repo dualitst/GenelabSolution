@@ -63,18 +63,34 @@ namespace Genelab.Database.Repositories
         public async Task<List<SelectMyList_Result>> SelectMyList(string usuario)
         {
             List<SelectMyList_Result> members = new List<SelectMyList_Result>();
-            var usuarioId = new SqlParameter("@usuarioId", usuario);
+            //var usuarioId = new SqlParameter("@usuarioId", usuario);
+            var param = new SqlParameter[] {
+                        new SqlParameter() {
+                            ParameterName = "@usuarioId",
+                            SqlDbType =  System.Data.SqlDbType.VarChar,
+                            Size = 50,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = usuario
+                        }};
 
-            var result = await _context.SelectMyList.FromSqlRaw($"SelectMyList", usuarioId).ToListAsync();
+            var result = await _context.SelectMyList.FromSqlRaw($"SelectMyList @usuarioId", param).ToListAsync();
             return result;
         }
 
         public async Task<List<SelectMyBillList_Result>> SelectMyBillList(string usuario)
         {
             List<SelectMyBillList_Result> members = new List<SelectMyBillList_Result>();
-            var usuarioId = new SqlParameter("@usuarioId", usuario);
+            //var usuarioId = new SqlParameter("@usuarioId", usuario);
+            var param = new SqlParameter[] {
+                        new SqlParameter() {
+                            ParameterName = "@usuarioId",
+                            SqlDbType =  System.Data.SqlDbType.VarChar,
+                            Size = 50,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = usuario
+                        }};
 
-            var result = await _context.SelectMyBillList.FromSqlRaw($"SelectMyBill", usuarioId).ToListAsync();
+            var result = await _context.SelectMyBillList.FromSqlRaw($"SelectMyBill @usuarioId", param).ToListAsync();
             return result;
         }
     }

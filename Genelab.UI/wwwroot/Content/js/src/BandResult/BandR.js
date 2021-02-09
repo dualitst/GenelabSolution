@@ -20,8 +20,8 @@ var Solicitudes = function () {
     /// -------------------------------------------------------------------------
     /// Objetos
     /// -------------------------------------------------------------------------
-    var sitioAPI = "http://localhost:57537/api";
-    //var sitioAPI = "http://www.fiinsoft.mx/Genelab/api/api";
+    //var sitioAPI = "http://localhost:57537/api";
+    var sitioAPI = "http://www.fiinsoft.mx/Genelab/api/api";
     var grdOptions = {};
     var $grdDatos = document.querySelector('#grdDatos');
     var $modalCargar = $('#modalCargar');

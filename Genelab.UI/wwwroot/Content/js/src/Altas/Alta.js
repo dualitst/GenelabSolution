@@ -70,10 +70,28 @@ var Solicitud = function () {
     var $chkNoSoyYo = $('#chkNoSoyYo');
     var esMenorEdad = false;
     var esMiCuenta = false;
+    var $fechaVisita = $('#FechaVisita'); 
 
     $(function () {
         fnInit();
     });
+
+    function InitDateMin() {
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+
+        today = yyyy + '-' + mm + '-' + dd;
+
+        $fechaVisita.attr('min', today);
+    }
 
     function InitDateMax() {
         var today = new Date();
@@ -110,6 +128,7 @@ var Solicitud = function () {
         //Deshabilitando 
         setDomicilioF(true);
 
+        InitDateMin();
         //validacion para fecham maxima
         InitDateMax();
 
@@ -151,6 +170,9 @@ var Solicitud = function () {
                 $("#divParentesco").removeClass("hidden").addClass("visible");
                 $chkSoyYo.attr('checked', false);
                 esMiCuenta = false;
+                $nombre.val("");
+                $apellidop.val("");
+                $apellidom.val("");
             }
             //else {
             //    $("#divParentesco").removeClass("hidden").addClass("hidden");
@@ -164,6 +186,8 @@ var Solicitud = function () {
                 $("#divParentesco").removeClass("visible").addClass("hidden");
                 $chkNoSoyYo.attr('checked', false);
                 esMiCuenta = true;
+
+                SelectCurrentUser();
             }
             //else {
             //    $("#divParentesco").removeClass("hidden").addClass("hidden");
@@ -365,11 +389,24 @@ var Solicitud = function () {
 
 
     function cleanPaciente() {
+        var values = [];
+
+        values.push("1");
+
         $nombre.val("");
         $apellidop.val("");
         $apellidom.val("");
         $parentesco.val("");
-        $catalogo.val(1);
+
+        $catalogo.val(values);
+        var valor = $catalogo.val();
+        console.log(valor)
+       
+
+        //$('#Catalogo option[value="1"]').attr('selected', 'selected');
+        //$catalogo.attr("selected", 1);
+        $("#catalogo").find('option[value=1]').prop('selected', true);
+
         $parentesco.val("");
         $AnioNacimiento.val("");
         $titular.val("");
@@ -450,6 +487,47 @@ var Solicitud = function () {
 
     }
 
+    function SelectCurrentUser() {
+        
+        try {
+            var oUrl = 'Request/UserData';
+            var urlIndex = '';
+            var rfc = "";
+            if ($tipoPersona.val() == "FISICA")
+                rfc = $RfcFFisica.val();
+            else
+                rfc = $RfcF.val();
+
+            var oData =
+            {
+                "IdUser": "current",
+            };
+
+            var oProcessMessage = 'Validando información, espere por favor...';
+            var success = function (result) {
+
+               
+                if (utils.fnValidResult(result)) {
+
+                    //console.log(result);
+
+                    $nombre.val(result.Data.nombre);
+                    $apellidop.val(result.Data.apellidoPaterno);
+                    $apellidom.val(result.Data.apellidoMaterno);
+
+                }
+                else {
+                    utils.fnShowSuccessMessage("Error, ha ocurrido un error");
+                }
+            };
+            utils.fnExecuteWithResult(null,oUrl, oData, oProcessMessage, success, true, "Originacion");
+
+        }
+        catch (e) {
+            utils.fnShowErrorMessage(e.message);
+        }
+    }
+
     function fnAlta(e) {
 
         e.preventDefault();
@@ -509,6 +587,7 @@ var Solicitud = function () {
                     "Delegacion": $delegacion.val(),
                     "Colonia": $colonia.val(),
                     "Calle": $cdpn.val(),
+                    "FechaHoraVisita": $fechaVisita.val(),
 
                     //NUEVOS
                     "RfcF": rfc,

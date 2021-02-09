@@ -7,9 +7,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Genelab.Database.Data
 {
-    public class GenelabContext : IdentityDbContext<IdentityUser>
+    public class GenelabContext : IdentityDbContext<ApplicationUser>
     {
-		public GenelabContext(DbContextOptions options) : base(options)
+		public GenelabContext(DbContextOptions<GenelabContext> options) : base(options)
 		{
 		}
 
@@ -119,6 +119,9 @@ namespace Genelab.Database.Data
 			modelBuilder.Entity<Servicio>().Property(t => t.UsuarioIdPrepago).HasColumnName("UsuarioIdPrepago").HasColumnType("nvarchar").HasMaxLength(256);
 			modelBuilder.Entity<Servicio>().Property(t => t.FechaHoraPrepago).HasColumnName("FechaHoraPrepago").HasColumnType("datetime");
 
+			modelBuilder.Entity<Servicio>().Property(t => t.FechaHoraVisita).HasColumnName("FechaHoraVisita").HasColumnType("datetime");
+
+			
 
 			modelBuilder.Entity<Servicio>().ToTable("Servicio");
 		}

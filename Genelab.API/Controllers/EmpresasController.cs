@@ -20,7 +20,7 @@ namespace Genelab.API.Controllers
         private readonly GenelabContext _context;//Acceder a la base de datos
         private readonly IMemberRepository _repository;//Acceder a los stored procedures de la base de datos
         public EmpresasController(GenelabContext context,
-                                UserManager<IdentityUser> userManager,
+                                UserManager<ApplicationUser> userManager,
                                 IMemberRepository repository)
         {
             _context = context;
