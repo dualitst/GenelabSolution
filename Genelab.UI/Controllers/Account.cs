@@ -25,7 +25,6 @@ namespace Genelab.UI.Controllers
     public class Account : Controller
     {
         private readonly IConfiguration _configuration;
-
         public Account(IConfiguration configuration)
         {
             _configuration = configuration;
@@ -315,5 +314,12 @@ namespace Genelab.UI.Controllers
             return View(model);
         }
 
+        // POST: /Account/LogOff
+        public async Task<ActionResult> LogOff()
+        {
+            //await _signInManager.SignOutAsync();
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

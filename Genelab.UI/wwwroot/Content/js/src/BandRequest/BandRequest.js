@@ -136,7 +136,7 @@ var Solicitudes = function () {
         //console.log(params.data.estatusProcesoId);
         if (params.data.estatusProcesoId == 1) {
             content += "<a role='button' id='btnEditar_" + params.rowIndex + "' name='btnEditar_" + params.rowIndex + "' class='btn btn-info btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Editar' onclick='Solicitudes.fnEditar(\"" + params.data.id + "\")'><i class='material-icons'>mode_edit</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
-            content += "<a role='button' id='btnAprobar_" + params.rowIndex + "' name='btnAprobar_" + params.rowIndex + "' class='btn btn-success btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Aprobar para pago' onclick='Solicitudes.fnAprobar(\"" + params.data.id + "\")'><i class='material-icons'>assignment_turned_in</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
+            content += "<a role='button' id='btnAprobar_" + params.rowIndex + "' name='btnAprobar_" + params.rowIndex + "' class='btn btn-success btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Aprobar información' onclick='Solicitudes.fnAprobar(\"" + params.data.id + "\")'><i class='material-icons'>assignment_turned_in</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
             //content += "<a role='button' id='btnEliminar_" + params.rowIndex + "' name='btnEliminar_" + params.rowIndex + "' class='btn btn-danger btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Eliminar' onclick='Codigos.fnConfirmEliminarRegistro(\"" + params.data.cve_codigo + "\",\"" + params.data.cve_catalogo + "\")'><i class='material-icons'>delete</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
         }
         return content;

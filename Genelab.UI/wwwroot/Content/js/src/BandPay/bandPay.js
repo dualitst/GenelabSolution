@@ -39,7 +39,7 @@ var Solicitudes = function () {
         utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE PAGO", field: "fechaHoraPago" }),
         utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS RESULTADOS", field: "estatusResultadoNombre" }),
         utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RESULTADOS", field: "fechaHoraResultado" }),
-
+        utils.fnAgGrid_ColumnBuilder({ header: "REGISTRÓ PAGO", field: "usuarioIdPago" }),
         utils.fnAgGrid_ColumnBuilder({ header: "ACCIONES", noFilter: true, cellRenderer: cellRender_Pagar })
     ];
 
