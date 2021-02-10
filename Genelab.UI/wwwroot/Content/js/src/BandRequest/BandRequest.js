@@ -193,8 +193,16 @@ var Solicitudes = function () {
     }
 
     function EditarSolicitud(idSolicitud) {
-        var url = "/Request/EditAdmin?IdSolicitud=" + idSolicitud;
-        window.open(url, "_blank") 
+        var allUrl = window.location.href;
+        if (allUrl == "www.fiinsoft.mx")
+        {
+            var url = "/Genelab/portal/Request/EditAdmin?IdSolicitud=" + idSolicitud;
+            window.open(url, "_blank");
+        }else
+        {
+            var url = "/Request/EditAdmin?IdSolicitud=" + idSolicitud;
+            window.open(url, "_blank");
+        }
     }
 
     function AprobarParaPago(idSolicitud) {

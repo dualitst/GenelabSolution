@@ -472,7 +472,7 @@ namespace Genelab.API.Controllers
 
                         if (model.ComprobanteP.Length > 0)
                         {
-                            using (var fileStream = new FileStream(idFile.ToString() + fileComprobante.Name, FileMode.Create))
+                            using (var fileStream = new FileStream("FileSystem/"+idFile.ToString() + fileComprobante.Name, FileMode.Create))
                             {
                                 fileComprobante.CopyTo(fileStream);
                             }

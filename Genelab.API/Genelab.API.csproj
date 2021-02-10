@@ -28,6 +28,7 @@
 
   <ItemGroup>
     <Folder Include="Email\" />
+    <Folder Include="FileSystem\" />
   </ItemGroup>
 
 

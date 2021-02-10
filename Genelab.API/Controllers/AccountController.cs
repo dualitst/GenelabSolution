@@ -131,16 +131,22 @@ namespace Genelab.API.Controllers
                         UserName = model.Email,
                         Email = model.Email,
                         EmailConfirmed = true,
-                        Nombre=model.Nombre,
+                        Nombre = model.Nombre,
                         ApellidoPaterno = model.ApellidoPaterno,
-                        ApellidoMaterno=model.ApellidoMaterno
+                        ApellidoMaterno = model.ApellidoMaterno
                     };
 
                     await _userManager.CreateAsync(user, model.Password);
 
-                    var roleAssign = await roleManager.FindByIdAsync(model.Role);
-                   
-                    var result1 = await _userManager.AddToRoleAsync(user, roleAssign.Name);
+                    if (model.Role != null)
+                    {
+                        var roleAssign = await roleManager.FindByIdAsync(model.Role);
+                        var result1 = await _userManager.AddToRoleAsync(user, roleAssign.Name);
+                    }
+                    else
+                    {
+                        var result1 = await _userManager.AddToRoleAsync(user, "Public");
+                    }
 
                     var data = new RespuestaAPI(user);
 
