@@ -17,12 +17,16 @@ namespace Genelab.Database.ComplexTypes
         public int TipoServicioId { get; set; }
         public string FolioPago { get; set; }
         public string EstudioNombre { get; set; }
+        public string EstatusMuestraNombre { get; set; }
         public string EstatusProcesoNombre { get; set; }
         public string EstatusPagoNombre { get; set; }
         public string EstatusResultadoNombre { get; set; }
         public string EstatusFacturaNombre { get; set; }
         public string FechaHoraCreacion { get; set; }
         public string FechaHoraModificacion { get; set; }
+        public string FechaHoraPago { get; set; }
+        public string FechaHoraFactura { get; set; }
+        public string FechaHoraMuestra { get; set; }
         public string UsuarioCreacion { get; set; }
         public string UsuarioModificacion { get; set; }
         public int ServicioDetalleID { get; set; }
@@ -35,5 +39,12 @@ namespace Genelab.Database.ComplexTypes
         public string Resultado { get; set; }
         public string Ct { get; set; }
         public int EstudioId { get; set; }
+        public string FechaHoraResultado { get; set; }
+
+        public string UsuarioIdResultado { get; set; }
+        public string UsuarioMuestraId { get; set; }
+        public string UsuarioIdPago { get; set; }
+        public string UsuarioIdFactura { get; set; }
+        public string UsuarioIdPrepago { get; set; }
     }
 }

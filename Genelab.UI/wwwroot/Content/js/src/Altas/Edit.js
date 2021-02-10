@@ -137,7 +137,7 @@ var Solicitud = function () {
             var oProcessMessage = 'Validando información, espere por favor...';
             var success = function (result) {
 
-                console.log(result);
+              
                 if (utils.fnValidResult(result)) {
 
                     //utils.fnShowSuccessMessage("Se ha creado el servicio correctamente");
@@ -160,30 +160,76 @@ var Solicitud = function () {
 
     function SetSolicitud(data) {
 
+        var text1 = 'Monkey';
+        $("#mySelect1 option").filter(function () {
+            return this.text == text1;
+        }).attr('selected', true);
+
+        console.log(data)
         pacientesList = data.pacientes;
-        console.log(pacientesList);
 
         $('#table_body').html("");
 
         $.each(pacientesList, function (index, value) {
             var tBody = "";
             var content = '<tr id="' + value.id + '"><td>' + value.nombrePaciente + " " + value.apellidoPPaciente + " " + value.apellidoMPaciente + '</td><td>' + value.estudioNombre + '</td><td>' + value.anioNacimiento + '</td><td>' + value.parentezco + '</td>';
-            content += "<td><a role='button' id='btnEditar_" + value.id + "' name='btnEditar_" + value.id + "' class='btn btn-info btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Editar' onclick='Solicitud.fnEditar(\"" + value.id + "\")'><i class='material-icons'>mode_edit</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
-            content += "<a role='button' id='btnEliminar_" + value.id + "' name='btnEliminar_" + value.id + "' class='btn btn-danger btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Eliminar' onclick='Solicitud.fnEliminar(\"" + value.id + "\")'><i class='material-icons'>delete</i></a>&nbsp;&nbsp;&nbsp;&nbsp;<td>";
+            //content += "<td><a role='button' id='btnEditar_" + value.id + "' name='btnEditar_" + value.id + "' class='btn btn-info btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Editar' onclick='Solicitud.fnEditar(\"" + value.id + "\")'><i class='material-icons'>mode_edit</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
+            //content += "<a role='button' id='btnEliminar_" + value.id + "' name='btnEliminar_" + value.id + "' class='btn btn-danger btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Eliminar' onclick='Solicitud.fnEliminar(\"" + value.id + "\")'><i class='material-icons'>delete</i></a>&nbsp;&nbsp;&nbsp;&nbsp;<td>";
 
             tBody = tBody + content;
 
             $('#table_body').append(tBody);
         });
 
-        
+        if (data.tipoServicioId == 2) {
+            $chkEnDomicilio.trigger("click");
+            $tel.val(data.telefono);
+            $cp.val(data.codigoPostal); 
+            $colonia.val(data.colonia);
+            $cdpn.val(data.calle);
+            $fechaVisita.val(data.fechaHoraVisita); 
+
+            //var text1 = data.delegacion;
+            //$("#Delegacion option").filter(function () {
+            //    return this.text == text1;
+            //}).attr('selected', true);
+
+            $delegacion.val(data.delegacion).trigger('change');
+        }
+
+        if (data.isFacturacion == true) {
+            $chkFacturacion.trigger("click");
+
+            if (data.datosFacturacion.tipoPersona == "MORAL") {
+
+                $tipoPersona.val('MORAL').trigger('change');
+
+                $RfcF.val(data.datosFacturacion.rfcF);
+                $EmailF.val(data.datosFacturacion.emailF); 
+                $TelF.val(data.datosFacturacion.telF); 
+                $EmpresaF.val(data.datosFacturacion.empresaFiscal); 
+                $cpF.val(data.datosFacturacion.codigoPostal); 
+                $coloniaF.val(data.datosFacturacion.colonia);
+                $cdpnF.val(data.datosFacturacion.calle);
+                $delegacionF.val(data.datosFacturacion.delegacion).trigger('change');
+             
+
+            } else {
+                $tipoPersona.val('FISICA').trigger('change');
+                $RfcFFisica.val(data.datosFacturacion.rfcF);
+               
+            }
+
+        }
+
+        $("#formServicio :input").attr("disabled", true);
     }
 
     function fnInit() {
 
         InitDateMin();
 
-        ConsultaSolicitud();
+       
         // Asignamos los eventos de validación del form.
         $btnSolicitar.click(fnAlta);
         //Deshabilitando 
@@ -340,6 +386,7 @@ var Solicitud = function () {
             }
         });
 
+        ConsultaSolicitud();
     };
 
     function GuardarCambios() {

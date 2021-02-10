@@ -32,6 +32,16 @@
         Text = "Público",
         Value = "F3D852DF-CA30-4417-AFB2-EE4EAA356E91",
     });
+    listItems.Add(new SelectListItem
+    {
+        Text = "Muestras",
+        Value = "E55A81B2-C18E-4867-B3B4-BF082F70158D",
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "Recepción",
+        Value = "D278A15A-BAD0-4503-A1AA-1A2D7BB4318D",
+    });
 }
 
 <div class="row clearfix">
@@ -94,7 +104,7 @@
                     <div class="form-group">
                         @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10 form-custom">
-                            @Html.DropDownListFor(model => model.Role, listItems, "-- Select Status --")
+                            @Html.DropDownListFor(model => model.Role, listItems, "-- Selecccione tipo de usuario --")
                         </div>
                     </div>
                     <br />

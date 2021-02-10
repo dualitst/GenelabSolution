@@ -62,8 +62,22 @@ namespace Genelab.API.Controllers
 
                     //var isInRole = await _userManager.IsInRoleAsync(user, "Admin");
                     var roles = await _userManager.GetRolesAsync(user);
+
                     if (roles.Contains("Admin"))
                         role = "Admin";
+                    else
+                    {
+                        if (roles.Contains("Caja"))
+                            role = "Caja";
+                        if (roles.Contains("Resultados"))
+                            role = "Resultados";
+                        if (roles.Contains("Facturacion"))
+                            role = "Facturacion";
+                        if (roles.Contains("Muestras"))
+                            role = "Muestras";
+                        if (roles.Contains("Recepcion"))
+                            role = "Recepcion";
+                    }
 
                     var tokenDescriptor = new SecurityTokenDescriptor
                     {
@@ -124,8 +138,12 @@ namespace Genelab.API.Controllers
 
                     await _userManager.CreateAsync(user, model.Password);
 
+                    var roleAssign = await roleManager.FindByIdAsync(model.Role);
+                   
+                    var result1 = await _userManager.AddToRoleAsync(user, roleAssign.Name);
 
                     var data = new RespuestaAPI(user);
+
                     try
                     {
 

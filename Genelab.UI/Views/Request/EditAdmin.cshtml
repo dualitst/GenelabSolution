@@ -12,7 +12,8 @@
         <div class="card">
             <div class="body">
 
-                <h2>@ViewBag.Title.</h2>
+                @*<h2>@ViewBag.Title.</h2>*@
+                <h2>Validar información.</h2>
                 <br />
 
 
@@ -20,7 +21,7 @@
                 <form id="formServicio" class="form-horizontal">
                     <div class="msg"></div>
 
-                    <div class="col-md-12 col-xs-12">
+                    <div class="col-md-12 col-xs-12" hidden>
                         <div class="form-check form-check-inline">
                             <div class="col-md-12 col-xs-12">
                                 <label class="form-check-label checkbox-inline" for="chkSoyYo">
@@ -53,28 +54,28 @@
                     </div>
 
 
-                    <div class="form-group">
+                    <div class="form-group" hidden>
                         <label class="col-md-2 control-label">Nombres</label>
                         <div class="col-md-8 form-custom">
                             <input type="text" placeholder="Nombres de la persona que se realizará el estudio" maxlength="50" class="form-control" id="Nombre">
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" hidden>
                         <label class="col-md-2 control-label">Apellido Paterno</label>
                         <div class="col-md-8 form-custom">
                             <input type="text" placeholder="Apellido de la persona que se realizará el estudio" maxlength="50" class="form-control" id="ApellidoP">
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" hidden>
                         <label class="col-md-2 control-label">Apellido Materno</label>
                         <div class="col-md-8 form-custom">
                             <input type="text" placeholder="Apellido de la persona que se realizará el estudio" maxlength="50" class="form-control" id="ApellidoM">
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" hidden>
                         <div>
                             <label class="col-md-2 control-label">Catálogo</label>
                             <div class="col-md-8 form-custom">
@@ -88,7 +89,7 @@
                     </div>
 
 
-                    <div class="form-group">
+                    <div class="form-group" hidden>
                         <label class="col-md-2 control-label">Fecha de nacimiento de quien se realizará el estudio</label>
                         <div class="col-md-8 form-custom">
                             <input type="date" id="AnioNacimiento" title="Fecha de nacimiento de la persona que se realizará el estudio" name="AnioNacimiento">
@@ -115,14 +116,14 @@
                         </div>
                     </div>
 
-                    <div class="form-group" id="divParentesco">
+                    <div class="form-group" id="divParentesco" hidden>
                         <label class="col-md-2 control-label">Parentesco</label>
                         <div class="col-md-8 form-custom">
                             <input type="text" placeholder="Parentesco con la persona que se realizará el estudio" maxlength="50" class="form-control" id="Parentesco">
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" hidden>
 
                         <div id="divAgregar" class="col-md-offset-10 col-md-2 col-xs-offset-9 col-xs-2 col-lg-offset-10 col-lg-2">
                             <input type="button" id="btnAgregar" class="btn btn-lg btn-primary" value="Agregar paciente" />
@@ -149,7 +150,7 @@
                                     <th scope="col">Estudio</th>
                                     <th scope="col">Fecha Nacimiento</th>
                                     <th scope="col">Parentesco</th>
-                                    <th scope="col">Acciones</th>
+                                    @*<th scope="col">Acciones</th>*@
 
                                 </tr>
                             </thead>
@@ -343,7 +344,7 @@
                                 <div>
                                     <label class="col-md-2 control-label">Delegación</label>
                                     <div class="col-md-8 form-custom">
-                                        <select id="DelegacionF" name="" class="form-control" data-live-search="true" required>
+                                        <select id="DelegacionF" name="DelegacionF" class="form-control" data-live-search="true" required>
                                             <option value="Álvaro Obregón">Álvaro Obregón</option>
                                             <option value="Azcapotzalco">Azcapotzalco</option>
                                             <option value="Benito Juárez">Benito Juárez</option>
@@ -388,13 +389,13 @@
 
                     <div class="form-group">
 
-                        <div class="col-md-offset-7 col-md-2 col-xs-offset-7 col-xs-2 col-lg-offset-7 col-lg-2">
-                            <input type="button" id="btnCancelar" class="btn btn-secondary" value="Cancelar" />
-                        </div>
+                        @*<div class="col-md-offset-7 col-md-2 col-xs-offset-7 col-xs-2 col-lg-offset-7 col-lg-2">
+                    <input type="button" id="btnCancelar" class="btn btn-secondary" value="Cancelar" />
+                </div>
 
-                        <div class="col-md-offset-10 col-md-2 col-xs-offset-9 col-xs-2 col-lg-offset-10 col-lg-2">
-                            <input type="submit" id="btnSolicitar" class="btn btn-primary btn-lg" value="Guardar cambios" />
-                        </div>
+                <div class="col-md-offset-10 col-md-2 col-xs-offset-9 col-xs-2 col-lg-offset-10 col-lg-2">
+                    <input type="submit" id="btnSolicitar" class="btn btn-primary btn-lg" value="Guardar cambios" />
+                </div>*@
                     </div>
 
                 </form>

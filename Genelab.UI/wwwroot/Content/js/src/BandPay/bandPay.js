@@ -20,8 +20,8 @@ var Solicitudes = function () {
     /// -------------------------------------------------------------------------
     /// Objetos
     /// -------------------------------------------------------------------------
-    //var sitioAPI = "http://localhost:57537/api";
-    var sitioAPI = "http://www.fiinsoft.mx/Genelab/api/api";
+    var sitioAPI = "http://localhost:57537/api";
+    //var sitioAPI = "http://www.fiinsoft.mx/Genelab/api/api";
     var grdOptions = {};
     var $grdDatos = document.querySelector('#grdDatos');
     var $modalCargar = $('#modalCargar');
@@ -33,12 +33,13 @@ var Solicitudes = function () {
         utils.fnAgGrid_ColumnBuilder({ header: "ID", field: "id" }),
         utils.fnAgGrid_ColumnBuilder({ header: "NOMBRE", field: "nombrePaciente" }),
         utils.fnAgGrid_ColumnBuilder({ header: "ESTUDIO", field: "estudioNombre" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "EDAD", field: "edad" }),
         utils.fnAgGrid_ColumnBuilder({ header: "RESULTADO", field: "resultado" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "CT", field: "ct" }),
         utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RECEPCIÓN", field: "fechaHoraCreacion", sort: "asc" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RESULTADOS", field: "fechaHoraCreacion" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS", field: "estatusPagoNombre" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS PAGO", field: "estatusPagoNombre" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE PAGO", field: "fechaHoraPago" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS RESULTADOS", field: "estatusResultadoNombre" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RESULTADOS", field: "fechaHoraResultado" }),
+
         utils.fnAgGrid_ColumnBuilder({ header: "ACCIONES", noFilter: true, cellRenderer: cellRender_Pagar })
     ];
 
@@ -109,9 +110,10 @@ var Solicitudes = function () {
 
     function cellRender_Pagar(params) {
         var content = "";
-
-        content += "<a role='button' id='btnAprobar_" + params.rowIndex + "' name='btnAprobar_" + params.rowIndex + "' class='btn btn-success btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Registrar el pago' onclick='Solicitudes.fnPagar(\"" + params.data.id + "\")'><i class='material-icons'>attach_money</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
-        return content;
+        if (params.data.estatusPagoId == 1) {
+            content += "<a role='button' id='btnAprobar_" + params.rowIndex + "' name='btnAprobar_" + params.rowIndex + "' class='btn btn-success btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Registrar el pago' onclick='Solicitudes.fnPagar(\"" + params.data.id + "\")'><i class='material-icons'>attach_money</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
+        }
+       return content;
     }
 
 
@@ -128,10 +130,11 @@ var Solicitudes = function () {
                 e.preventDefault();
 //init submit==========================================
 
-                utils.fnShowConfirmMessage("¿Está seguro que desea guardar el pago de la solicitud ?",
+                utils.fnShowConfirmMessage("¿Está seguro que desea guardar el pago de la solicitud " + $idSolicitud.val()+" ?",
                     function () {
 
-                        var oUrl = sitioAPI + '/Request/GuardarPago';
+                            var token = localStorage.getItem(utils.fnGlobals("Token"));
+                            var oUrl = sitioAPI + '/Request/GuardarPago';
                             var formData = new FormData(document.getElementById("form_pago"));
                             var tipoPago = $(".message_pri:checked").val();
 
@@ -145,7 +148,8 @@ var Solicitudes = function () {
                                         data: formData,
                                         cache: false,
                                         contentType: false,
-                                        processData: false
+                                        processData: false,
+                                        headers: { 'Authorization': 'Bearer ' + token },
                                     })
                                         .done(function (res) {
 
@@ -153,9 +157,9 @@ var Solicitudes = function () {
 
                                             setTimeout(
                                                 function () {
-                                                    utils.fnShowSuccessMessage("Se ha registrado el pago correctamente la solicitud correctamente");
+                                                    utils.fnShowSuccessMessage("Se ha registrado el pago de la solicitud" + $idSolicitud.val()+" correctamente");
                                                     $modalCargar.modal('toggle');
-                                                    clearModal();
+                                                    //clearModal();
                                                     llenaGrid();
                                                 }, 2000);
 

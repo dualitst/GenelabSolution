@@ -31,12 +31,13 @@ var Solicitudes = function () {
         utils.fnAgGrid_ColumnBuilder({ header: "ID", field: "id" }),
         utils.fnAgGrid_ColumnBuilder({ header: "NOMBRE", field: "nombrePaciente" }),
         utils.fnAgGrid_ColumnBuilder({ header: "ESTUDIO", field: "estudioNombre" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "EDAD", field: "edad" }),
         utils.fnAgGrid_ColumnBuilder({ header: "RESULTADO", field: "resultado" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "CT", field: "ct" }),
         utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RECEPCIÓN", field: "fechaHoraCreacion", sort: "asc" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RESULTADOS", field: "fechaHoraCreacion" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS", field: "estatusProcesoNombre" }),
+        //utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS PAGO", field: "estatusPagoNombre" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "FECHA PAGO", field: "fechaHoraPago" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS FACTURA", field: "estatusFacturaNombre" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "FECHA FACTURA", field: "fechaHoraFactura" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "USUARIO CARGA", field: "usuarioIdFactura" }), 
         utils.fnAgGrid_ColumnBuilder({ header: "ACCIONES", noFilter: true, cellRenderer: cellRender_Pagar })
     ];
 
@@ -54,9 +55,10 @@ var Solicitudes = function () {
             $("#form_pago").on("submit", function (e) {
                 e.preventDefault();
                 //init submit==========================================
-                utils.fnShowConfirmMessage("¿Está seguro que desea guardar el resultado de la solicitud ?",
+                utils.fnShowConfirmMessage("¿Está seguro que desea cargar la factura de la solicitud " + $idSolicitud.val()+" ?",
                     function () {
 
+                        var token = localStorage.getItem(utils.fnGlobals("Token"));
                         var oUrl = sitioAPI + '/Request/Facturado';
                         var formData = new FormData(document.getElementById("form_pago"));
 
@@ -70,7 +72,8 @@ var Solicitudes = function () {
                             data: formData,
                             cache: false,
                             contentType: false,
-                            processData: false
+                            processData: false,
+                            headers: { 'Authorization': 'Bearer ' + token},
                         })
                             .done(function (res) {
 
@@ -78,7 +81,7 @@ var Solicitudes = function () {
                                     function () {
                                         utils.fnShowSuccessMessage("Se ha registrado el pago correctamente la solicitud correctamente");
                                         $modalCargar.modal('toggle');
-                                        clearModal();
+                                        //clearModal();
                                         llenaGrid();
                                     }, 2000);
 
@@ -135,9 +138,10 @@ var Solicitudes = function () {
 
     function cellRender_Pagar(params) {
         var content = "";
-
-        content += "<a role='button' id='btnAprobar_" + params.rowIndex + "' name='btnAprobar_" + params.rowIndex + "' class='btn btn-success btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Cargar factura de la solicitud' onclick='Solicitudes.fnCargarFactura(\"" + params.data.id + "\")'><i class='material-icons'>chrome_reader_mode</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
-        return content;
+        if (params.data.estatusFacturaId == 1) {
+            content += "<a role='button' id='btnAprobar_" + params.rowIndex + "' name='btnAprobar_" + params.rowIndex + "' class='btn btn-success btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Cargar factura de la solicitud' onclick='Solicitudes.fnCargarFactura(\"" + params.data.id + "\")'><i class='material-icons'>chrome_reader_mode</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
+        }
+            return content;
     }
 
     function CargarFactura(idSolicitud) {

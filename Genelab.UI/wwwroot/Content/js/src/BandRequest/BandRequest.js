@@ -28,16 +28,13 @@ var Solicitudes = function () {
         utils.fnAgGrid_ColumnBuilder({ header: "ID", field: "id" }),
         utils.fnAgGrid_ColumnBuilder({ header: "NOMBRE", field: "nombrePaciente" }),
         utils.fnAgGrid_ColumnBuilder({ header: "ESTUDIO", field: "estudioNombre" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "EDAD", field: "edad" }),
         utils.fnAgGrid_ColumnBuilder({ header: "RESULTADO", field: "resultado" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "CT", field: "ct" }),
         utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RECEPCIÓN", field: "fechaHoraCreacion", sort: "asc" }),
         utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RESULTADOS", field: "fechaHoraCreacion" }),
         utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS RECEPCIÓN", field: "estatusProcesoNombre" }),
         utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS PAGO", field: "estatusPagoNombre" }),
         utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS RESULTADO", field: "estatusResultadoNombre" }),
         utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS FACTURA", field: "estatusFacturaNombre" }),
-        //utils.fnAgGrid_ColumnBuilder({ header: "APROBAR", noFilter: true, cellRenderer: cellRender_Aprobar }),
         utils.fnAgGrid_ColumnBuilder({ header: "ACCIONES", noFilter: true, cellRenderer: cellRender_Acciones })
     ];
     
@@ -197,7 +194,7 @@ var Solicitudes = function () {
 
     function EditarSolicitud(idSolicitud) {
         var url = "/Request/EditAdmin?IdSolicitud=" + idSolicitud;
-        window.location.href = url; 
+        window.open(url, "_blank") 
     }
 
     function AprobarParaPago(idSolicitud) {
@@ -227,7 +224,7 @@ var Solicitudes = function () {
 
                             setTimeout(
                                 function () {
-                                    utils.fnShowSuccessMessage("Se ha pasado a prepago la solicitud correctamente");
+                                    utils.fnShowSuccessMessage("Se ha confirmado la validación de la solicitud correctamente, se continuará con el proceso");
                                 }, 2000);
 
                         }

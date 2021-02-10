@@ -17,6 +17,7 @@ namespace Genelab.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class BanMuestraController : ControllerBase
     {
         private readonly GenelabContext _context;

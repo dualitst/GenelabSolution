@@ -26,7 +26,7 @@ var DatosPublico = function () {
 
     var colDefs = [
         utils.fnAgGrid_ColumnBuilder({ header: "ID", field: "id" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "NOMBRE", field: "nombrePaciente" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "NOMBRE PACIENTE", field: "nombrePaciente" }),
         utils.fnAgGrid_ColumnBuilder({ header: "ESTUDIO", field: "estudioNombre" }),    
         utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RECEPCIÓN", field: "fechaHoraCreacion", sort: "asc" }),
         utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS PAGO", field: "estatusPagoNombre" }),
@@ -37,7 +37,7 @@ var DatosPublico = function () {
 
     var colDefsFactura = [
         utils.fnAgGrid_ColumnBuilder({ header: "ID", field: "id" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "NOMBRE", field: "nombrePaciente" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "NOMBRE PACIENTE", field: "nombrePaciente" }),
         utils.fnAgGrid_ColumnBuilder({ header: "ESTUDIO", field: "estudioNombre" }),
         utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RECEPCIÓN", field: "fechaHoraCreacion", sort: "asc" }),
         utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS PAGO", field: "estatusPagoNombre" }),

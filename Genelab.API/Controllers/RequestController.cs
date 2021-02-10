@@ -232,9 +232,9 @@ namespace Genelab.API.Controllers
                 servicio.EstatusPagoId = 1;
                 servicio.EstatusFacturaId = 1;
                 if (model.FechaHoraVisita != null && model.FechaHoraVisita != "")
-                    servicio.FechaHoraVisita = DateTime.Parse(model.FechaHoraVisita);
+                    servicio.FechaHoraVisitaDom = DateTime.Parse(model.FechaHoraVisita);
                 else
-                    servicio.FechaHoraVisita = DateTime.Now;
+                    servicio.FechaHoraVisitaDom = DateTime.Now;
 
                 servicio.FechaHoraCreacion = DateTime.Now;
                 servicio.FechaHoraModificacion = DateTime.Now;
@@ -257,6 +257,7 @@ namespace Genelab.API.Controllers
                     servicio.Estado = string.Empty;
                     servicio.Delegacion = model.Delegacion;
                     servicio.Pais = string.Empty;
+                    servicio.Telefono = model.Telefono;
                 }
                 else
                     servicio.TipoServicioId = 1;
@@ -498,7 +499,7 @@ namespace Genelab.API.Controllers
 
         #region Alta de resultado
         [HttpPost("Resultado")]
-        public IActionResult Resultado(RequestResultFileModel model)
+        public IActionResult Resultado([FromForm] RequestResultFileModel model)
         {
             try
             {
@@ -506,19 +507,28 @@ namespace Genelab.API.Controllers
                 //Filter specific claim    
                 Claim claim = User.Claims.Where(x => x.Type == ClaimTypes.Email).FirstOrDefault();
 
-                var solicitud = (from o in _context.Servicios.Where(x => x.Id == int.Parse(model.IdSolicitud))
+                var detalle = (from o in _context.ServicioDetalles.Where(x => x.Id == int.Parse(model.IdSolicitud))
                                  select o).FirstOrDefault();
 
-                if (solicitud != null)
+                if (detalle != null)
                 {
-                    solicitud.EstatusProcesoId = 2;//EN PROCESO
-                    //solicitud.EstatusResultadoId = 2;//INDICANDO RESULTADO CARGADO
-                    solicitud.FechaHoraModificacion = DateTime.Now;
+                    var solicitud= (from o in _context.Servicios.Where(x => x.Id == detalle.ServicioId)
+                                    select o).FirstOrDefault();
+
+                            solicitud.EstatusProcesoId = 2;//EN PROCESO POR SI CARGAN RESULTADO ANTES DE PAGO
+                            solicitud.FechaHoraModificacion = DateTime.Now;
 
                     if (claim != null)
                     {
                         solicitud.UsuarioModificacion = claim.Value;
+                        detalle.UsuarioIdResultado= claim.Value;
                     }
+
+                    detalle.FechaHoraResultado = DateTime.Now;
+                    detalle.EstatusResultadoId = 2;
+                    detalle.Resultado = model.Resultado;
+                    detalle.Ct = model.Ct;
+                    //PENDIENTE COMENTARIOS
 
                     Guid idFile = Guid.NewGuid();
 
@@ -535,13 +545,19 @@ namespace Genelab.API.Controllers
                             }
                         }
                     }
+
+                    _context.ServicioDetalles.Attach(detalle);
+                    _context.Entry(detalle).State = EntityState.Modified;
+                    _context.SaveChanges();
+
+                    _context.Servicios.Attach(solicitud);
+                    _context.Entry(solicitud).State = EntityState.Modified;
+                    _context.SaveChanges();
                 }
 
-                _context.Servicios.Attach(solicitud);
-                _context.Entry(solicitud).State = EntityState.Modified;
-                _context.SaveChanges();
+                
 
-                var data = new RespuestaAPI(solicitud);
+                var data = new RespuestaAPI(detalle);
 
                 return Ok(data);
             }
@@ -556,7 +572,7 @@ namespace Genelab.API.Controllers
 
         #region Alta de factura
         [HttpPost("Facturado")]
-        public IActionResult Facturado(RequestFacturaFileModel model)
+        public IActionResult Facturado([FromForm] RequestFacturaFileModel model)
         {
             try
             {
@@ -623,6 +639,7 @@ namespace Genelab.API.Controllers
             {
                 SolicitudConsultaModel servicio = new SolicitudConsultaModel();
 
+                servicio.IsFacturacion = false;
 
                 //Servicio servicio = new Servicio();
                 var oServicio = _context.Servicios.Where(x => x.Id.Equals(int.Parse(oModel.IdSolicitud))).FirstOrDefault();
@@ -654,8 +671,10 @@ namespace Genelab.API.Controllers
                     servicio.Estado = oServicio.Estado;
                     servicio.Delegacion = oServicio.Delegacion;
                     servicio.Pais = oServicio.Pais;
+                    servicio.Telefono = oServicio.Telefono;
+                    servicio.Calle = oServicio.Calle;
 
-                var _pacientes = _context.ServicioDetalles.Where(x => x.ServicioId.Equals(int.Parse(oModel.IdSolicitud))).ToList();
+                         var _pacientes = _context.ServicioDetalles.Where(x => x.ServicioId.Equals(int.Parse(oModel.IdSolicitud))).ToList();
 
                 List<DetalleConsultaModel> listPacientes = new List<DetalleConsultaModel>();
 
@@ -679,11 +698,13 @@ namespace Genelab.API.Controllers
 
                 servicio.Pacientes = listPacientes;
 
-                ServicioDatosFacturacion _facturacion = _context.ServicioDatosFacturacions.Where(x => x.ServicioId.Equals(oModel.IdSolicitud)).FirstOrDefault();
+                ServicioDatosFacturacion _facturacion = _context.ServicioDatosFacturacions.Where(x => x.ServicioId.Equals(int.Parse(oModel.IdSolicitud))).FirstOrDefault();
                 
                 if (_facturacion!=null)
                 {
                     var infoFacturacion = _context.DatosFacturacions.Where(x => x.Id.Equals(_facturacion.DatosFacturacionId)).FirstOrDefault();
+
+                    servicio.IsFacturacion = true;
 
                     FacturacionConsultaModel datos =new FacturacionConsultaModel();
 
@@ -711,6 +732,8 @@ namespace Genelab.API.Controllers
                         datos.RfcF = infoFacturacion.RfcF;
                         datos.TelF = string.Empty;
                     }
+
+                    servicio.DatosFacturacion = datos;
 
                 }
 

@@ -37,11 +37,10 @@ var Solicitudes = function () {
         utils.fnAgGrid_ColumnBuilder({ header: "DELEGACIÓN", field: "delegacion" }),
         utils.fnAgGrid_ColumnBuilder({ header: "COLONIA", field: "colonia" }),
         utils.fnAgGrid_ColumnBuilder({ header: "CALLE", field: "calle" }),
-        //utils.fnAgGrid_ColumnBuilder({ header: "RESULTADO", field: "resultado" }),
-        //utils.fnAgGrid_ColumnBuilder({ header: "CT", field: "ct" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "TELEFONO", field: "telefono" }),
         utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RECEPCIÓN", field: "fechaHoraCreacion", sort: "asc" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RESULTADOS", field: "fechaHoraCreacion" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS", field: "estatusMuestraNombre" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS MUESTRA", field: "estatusMuestraNombre" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "USUARIO CARGA", field: "usuarioMuestraId" }),
         utils.fnAgGrid_ColumnBuilder({ header: "ACCIONES", noFilter: true, cellRenderer: cellRender_Pagar })
     ];
 
@@ -112,9 +111,11 @@ var Solicitudes = function () {
 
     function cellRender_Pagar(params) {
         var content = "";
-
-        content += "<a role='button' id='btnAprobar_" + params.rowIndex + "' name='btnAprobar_" + params.rowIndex + "' class='btn btn-success btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Registrar la toma de muestra' onclick='Solicitudes.fnPagar(\"" + params.data.id + "\",\"" + params.data.nombrePaciente + "\")'><i class='material-icons'>assignment_turned_in</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
-        return content;
+        console.log(params.data);
+        if (params.data.estatusMuestraId == 1) {
+            content += "<a role='button' id='btnAprobar_" + params.rowIndex + "' name='btnAprobar_" + params.rowIndex + "' class='btn btn-success btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Registrar la toma de muestra' onclick='Solicitudes.fnPagar(\"" + params.data.id + "\",\"" + params.data.nombrePaciente + "\")'><i class='material-icons'>assignment_turned_in</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
+        }
+            return content;
     }
 
 
@@ -134,6 +135,7 @@ var Solicitudes = function () {
             $("#form_pago").on("submit", function (e) {
                 e.preventDefault();
                 //init submit==========================================
+                        var token = localStorage.getItem(utils.fnGlobals("Token"));
                         var oUrl = sitioAPI + '/BanMuestra/AltaMuestra';
                         var formData = new FormData(document.getElementById("form_pago"));
 
@@ -146,7 +148,8 @@ var Solicitudes = function () {
                             data: formData,
                             cache: false,
                             contentType: false,
-                            processData: false
+                            processData: false,
+                            headers: { 'Authorization': 'Bearer ' + token },
                         })
                             .done(function (res) {
 

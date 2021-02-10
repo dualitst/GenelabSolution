@@ -9,6 +9,10 @@ namespace Genelab.API.Models
     public class SolicitudConsultaModel : Servicio
     {
         public List<DetalleConsultaModel> Pacientes { get; set; }
+
+        public bool IsFacturacion { get; set; }
+        public FacturacionConsultaModel DatosFacturacion { get; set; }
+
     }
     public class DetalleConsultaModel : ServicioDetalle
     { 

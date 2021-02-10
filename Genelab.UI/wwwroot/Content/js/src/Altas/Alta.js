@@ -374,6 +374,9 @@ var Solicitud = function () {
         //console.log(pacientesList);
 
         cleanPaciente();
+        $catalogo.removeClass("selected");
+
+        $catalogo.val(1).trigger('change');
 
     }
 
@@ -474,7 +477,6 @@ var Solicitud = function () {
         if ($nombre.val() == "" ||
             $apellidop.val() == "" ||
             $apellidom.val() == "" ||
-            $parentesco.val() == "" ||
             $catalogo.val() == "" ||
             $AnioNacimiento.val() == "" )
             return false
@@ -588,6 +590,7 @@ var Solicitud = function () {
                     "Colonia": $colonia.val(),
                     "Calle": $cdpn.val(),
                     "FechaHoraVisita": $fechaVisita.val(),
+                    "Telefono": $tel.val(),
 
                     //NUEVOS
                     "RfcF": rfc,

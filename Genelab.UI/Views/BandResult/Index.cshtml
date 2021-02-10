@@ -65,7 +65,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="defaultModalLabel">Registrar pago</h4>
+                <h4 class="modal-title" id="defaultModalLabel">Cargar resultado</h4>
             </div>
             <div class="modal-body">
 
@@ -77,12 +77,26 @@
                 <form id="form_pago" class="form-horizontal" enctype="multipart/form-data" method="post">
 
                     <div class="form-group">
-                        <label class="col-md-2 control-label">Comentarios</label>
+                        <label class="col-md-2 control-label">Resultado</label>
                         <div class="col-md-10 form-custom">
-                            <textarea id="Comentarios" name="textarea" maxlength="250" placeholder="Ingrese un comentario" rows="3" cols="50"></textarea>
+                            <input type="text" class="form-control" maxlength="30" id="resultado" name="resultado">
                         </div>
                     </div>
-
+                    <br />
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">CT</label>
+                        <div class="col-md-10 form-custom">
+                            <input type="text" class="form-control" maxlength="30" id="ct" name="ct">
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Comentarios</label>
+                        <div class="col-md-10 form-custom">
+                            <textarea id="Comentarios" name="Comentarios" maxlength="250" placeholder="Ingrese un comentario" rows="3" cols="50"></textarea>
+                        </div>
+                    </div>
+                    <br />
                     <div class="form-group">
                         <label class="col-md-2 control-label">Subir comprobante</label>
                         <div class="col-md-10">

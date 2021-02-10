@@ -25,6 +25,7 @@ namespace Genelab.API.Models
         public string CodigoPostal { get; set; }
         public string Colonia { get; set; }
         public string Delegacion { get; set; }
+        public string Telefono { get; set; }
 
         public string TipoServicioId { get; set; }
         public string FolioPago { get; set; }
@@ -58,6 +59,8 @@ namespace Genelab.API.Models
     {
         public string IdSolicitud { get; set; }
         public string Comentarios { get; set; }
+        public string Ct { get; set; }
+        public string Resultado { get; set; }
         public IFormFile ComprobanteP { get; set; }
     }
 

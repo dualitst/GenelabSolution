@@ -4,14 +4,16 @@ using Genelab.Database.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Genelab.Database.Migrations
 {
     [DbContext(typeof(GenelabContext))]
-    partial class GenelabContextModelSnapshot : ModelSnapshot
+    [Migration("20210209201004_fechahora2")]
+    partial class fechahora2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1272,6 +1274,10 @@ namespace Genelab.Database.Migrations
                         .HasColumnType("datetime")
                         .HasColumnName("FechaHoraCreacion");
 
+                    b.Property<DateTime?>("FechaHoraDomicilio")
+                        .HasColumnType("datetime")
+                        .HasColumnName("FechaHoraDomicilio");
+
                     b.Property<DateTime?>("FechaHoraFactura")
                         .HasColumnType("datetime")
                         .HasColumnName("FechaHoraFactura");
@@ -1287,10 +1293,6 @@ namespace Genelab.Database.Migrations
                     b.Property<DateTime?>("FechaHoraPrepago")
                         .HasColumnType("datetime")
                         .HasColumnName("FechaHoraPrepago");
-
-                    b.Property<DateTime?>("FechaHoraVisitaDom")
-                        .HasColumnType("datetime")
-                        .HasColumnName("FechaHoraVisitaDom");
 
                     b.Property<string>("FolioPago")
                         .HasMaxLength(50)

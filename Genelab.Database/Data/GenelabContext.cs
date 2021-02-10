@@ -104,6 +104,7 @@ namespace Genelab.Database.Data
 			modelBuilder.Entity<Servicio>().Property(t => t.Pais).HasColumnName("Pais").HasColumnType("varchar").HasMaxLength(50);
 			modelBuilder.Entity<Servicio>().Property(t => t.Calle).HasColumnName("Calle").HasColumnType("varchar").HasMaxLength(50);
 
+			modelBuilder.Entity<Servicio>().Property(t => t.FechaHoraVisitaDom).HasColumnName("FechaHoraVisitaDom").HasColumnType("datetime");
 			//DATOS PARA BITACORAS
 			modelBuilder.Entity<Servicio>().Property(t => t.FechaHoraCreacion).HasColumnName("FechaHoraCreacion").HasColumnType("datetime").IsRequired();
 			modelBuilder.Entity<Servicio>().Property(t => t.FechaHoraModificacion).HasColumnName("FechaHoraModificacion").HasColumnType("datetime").IsRequired();
@@ -118,8 +119,7 @@ namespace Genelab.Database.Data
 			//DATOS PARA BITACORAS
 			modelBuilder.Entity<Servicio>().Property(t => t.UsuarioIdPrepago).HasColumnName("UsuarioIdPrepago").HasColumnType("nvarchar").HasMaxLength(256);
 			modelBuilder.Entity<Servicio>().Property(t => t.FechaHoraPrepago).HasColumnName("FechaHoraPrepago").HasColumnType("datetime");
-
-			modelBuilder.Entity<Servicio>().Property(t => t.FechaHoraVisita).HasColumnName("FechaHoraVisita").HasColumnType("datetime");
+			modelBuilder.Entity<Servicio>().Property(t => t.Telefono).HasColumnName("Telefono").HasColumnType("varchar").HasMaxLength(20); ;
 
 			
 

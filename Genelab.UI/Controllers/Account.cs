@@ -249,12 +249,23 @@ namespace Genelab.UI.Controllers
                                 string tokenObject = JsonConvert.SerializeObject(contenResponse.Data);
                                 TokenModel token = JsonConvert.DeserializeObject<TokenModel>(tokenObject);
 
+                                //User.Claims.Where(x => x.Type == ClaimTypes.Email).FirstOrDefault();
+                                var _roles = token.claims.Where(x => x.type == "role").ToList();
+
                                 var userClaims = new List<Claim>()
                                 {
                                 new Claim(ClaimTypes.Name, model.Email),
                                 new Claim(ClaimTypes.Email, model.Email),
                                 new Claim(ClaimTypes.Authentication, token.rawData),
                                  };
+
+                                foreach (var _rol in _roles)
+                                {
+                                    Claim claimN = new Claim(ClaimTypes.Role, _rol.value);
+                                    userClaims.Add(claimN);
+                                }
+
+                               
 
                                 var authProperties = new AuthenticationProperties
                                 {
@@ -275,7 +286,11 @@ namespace Genelab.UI.Controllers
 
                                 if (_role != null)
                                 {
-                                    if(_role.value=="Admin")
+                                    if(_role.value=="Admin" || 
+                                        _role.value == "Caja" ||
+                                        _role.value == "Resultados" ||
+                                        _role.value == "Muestras" ||
+                                        _role.value == "Facturacion")
                                         return RedirectToAction("Index", "Home");
                                     else
                                         return RedirectToAction("IndexPublic", "Home");

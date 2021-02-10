@@ -19,6 +19,7 @@ namespace Genelab.Database.Models
         public string UsuarioIdPrepago { get; set; }
         public DateTime? FechaHoraPrepago { get; set; }
 
+        public DateTime? FechaHoraVisitaDom { get; set; }
         public string UsuarioIdPago { get; set; }
         public DateTime? FechaHoraPago { get; set; }
         public int EstatusFacturaId { get; set; }
@@ -36,9 +37,8 @@ namespace Genelab.Database.Models
         public string Delegacion { get; set; }
         public string Estado { get; set; }
         public string Pais { get; set; }
-
-        //DATOS NUEVOS PARA DOMICILIO
-        public DateTime? FechaHoraVisita { get; set; }
+        public string Telefono { get; set; }
+        
     }
 
 }

@@ -462,16 +462,19 @@
                         <li class="header">Menú</li>
 
                         <li>
-                            <a href="javascript:void(0);" class="menu-toggle">
+                            <a href="@Url.Action("IndexPublic", "Home")" class="menu-info">
                                 <i class="material-icons">list</i>
-                                <span>Servicios</span>
+                                <span>Consulta solicitudes</span>
                             </a>
-                            <ul class="ml-menu">
-
-                                <li>@Html.ActionLink("Consulta", "IndexPublic", "Home", null, null)</li>
-                                <li>@Html.ActionLink("Solicitar", "Index", "Request", null, null)</li>
-                            </ul>
                         </li>
+                        <li>
+                            <a href="@Url.Action("Index", "Request")" class="menu-info">
+                                <i class="material-icons">addchart</i>
+                                <span>Solicitar servicio</span>
+                            </a>
+                        </li>
+
+                       
                     </ul>
                 </div>
             </div>

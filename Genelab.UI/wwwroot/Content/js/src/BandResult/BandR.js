@@ -20,24 +20,26 @@ var Solicitudes = function () {
     /// -------------------------------------------------------------------------
     /// Objetos
     /// -------------------------------------------------------------------------
-    //var sitioAPI = "http://localhost:57537/api";
-    var sitioAPI = "http://www.fiinsoft.mx/Genelab/api/api";
+    var sitioAPI = "http://localhost:57537/api";
+    //var sitioAPI = "http://www.fiinsoft.mx/Genelab/api/api";
     var grdOptions = {};
     var $grdDatos = document.querySelector('#grdDatos');
     var $modalCargar = $('#modalCargar');
     var $idSolicitud = $('#IdSolicitud');
     var $comentarios = $('#Comentarios');  
+    var $resultado = $('#resultado');  
+    var $ct = $('#ct');  
 
     var colDefs = [
         utils.fnAgGrid_ColumnBuilder({ header: "ID", field: "id" }),
         utils.fnAgGrid_ColumnBuilder({ header: "NOMBRE", field: "nombrePaciente" }),
         utils.fnAgGrid_ColumnBuilder({ header: "ESTUDIO", field: "estudioNombre" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "EDAD", field: "edad" }),
         utils.fnAgGrid_ColumnBuilder({ header: "RESULTADO", field: "resultado" }),
         utils.fnAgGrid_ColumnBuilder({ header: "CT", field: "ct" }),
         utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RECEPCIÓN", field: "fechaHoraCreacion", sort: "asc" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RESULTADOS", field: "fechaHoraCreacion" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS", field: "estatusProcesoNombre" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS RESULTADO", field: "estatusResultadoNombre" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RESULTADOS", field: "fechaHoraResultado" }),    
+        utils.fnAgGrid_ColumnBuilder({ header: "USUARIO CARGA", field: "usuarioIdResultado" }),       
         utils.fnAgGrid_ColumnBuilder({ header: "ACCIONES", noFilter: true, cellRenderer: cellRender_Acciones })
     ];
 
@@ -92,7 +94,7 @@ var Solicitudes = function () {
     function cellRender_Acciones(params) {
         var content = "";
 
-        if (params.data.estatusProcesoId == 2) {
+        if (params.data.estatusResultadoId == 1) {
             //content += "<a role='button' id='btnEditar_" + params.rowIndex + "' name='btnEditar_" + params.rowIndex + "' class='btn btn-info btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Editar' onclick='Solicitudes.fnModalRegistro(\"" + params.servicioId + "\")'><i class='material-icons'>mode_edit</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
             content += "<a role='button' id='btnAprobar_" + params.rowIndex + "' name='btnAprobar_" + params.rowIndex + "' class='btn btn-success btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Cargar resultado' onclick='Solicitudes.fnCargar(\"" + params.data.id + "\")'><i class='material-icons'>assignment</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
         }
@@ -105,14 +107,16 @@ var Solicitudes = function () {
             $("#form_pago").on("submit", function (e) {
                 e.preventDefault();
                 //init submit==========================================
-                utils.fnShowConfirmMessage("¿Está seguro que desea guardar el resultado de la solicitud ?",
+                utils.fnShowConfirmMessage("¿Está seguro que desea guardar el resultado de la solicitud " + $idSolicitud.val()+" ?",
                     function () {
 
+                        var token = localStorage.getItem(utils.fnGlobals("Token"));
                         var oUrl = sitioAPI + '/Request/Resultado';
                         var formData = new FormData(document.getElementById("form_pago"));
 
                         formData.append("IdSolicitud", $idSolicitud.val());
-                        //formData.append("Comentarios", $comentarios.val());
+                        formData.append("Resultado", $resultado.val());
+                        formData.append("Ct", $ct.val());
 
                         $.ajax({
                             url: oUrl,
@@ -121,7 +125,8 @@ var Solicitudes = function () {
                             data: formData,
                             cache: false,
                             contentType: false,
-                            processData: false
+                            processData: false,
+                            headers: { 'Authorization': 'Bearer ' + token },
                         })
                             .done(function (res) {
 
