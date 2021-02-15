@@ -25,17 +25,16 @@ var Solicitudes = function () {
     var SessionData = utils.fnLocalData.get(utils.fnGlobals("Sesion"));
 
     var colDefs = [
+        utils.fnAgGrid_ColumnBuilder({ header: "ACCIONES", noFilter: true, cellRenderer: cellRender_Acciones }),
         utils.fnAgGrid_ColumnBuilder({ header: "ID", field: "id" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "NOMBRE", field: "nombrePaciente" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "ESTUDIO", field: "estudioNombre" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "RESULTADO", field: "resultado" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RECEPCIÓN", field: "fechaHoraCreacion", sort: "asc" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RESULTADOS", field: "fechaHoraCreacion" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "PACIENTES", field: "nombrePaciente" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "ESTUDIOS", field: "estudioNombre" }),      
+        utils.fnAgGrid_ColumnBuilder({ header: "RECEPCIÓN", field: "fechaHoraCreacion"}),
         utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS RECEPCIÓN", field: "estatusProcesoNombre" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "PAGO", field: "fechaHoraPago" }),       
         utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS PAGO", field: "estatusPagoNombre" }),
         utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS RESULTADO", field: "estatusResultadoNombre" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS FACTURA", field: "estatusFacturaNombre" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "ACCIONES", noFilter: true, cellRenderer: cellRender_Acciones })
+        utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS FACTURA", field: "estatusFacturaNombre" })
     ];
     
     var $hdnIdDato = $("#hdnIdDato");
@@ -77,7 +76,7 @@ var Solicitudes = function () {
 
             .then(function () {
                 //Alimentando agGrid
-                llenaGridDomicilio();
+                llenaGridEnSitio();
             });
 
         $tipoServicioDrop.change(function () {
@@ -193,7 +192,7 @@ var Solicitudes = function () {
     }
 
     function EditarSolicitud(idSolicitud) {
-        var allUrl = window.location.href;
+        var allUrl = /:\/\/([^\/]+)/.exec(window.location.href)[1];
         if (allUrl == "www.fiinsoft.mx")
         {
             var url = "/Genelab/portal/Request/EditAdmin?IdSolicitud=" + idSolicitud;

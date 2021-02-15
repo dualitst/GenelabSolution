@@ -37,5 +37,17 @@ namespace Genelab.Database.ComplexTypes
         public string Resultado { get; set; }
         public string Ct { get; set; }
         public int EstudioId { get; set; }
+        //nuevas
+        public string FechaHoraPago { get; set; }
+        public string FechaHoraFactura { get; set; }
+        public string FechaHoraMuestra { get; set; }
+        public string FechaHoraResultado { get; set; }
+
+        public string UsuarioIdResultado { get; set; }
+        public string UsuarioMuestraId { get; set; }
+        public string UsuarioIdPago { get; set; }
+        public string UsuarioIdFactura { get; set; }
+        public string UsuarioIdPrepago { get; set; }
+
     }
 }

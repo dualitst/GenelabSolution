@@ -29,17 +29,16 @@ var Solicitudes = function () {
     var $comentarios = $('#Comentarios');  
 
     var colDefs = [
+        utils.fnAgGrid_ColumnBuilder({ header: "ACCIONES", noFilter: true, cellRenderer: cellRender_Pagar }),
         utils.fnAgGrid_ColumnBuilder({ header: "ID", field: "id" }),
         utils.fnAgGrid_ColumnBuilder({ header: "NOMBRE", field: "nombrePaciente" }),
         utils.fnAgGrid_ColumnBuilder({ header: "ESTUDIO", field: "estudioNombre" }),
         utils.fnAgGrid_ColumnBuilder({ header: "RESULTADO", field: "resultado" }),
         utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RECEPCIÓN", field: "fechaHoraCreacion", sort: "asc" }),
-        //utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS PAGO", field: "estatusPagoNombre" }),
         utils.fnAgGrid_ColumnBuilder({ header: "FECHA PAGO", field: "fechaHoraPago" }),
         utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS FACTURA", field: "estatusFacturaNombre" }),
         utils.fnAgGrid_ColumnBuilder({ header: "FECHA FACTURA", field: "fechaHoraFactura" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "USUARIO CARGA", field: "usuarioIdFactura" }), 
-        utils.fnAgGrid_ColumnBuilder({ header: "ACCIONES", noFilter: true, cellRenderer: cellRender_Pagar })
+        utils.fnAgGrid_ColumnBuilder({ header: "USUARIO CARGA", field: "usuarioIdFactura" })        
     ];
 
    

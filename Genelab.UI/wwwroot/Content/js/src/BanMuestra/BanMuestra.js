@@ -20,8 +20,8 @@ var Solicitudes = function () {
     /// -------------------------------------------------------------------------
     /// Objetos
     /// -------------------------------------------------------------------------
-    //var sitioAPI = "http://localhost:57537/api";
-    var sitioAPI = "http://www.fiinsoft.mx/Genelab/api/api";
+    var sitioAPI = "http://localhost:57537/api";
+    //var sitioAPI = "http://www.fiinsoft.mx/Genelab/api/api";
     var grdOptions = {};
     var $grdDatos = document.querySelector('#grdDatos');
     var $modalCargar = $('#modalCargar');
@@ -31,17 +31,18 @@ var Solicitudes = function () {
     var $pacienteSolicitud = $('#pacienteSolicitud');
 
     var colDefs = [
+        utils.fnAgGrid_ColumnBuilder({ header: "ACCIONES", noFilter: true, cellRenderer: cellRender_Pagar },
         utils.fnAgGrid_ColumnBuilder({ header: "ID", field: "id" }),
         utils.fnAgGrid_ColumnBuilder({ header: "NOMBRE", field: "nombrePaciente" }),
         utils.fnAgGrid_ColumnBuilder({ header: "ESTUDIO", field: "estudioNombre" }),
         utils.fnAgGrid_ColumnBuilder({ header: "DELEGACIÓN", field: "delegacion" }),
         utils.fnAgGrid_ColumnBuilder({ header: "COLONIA", field: "colonia" }),
         utils.fnAgGrid_ColumnBuilder({ header: "CALLE", field: "calle" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "TELEFONO", field: "telefono" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RECEPCIÓN", field: "fechaHoraCreacion", sort: "asc" }),
+            utils.fnAgGrid_ColumnBuilder({ header: "TELEFONO", field: "telefono" }),
+            utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RECEPCIÓN",  field: "fechaHoraCreacion"),
         utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS MUESTRA", field: "estatusMuestraNombre" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "USUARIO CARGA", field: "usuarioMuestraId" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "ACCIONES", noFilter: true, cellRenderer: cellRender_Pagar })
+        utils.fnAgGrid_ColumnBuilder({ header: "USUARIO CARGA", field: "usuarioMuestraId" })
+        )
     ];
 
     /// -------------------------------------------------------------------------

@@ -20,8 +20,8 @@ var Solicitudes = function () {
     /// -------------------------------------------------------------------------
     /// Objetos
     /// -------------------------------------------------------------------------
-    //var sitioAPI = "http://localhost:57537/api";
-    var sitioAPI = "http://www.fiinsoft.mx/Genelab/api/api";
+    var sitioAPI = "http://localhost:57537/api";
+    //var sitioAPI = "http://www.fiinsoft.mx/Genelab/api/api";
     var grdOptions = {};
     var $grdDatos = document.querySelector('#grdDatos');
     var $modalCargar = $('#modalCargar');
@@ -31,16 +31,16 @@ var Solicitudes = function () {
     var $ct = $('#ct');  
 
     var colDefs = [
+        utils.fnAgGrid_ColumnBuilder({ header: "ACCIONES", noFilter: true, cellRenderer: cellRender_Acciones }),
         utils.fnAgGrid_ColumnBuilder({ header: "ID", field: "id" }),
         utils.fnAgGrid_ColumnBuilder({ header: "NOMBRE", field: "nombrePaciente" }),
         utils.fnAgGrid_ColumnBuilder({ header: "ESTUDIO", field: "estudioNombre" }),
         utils.fnAgGrid_ColumnBuilder({ header: "RESULTADO", field: "resultado" }),
         utils.fnAgGrid_ColumnBuilder({ header: "CT", field: "ct" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RECEPCIÓN", field: "fechaHoraCreacion", sort: "asc" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "RECEPCIÓN", field: "fechaHoraCreacion", sort: "asc" }),
         utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS RESULTADO", field: "estatusResultadoNombre" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RESULTADOS", field: "fechaHoraResultado" }),    
-        utils.fnAgGrid_ColumnBuilder({ header: "USUARIO CARGA", field: "usuarioIdResultado" }),       
-        utils.fnAgGrid_ColumnBuilder({ header: "ACCIONES", noFilter: true, cellRenderer: cellRender_Acciones })
+        utils.fnAgGrid_ColumnBuilder({ header: "RESULTADOS", field: "fechaHoraResultado" }),    
+        utils.fnAgGrid_ColumnBuilder({ header: "USUARIO CARGA", field: "usuarioIdResultado" })      
     ];
 
     /// -------------------------------------------------------------------------
