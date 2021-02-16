@@ -77,6 +77,8 @@ var Solicitud = function () {
     var esMiCuenta = false;
     var $fechaVisita = $('#FechaVisita'); 
     var $correoE = $('#CorreoE'); 
+    var $empresasDrop = $('#EmpresasDrop'); 
+    var empresasList = [];
 
     $(function () {
         fnInit();
@@ -168,6 +170,9 @@ var Solicitud = function () {
           
         });
 
+        $empresasDrop.change(function () {
+            FullInfoEmpresa();
+        });
 
         $chkNoSoyYo.click(function () {
 
@@ -293,6 +298,7 @@ var Solicitud = function () {
             }
         });
 
+        SelectEmpresas();
     };
 
     function GuardarCambios() {
@@ -751,6 +757,71 @@ var Solicitud = function () {
         pacientesList = $.grep(pacientesList, function (e) {
             return e.Id != idPaciente;
         });
+
+    }
+
+    function SelectEmpresas() {
+
+     
+
+        try {
+            var oUrl = 'Empresas/consulta';
+          
+            var oData =
+            {
+                "IdUser": "current",
+            };
+
+            var oProcessMessage = 'Validando información, espere por favor...';
+            var success = function (result) {
+
+
+                if (utils.fnValidResult(result)) {
+
+                    console.log(result.data);
+                    empresasList = result.data
+
+                    $.each(result.data, (index, value) => {
+                        console.log(value.id);
+                        $empresasDrop.append('<option value="' + value.id + '">' + value.empresaFiscal + '</option>');
+                    });
+
+                    $empresasDrop.selectpicker('refresh');
+                }
+                else {
+                    utils.fnShowSuccessMessage("Error, ha ocurrido un error");
+                }
+            };
+            utils.fnExecuteWithResult(null, oUrl, oData, oProcessMessage, success, true, "Originacion");
+
+        }
+        catch (e) {
+            utils.fnShowErrorMessage(e.message);
+        }
+
+     
+    }
+
+    function FullInfoEmpresa() {
+
+ 
+        var empresaId = $empresasDrop.val();
+        
+        var _empresaSelected = $.grep(empresasList, function (e) {
+            return e.id == empresaId;
+        });
+
+        $EmpresaF.val(_empresaSelected[0].empresaFiscal);
+        $cpF.val(_empresaSelected[0].codigoPostal);
+        $delegacionF.val(_empresaSelected[0].delegacion);
+        $delegacionF.selectpicker('refresh');
+        $coloniaF.val(_empresaSelected[0].colonia);
+        $cdpnF.val(_empresaSelected[0].calle);
+        $EmailF.val(_empresaSelected[0].emailF);
+        $TelF.val(_empresaSelected[0].telF);
+        $RfcF.val(_empresaSelected[0].rfcF);
+
+        console.log(_empresaSelected[0]);
 
     }
 

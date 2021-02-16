@@ -1,0 +1,113 @@
+﻿
+@{
+    ViewBag.Title = "Alta empresa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row clearfix">
+    <div class="col-md-12">
+
+
+
+        <div class="card">
+            <div class="body">
+
+                <h2>@ViewBag.Title.</h2>
+                <br />
+
+
+                <h4>Información de la empresa para facturación</h4>
+                <hr />
+                <form id="formServicio" class="form-horizontal">
+                    <div class="msg"></div>
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Nombre</label>
+                        <div class="col-md-4 form-custom">
+                            <input type="text" placeholder="Nombre de la empresa" maxlength="50" class="form-control" id="NombreE" required>
+                        </div>
+
+                        <label class="col-md-2 control-label">Razón social</label>
+                        <div class="col-md-4 form-custom">
+                            <input type="text" class="form-control" placeholder="Razón social de la empresa" id="RfcE" maxlength="50" required>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Correo electrónico</label>
+                        <div class="col-md-4 form-custom">
+                            <input type="text" class="form-control" placeholder="Correo electrónico de la empresa" id="EmailE" maxlength="50" required>
+                        </div>
+
+                        <label class="col-md-2 control-label">Teléfono</label>
+                        <div class="col-md-4 form-custom">
+                            <input type="text" placeholder=" Teléfono de la empresa" maxlength="50" class="form-control" id="TelE" required>
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Código postal</label>
+                        <div class="col-md-4 form-custom">
+                            <input type="text" class="form-control" maxlength="5" placeholder="Código postal de la empresa" id="CpE" required>
+                        </div>
+
+                        <div>
+                            <label class="col-md-2 control-label">Delegación</label>
+                            <div class="col-md-4 form-custom">
+                                <select id="Delegacion" name="Delegacion" class="form-control" data-live-search="true" required>
+                                    <option value="Álvaro Obregón">Álvaro Obregón</option>
+                                    <option value="Azcapotzalco">Azcapotzalco</option>
+                                    <option value="Benito Juárez">Benito Juárez</option>
+                                    <option value="Coyoacán">Coyoacán</option>
+                                    <option value="Cuajimalpa de Morelos">Cuajimalpa de Morelos</option>
+                                    <option value="Cuauhtémoc">Cuauhtémoc</option>
+                                    <option value="Gustavo A. Madero">Gustavo A. Madero</option>
+                                    <option value="Iztacalco">Iztacalco</option>
+                                    <option value="Iztapalapa">Iztapalapa</option>
+                                    <option value="La Magdalena Contreras">La Magdalena Contreras</option>
+                                    <option value="Miguel Hidalgo">Miguel Hidalgo</option>
+                                    <option value="Milpa Alta">Milpa Alta</option>
+                                    <option value="Tláhuac">Tláhuac</option>
+                                    <option value="Tlalpan">Tlalpan</option>
+                                    <option value="Venustiano Carranza">Venustiano Carranza</option>
+                                    <option value="Xochimilco">Xochimilco</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Colonia</label>
+                        <div class="col-md-4 form-custom">
+                            <input type="text" class="form-control" placeholder="Colonia de la empresa" id="ColoniaE" maxlength="50" required>
+                        </div>
+
+                        <label class="col-md-2 control-label">Calle</label>
+                        <div class="col-md-4 form-custom">
+                            <input type="text" placeholder=" Calle de la empresa" maxlength="50" class="form-control" id="CalleE" required>
+                        </div>
+                    </div>
+
+
+                 
+                    <br />
+
+
+
+                    <div class="form-group">
+                        <div class="col-md-offset-10 col-md-2 col-xs-offset-9 col-xs-2 col-lg-offset-10 col-lg-2">
+                            <input type="submit" id="btnSolicitar" class="btn btn-primary btn-lg" value="Guardar empresa" />
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Content/js/src/Empresas/Alta.js"></script>

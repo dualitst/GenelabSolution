@@ -12,5 +12,15 @@ namespace Genelab.UI.Controllers
         {
             return View();
         }
+
+        public IActionResult Alta()
+        {
+            return View();
+        }
+
+        public IActionResult Edit()
+        {
+            return View();
+        }
     }
 }

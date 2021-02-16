@@ -3,6 +3,7 @@ using Genelab.Common;
 using Genelab.Database.Data;
 using Genelab.Database.Models;
 using Genelab.Database.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,7 @@ namespace Genelab.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class EmpresasController : ControllerBase
     {
         private readonly GenelabContext _context;//Acceder a la base de datos
