@@ -20,24 +20,24 @@ var Solicitudes = function () {
     /// -------------------------------------------------------------------------
     /// Objetos
     /// -------------------------------------------------------------------------
-    var sitioAPI = "http://www.fiinsoft.mx/Genelab/api/api";
-    //var sitioAPI = "http://localhost:57537/api";
+    //var sitioAPI = "http://www.fiinsoft.mx/Genelab/api/api";
+    var sitioAPI = "http://localhost:57537/api";
     var grdOptions = {};
     var $grdDatos = document.querySelector('#grdDatos');
     var $modalCargar = $('#modalCargar');
     var $idSolicitud = $('#IdSolicitud');
     var $comentarios = $('#Comentarios');  
+    var $comprobanteP = $('#ComprobanteP');  
 
     var colDefs = [
         utils.fnAgGrid_ColumnBuilder({ header: "ACCIONES", noFilter: true, cellRenderer: cellRender_Pagar }),
         utils.fnAgGrid_ColumnBuilder({ header: "ID", field: "id" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "NOMBRE", field: "nombrePaciente" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "ESTUDIO", field: "estudioNombre" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "RESULTADO", field: "resultado" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RECEPCIÓN", field: "fechaHoraCreacion", sort: "asc" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "FECHA PAGO", field: "fechaHoraPago" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "PACIENTES", field: "nombrePaciente" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "ESTUDIOS", field: "estudioNombre" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "RECEPCIÓN", field: "fechaHoraCreacion" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "PAGO", field: "fechaHoraPago" }),
         utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS FACTURA", field: "estatusFacturaNombre" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "FECHA FACTURA", field: "fechaHoraFactura" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "FACTURA", field: "fechaHoraFactura" }),
         utils.fnAgGrid_ColumnBuilder({ header: "USUARIO CARGA", field: "usuarioIdFactura" })        
     ];
 
@@ -79,9 +79,9 @@ var Solicitudes = function () {
 
                                 setTimeout(
                                     function () {
-                                        utils.fnShowSuccessMessage("Se ha registrado el pago correctamente la solicitud correctamente");
+                                        utils.fnShowSuccessMessage("Se ha cargado la factura correctamente");
                                         $modalCargar.modal('toggle');
-                                        //clearModal();
+                                        clearModal();
                                         llenaGrid();
                                     }, 2000);
 
@@ -145,10 +145,15 @@ var Solicitudes = function () {
     }
 
     function CargarFactura(idSolicitud) {
-
+        clearModal();
         $idSolicitud.val(idSolicitud);
         $modalCargar.modal('show');
 
+    }
+
+    function clearModal() {
+        $comentarios.val(''); 
+        $comprobanteP.val(''); 
     }
     /// -------------------------------------------------------------------------
     /// Objeto de regreso

@@ -18,9 +18,9 @@ namespace Genelab.EmailService
 
             BodyBuilder bodyBuilder = new BodyBuilder();
 
-            bodyBuilder.HtmlBody = "<h1>Hello World!</h1>";
+            bodyBuilder.HtmlBody = "";
 
-            bodyBuilder.TextBody = "Hello World!";
+            bodyBuilder.TextBody = "";
 
             Subject = subject;
             Content = bodyBuilder.ToMessageBody();

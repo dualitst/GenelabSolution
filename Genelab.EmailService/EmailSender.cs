@@ -15,13 +15,13 @@ namespace Genelab.EmailService
         {
             _emailConfig = emailConfig;
         }
-        public void SendEmail(Message message)
+        public void SendEmail(Message message, string mensajes)
         {
-            var emailMessage = CreateEmailMessage(message);
+            var emailMessage = CreateEmailMessage(message,  mensajes);
             Send(emailMessage);
         }
 
-        private MimeMessage CreateEmailMessage(Message message)
+        private MimeMessage CreateEmailMessage(Message message,string mensajes)
         {
             var emailMessage = new MimeMessage();
             emailMessage.From.Add(new MailboxAddress(_emailConfig.From));
@@ -51,6 +51,8 @@ namespace Genelab.EmailService
                 image.ContentId = MimeUtils.GenerateMessageId();
                 HtmlFormat = HtmlFormat.Replace(Path.GetFileName(imgpath), string.Format("cid:{0}", image.ContentId));
             }
+
+            HtmlFormat = HtmlFormat.Replace("#mensaje#", mensajes);
 
             builder.HtmlBody = HtmlFormat;
 
@@ -91,6 +93,6 @@ namespace Genelab.EmailService
 
     public interface IEmailSender
     {
-        void SendEmail(Message message);
+        void SendEmail(Message message, string mensajes);
     }
 }

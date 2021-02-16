@@ -623,6 +623,7 @@ var Solicitud = function () {
             try {
                 var oUrl = 'Request/alta';
                 var urlIndex = '';
+                var rfc = "";
                 var email = "";
                 var nombre = "";
                 var tel = "";
@@ -682,10 +683,10 @@ var Solicitud = function () {
                             //window.location = '/home/indexpublic'; 
                             var allUrl = /:\/\/([^\/]+)/.exec(window.location.href)[1];
                             if (allUrl == "www.fiinsoft.mx") {
-                                var url = "/Genelab/portal/home/indexpublic";
+                                var url = "/Genelab/portal/home/index";
                                 window.location = url;
                             } else {
-                                var url = "/home/indexpublic";
+                                var url = "/home/index";
                                 window.location = url;
                             }
 
@@ -717,21 +718,14 @@ var Solicitud = function () {
         $("#divGuardar").removeClass("hidden").addClass("visible");
 
      
-        $nombre.val(editPaciente[0].NombrePaciente); 
-        $apellidop.val(editPaciente[0].ApellidoPPaciente);
-        $apellidom.val(editPaciente[0].ApellidoMPaciente);
-        $parentesco.val(editPaciente[0].Parentezco);
-        $AnioNacimiento.val(editPaciente[0].AnioNacimiento); 
-        $titular.val(editPaciente[0].NombreTitular);
-        //$correoE.val(editPaciente[0].usuarioServicio);
-
-        $catalogo.removeClass("selected");
-        $catalogo.val(editPaciente[0].EstudioId).trigger('change');
-
-        var feche = moment(new Date(editPaciente[0].AnioNacimiento)).format('yyyy-MM-dd');
-        //$AnioNacimiento.val(feche);
-
-        $AnioNacimiento.attr('value', feche).trigger('change');
+        $nombre.val(editPaciente[0].nombrePaciente); 
+        $apellidop.val(editPaciente[0].apellidoPPaciente);
+        $apellidom.val(editPaciente[0].apellidoMPaciente);
+        $parentesco.val(editPaciente[0].parentezco);
+        $catalogo.val(editPaciente[0].estudioId); 
+        $AnioNacimiento.val(editPaciente[0].anioNacimiento); 
+        $titular.val(editPaciente[0].nombreTitular);
+        $correoE.val(editPaciente[0].usuarioServicio);
 
         //temporal para editar
         editObjectPaciente = editPaciente[0];

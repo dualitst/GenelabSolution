@@ -1,13 +1,13 @@
 ﻿
 @{
-    ViewBag.Title = "Solicitar servicio";
+    ViewBag.Title = "Editar servicio";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="row clearfix">
     <div class="col-md-12">
 
-       
+
 
         <div class="card">
             <div class="body">
@@ -21,30 +21,7 @@
                 <form id="formServicio" class="form-horizontal">
                     <div class="msg"></div>
 
-                    @*<div class="col-md-12 col-xs-12">
-                        <div class="form-check form-check-inline">
-                            <div class="col-md-12 col-xs-12">
-                                <label class="form-check-label checkbox-inline" for="chkSoyYo">
-                                    ¿Quiere usar los datos de su cuenta?
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <div class="col-md-1 col-md-offset-1 col-xs-1 col-xs-offset-1">
-
-                                <input class="form-check-input" type="checkbox" checked value="" id="chkNoSoyYo">
-                                <label class="form-check-label checkbox-inline" for="chkNoSoyYo">
-                                    No
-                                </label>
-                            </div>
-                            <div class="col-md-1 col-xs-1">
-                                <input class="form-check-input" type="checkbox" value="" id="chkSoyYo">
-                                <label class="form-check-label checkbox-inline" for="chkSoyYo">
-                                    Si
-                                </label>
-                            </div>
-                        </div>
-                    </div>*@
+                 
 
 
                     <div class="form-group">
@@ -85,7 +62,7 @@
 
                         <label class="col-md-2 control-label">Correo electrónico</label>
                         <div class="col-md-4 form-custom">
-                            <input type="text" class="form-control" placeholder="Correo electrónico de quien se realizará el estudio" id="CorreoE" maxlength="50">
+                            <input type="text" class="form-control" placeholder="Correo electrónico de quien se realizará el estudio" id="CorreoE" name="CorreoE" maxlength="50">
                         </div>
 
                     </div>
@@ -117,7 +94,7 @@
                         </div>
 
 
-                        <div id="divGuardar" class="hidden col-md-offset-8 col-md-2 col-xs-offset-6 col-xs-3 col-lg-offset-8 col-lg-2">
+                        <div id="divGuardar" class="hidden col-md-offset-8 col-md-2 col-xs-offset-8 col-xs-3 col-lg-offset-8 col-lg-2">
                             <input type="button" id="btnCancelar" class="btn btn-lg btn-secondary" value="Cancelar edición" />
                         </div>
 
@@ -218,7 +195,7 @@
                         </div>
                     </div>
 
-               
+
 
                     <div class="form-group inDomicilio hidden">
                         <label class="col-md-2 control-label">Colonia</label>
@@ -232,7 +209,7 @@
                         </div>
 
                     </div>
-                
+
                     <br />
                     <h4>Información en caso de requerir factura</h4>
                     <hr>
@@ -393,8 +370,12 @@
 
 
                     <div class="form-group">
-                        <div class="col-md-offset-10 col-md-2 col-xs-offset-9 col-xs-2 col-lg-offset-10 col-lg-2">
-                            <input type="submit" id="btnSolicitar" class="btn btn-primary btn-lg" value="Solicitar servicio" />
+                        <div class="col-md-offset-6 col-md-2 col-xs-offset-6 col-xs-3 col-lg-offset-8 col-lg-2">
+                            <input type="submit" id="btnSolicitar" class="btn btn-primary btn-lg" value="Actualizar información" />
+                        </div>
+
+                        <div class=" col-md-2  col-xs-2  col-lg-2">
+                            <input type="submit" id="btnAprobar" class="btn btn-success btn-lg" value="Aprobar solicitud" />
                         </div>
                     </div>
 
@@ -404,4 +385,4 @@
     </div>
 </div>
 
-<script src="~/Content/js/src/Altas/AltaAdmin.js"></script>
+<script src="~/Content/js/src/Altas/Editv2.js"></script>

@@ -24,5 +24,6 @@ namespace Genelab.Database.Models
         public int EstudioId { get; set; }
         public DateTime? AnioNacimiento { get; set; }
         public int ServicioId { get; set; }
+        public string UsuarioServicio { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "Solicitar servicio";
-    Layout = "~/Views/Shared/_LayoutPublico.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="row clearfix">
@@ -16,7 +16,8 @@
                 <br />
 
 
-
+                <h4>Información de la persona que se realizará el estudio</h4>
+                <hr />
                 <form id="formServicio" class="form-horizontal">
                     <div class="msg"></div>
 
@@ -55,29 +56,23 @@
 
                     <div class="form-group">
                         <label class="col-md-2 control-label">Nombres</label>
-                        <div class="col-md-8 form-custom">
+                        <div class="col-md-4 form-custom">
                             <input type="text" placeholder="Nombres de la persona que se realizará el estudio" maxlength="50" class="form-control" id="Nombre">
                         </div>
-                    </div>
-
-                    <div class="form-group">
                         <label class="col-md-2 control-label">Apellido Paterno</label>
-                        <div class="col-md-8 form-custom">
+                        <div class="col-md-4 form-custom">
                             <input type="text" placeholder="Apellido de la persona que se realizará el estudio" maxlength="50" class="form-control" id="ApellidoP">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-md-2 control-label">Apellido Materno</label>
-                        <div class="col-md-8 form-custom">
+                        <div class="col-md-4 form-custom">
                             <input type="text" placeholder="Apellido de la persona que se realizará el estudio" maxlength="50" class="form-control" id="ApellidoM">
                         </div>
-                    </div>
-
-                    <div class="form-group">
                         <div>
                             <label class="col-md-2 control-label">Catálogo</label>
-                            <div class="col-md-8 form-custom">
+                            <div class="col-md-4 form-custom">
                                 <select name="Catalogo" id="Catalogo" multiple>
                                     <option value=1 selected>Covid 19</option>
                                     <option value=2>Influenza</option>
@@ -85,40 +80,31 @@
                                 </select>
                             </div>
                         </div>
+
                     </div>
 
-
                     <div class="form-group">
-                        <label class="col-md-2 control-label">Fecha de nacimiento de quien se realizará el estudio</label>
-                        <div class="col-md-8 form-custom">
+                        <label class="col-md-2 control-label">Fecha de nacimiento</label>
+                        <div class="col-md-4 form-custom">
                             <input type="date" id="AnioNacimiento" title="Fecha de nacimiento de la persona que se realizará el estudio" name="AnioNacimiento">
                         </div>
+
+                        <div id="divParentesco">
+                            <label class="col-md-2 control-label">Parentesco</label>
+                            <div class="col-md-4 form-custom">
+                                <input type="text" placeholder="Parentesco con la persona que se realizará el estudio" maxlength="50" class="form-control" id="Parentesco">
+                            </div>
+
+                        </div>
+
                     </div>
 
 
 
                     <div class="form-group hidden" id="divMayorEdad">
-
-                        <div class="col-md-12 col-xs-12">
-                            <div class="form-check form-check-inline">
-                                <div class="col-md-12 col-xs-12">
-                                    <label class="form-check-label checkbox-inline" for="chkEnDomicilio">
-                                        En caso de ser menor de edad ingresar el nombre del tutor
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
                         <label class="col-md-2 control-label">Nombre Tutor</label>
-                        <div class="col-md-8 form-custom">
+                        <div class="col-md-4 form-custom">
                             <input type="text" class="form-control" placeholder="Nombre completo del tutor del menor que se realizará el estudio" id="Ntitular" maxlength="50">
-                        </div>
-                    </div>
-
-                    <div class="form-group" id="divParentesco">
-                        <label class="col-md-2 control-label">Parentesco</label>
-                        <div class="col-md-8 form-custom">
-                            <input type="text" placeholder="Parentesco con la persona que se realizará el estudio" maxlength="50" class="form-control" id="Parentesco">
                         </div>
                     </div>
 
@@ -159,8 +145,8 @@
                     </div>
 
                     @*TERMINA TABLA DE PACIENTES*@
-
-                    <hr /><br />
+                    <h4>Información en caso de requerir el servicio a domicilio</h4>
+                    <hr />
 
 
                     <div class="col-md-12 col-xs-12">
@@ -183,35 +169,32 @@
                     </div>
 
                     <br />
-                    <hr />
-                    <br />
+
 
                     <div class="form-group inDomicilio hidden">
                         <label class="col-md-2 control-label">Fecha de visita</label>
-                        <div class="col-md-8 form-custom">
+                        <div class="col-md-4 form-custom">
                             <input type="date" id="FechaVisita" title="Fecha en la que se realizará la toma de muestra a domicilio" name="FechaVisita">
                         </div>
-                    </div>
 
-                    <div class="form-group inDomicilio hidden">
                         <label class="col-md-2 control-label">Teléfono</label>
-                        <div class="col-md-8 form-custom">
+                        <div class="col-md-4 form-custom">
                             <input type="tel" pattern="\([0-9]{3}\) [0-9]{3}[ -][0-9]{4}" title="A valid telephone number consist of a 3 digits code area between brackets, a space, the three first digits of the number, a space or hypen (-), and four more digits" required maxlength="10" placeholder="Teléfono de contacto" class="form-control" id="Tel">
                         </div>
+
                     </div>
+
 
                     <div class="form-group inDomicilio hidden">
                         <label class="col-md-2 control-label">Código postal</label>
-                        <div class="col-md-8 form-custom">
+                        <div class="col-md-4 form-custom">
                             <input type="text" class="form-control" maxlength="5" placeholder="Código postal donde se realizará estudio" id="Cp">
                         </div>
-                    </div>
 
-                    <div class="form-group inDomicilio hidden">
                         <div>
                             <label class="col-md-2 control-label">Catálogo</label>
-                            <div class="col-md-8 form-custom">
-                                <select id="Delegacion" name="" class="form-control" data-live-search="true" required>
+                            <div class="col-md-4 form-custom">
+                                <select id="Delegacion" name="Delegacion" class="form-control" data-live-search="true" required>
                                     <option value="Álvaro Obregón">Álvaro Obregón</option>
                                     <option value="Azcapotzalco">Azcapotzalco</option>
                                     <option value="Benito Juárez">Benito Juárez</option>
@@ -231,26 +214,26 @@
                                 </select>
                             </div>
                         </div>
-
                     </div>
+
 
 
                     <div class="form-group inDomicilio hidden">
                         <label class="col-md-2 control-label">Colonia</label>
-                        <div class="col-md-8 form-custom">
+                        <div class="col-md-4 form-custom">
                             <input type="text" placeholder="Colonia donde se realizará estudio" maxlength="50" class="form-control" id="Colonia">
                         </div>
-                    </div>
-                    <div class="form-group inDomicilio hidden">
+
                         <label class="col-md-2 control-label">Calle, depto, número interno/externo</label>
-                        <div class="col-md-8 form-custom">
+                        <div class="col-md-4 form-custom">
                             <input type="text" placeholder="Calle donde se realizará estudio" maxlength="50" class="form-control" id="Cdpn">
                         </div>
+
                     </div>
 
-
                     <br />
-                    <hr><br />
+                    <h4>Información en caso de requerir factura</h4>
+                    <hr>
 
                     <div class="col-md-12">
                         <div class="form-check form-check-inline">
@@ -279,7 +262,7 @@
                         <div class="form-group">
                             <div>
                                 <label class="col-md-2 control-label">Tipo de persona fiscal</label>
-                                <div class="col-md-8 form-custom">
+                                <div class="col-md-4 form-custom">
                                     <select id="tipoPersona" name="" class="form-control" data-live-search="true" required>
                                         <option value="MORAL">Persona moral</option>
                                         <option value="FISICA">Persona física</option>
@@ -305,51 +288,48 @@
 
                             <div class="form-group">
                                 <label class="col-md-2 control-label">Nombre de la empresa</label>
-                                <div class="col-md-8 form-custom">
+                                <div class="col-md-4 form-custom">
                                     <input placeholder="Nombre de la empresa" type="text" class="form-control" maxlength="50" id="EmpresaF">
                                 </div>
-                            </div>
 
-                            <div class="form-group">
                                 <label class="col-md-2 control-label">Razón social</label>
-                                <div class="col-md-8 form-custom">
+                                <div class="col-md-4 form-custom">
                                     <input type="text" placeholder="RFC de la empresa" class="form-control" maxlength="50" id="RfcF">
                                 </div>
+
                             </div>
 
                             <div class="form-group">
                                 <label class="col-md-2 control-label">Correo Electrónico</label>
-                                <div class="col-md-8 form-custom">
+                                <div class="col-md-4 form-custom">
                                     <input type="email" placeholder="Correo electrónico de la empresa" maxlength="50" class="form-control" id="EmailF">
                                 </div>
-                            </div>
 
-                            <div class="form-group">
                                 <label class="col-md-2 control-label">Teléfono</label>
-                                <div class="col-md-8 form-custom">
+                                <div class="col-md-4 form-custom">
                                     <input type="tel" placeholder="Teléfono de la empresa" maxlength="10" pattern="[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}" class="form-control" id="TelF">
                                 </div>
+
                             </div>
 
                             <div class="form-group">
                                 <label class="col-md-2 control-label">Código postal</label>
-                                <div class="col-md-8 form-custom">
+                                <div class="col-md-4 form-custom">
                                     <input type="text" placeholder="Código postal donde esta ubicada la empresa" maxlength="5" class="form-control" id="CpF">
                                 </div>
-                            </div>
 
-                            <div class="form-group">
                                 <label class="col-md-2 control-label">Colonia</label>
-                                <div class="col-md-8 form-custom">
+                                <div class="col-md-4 form-custom">
                                     <input type="text" placeholder="Colonia donde esta ubicada la empresa" maxlength="50" class="form-control" id="ColoniaF">
                                 </div>
                             </div>
 
+
                             <div class="form-group">
                                 <div>
                                     <label class="col-md-2 control-label">Delegación</label>
-                                    <div class="col-md-8 form-custom">
-                                        <select id="DelegacionF" name="" class="form-control" data-live-search="true" required>
+                                    <div class="col-md-4 form-custom">
+                                        <select id="DelegacionF" name="DelegacionF" class="form-control" data-live-search="true" required>
                                             <option value="Álvaro Obregón">Álvaro Obregón</option>
                                             <option value="Azcapotzalco">Azcapotzalco</option>
                                             <option value="Benito Juárez">Benito Juárez</option>
@@ -369,26 +349,43 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group">
                                 <label class="col-md-2 control-label">Calle, depto, número interno/externo</label>
-                                <div class="col-md-8 form-custom">
+                                <div class="col-md-4 form-custom">
                                     <input type="text" placeholder="Calle o avenida donde esta ubicada la empresa" maxlength="50" class="form-control" id="CdpnF">
                                 </div>
+
                             </div>
+
                         </div>
 
                         <div class="input-group hidden" id="divFisica" hidden>
-
-
                             <div class="form-group">
                                 <label class="col-md-2 control-label">Razón social</label>
-                                <div class="col-md-8 form-custom">
-                                    <input type="text" placeholder="Razón social como persona moral" class="form-control" id="RfcFFisica">
+                                <div class="col-md-4 form-custom">
+                                    <input type="text" placeholder="Razón social " class="form-control" id="RfcFFisica">
+                                </div>
+
+                                <label class="col-md-2 control-label">Nombre completo</label>
+                                <div class="col-md-4 form-custom">
+                                    <input placeholder="Nombre completo" type="text" class="form-control" maxlength="50" id="NombreFisica">
                                 </div>
                             </div>
+
+                             <div class="form-group">
+                                <label class="col-md-2 control-label">Correo Electrónico</label>
+                                <div class="col-md-4 form-custom">
+                                    <input type="email" placeholder="Correo electrónico" maxlength="50" class="form-control" id="EmailFisica">
+                                </div>
+
+                                <label class="col-md-2 control-label">Teléfono</label>
+                                <div class="col-md-4 form-custom">
+                                    <input type="tel" placeholder="Teléfono" maxlength="10" pattern="[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}" class="form-control" id="TelFisica">
+                                </div>
+
+                            </div>
                         </div>
+
                     </div>
 
 
@@ -405,4 +402,3 @@
 </div>
 
 <script src="~/Content/js/src/Altas/Alta.js"></script>
-

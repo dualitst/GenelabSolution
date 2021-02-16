@@ -154,7 +154,7 @@ namespace Genelab.API.Controllers
                     {
 
                         var message = new Message(new string[] { model.Email }, "Genelab registro", "Bienvenido a Genelab, Se ha dado de alta su cuenta satisfactoriamente.");
-                        _emailSender.SendEmail(message);
+                        _emailSender.SendEmail(message,"");
                     }
                     catch (Exception ex)
                     {

@@ -94,6 +94,23 @@
                     <input type="text" class="form-control" maxlength="30" id="IdSolicitud" name="idSolicitud">
                 </div>
 
+
+                <div class="form-group" style="padding:5%">
+                    @*TABLA DE PACIENTES*@
+                    <table class="table table-bordered table-hover" id="TablaPacientes">
+                        <thead>
+                            <tr >
+                                <th scope="col">Nombre Paciente</th>
+                                <th scope="col">Estudio</th>
+                                <th scope="col">Precio</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table_body">
+                        </tbody>
+                    </table>
+                </div>
+
+
                 <form id="form_pago" class="form-horizontal" enctype="multipart/form-data" method="post">
 
                     <div class="col-md-12">
@@ -116,18 +133,18 @@
                             <div class="col-md-3">
                                 <input class="form-check-input message_pri" type="radio" name="tipoPagoRad" id="inlineRadio3" value="TRANSFERENCIA">
                                 <label class="form-check-label radio-inline" for="inlineRadio3">
-                                    Tranferencia
+                                    Transferencia
                                 </label>
                             </div>
                         </div>
                         <br /><br /><br />
                     </div>
-                    
+
                     <br />
-                    <div class="form-group">
+                    <div id="tarjetaDIV" class="form-group hidden">
                         <label class="col-md-2 control-label">Tarjeta</label>
                         <div class="col-md-10 form-custom">
-                            <input type="text" class="form-control" maxlength="30" id="Tarjeta" name="Tarjeta" disabled>
+                            <input type="text" class="form-control" maxlength="30" id="Tarjeta" name="Tarjeta">
                         </div>
                     </div>
 
@@ -139,10 +156,10 @@
                     </div>
 
 
-                    <div class="form-group">
+                    <div id="ComprobanteDIV" class="form-group hidden">
                         <label class="col-md-2 control-label">Subir comprobante</label>
                         <div class="col-md-10">
-                            <input type="file" class="form-control" value="" id="ComprobanteP" name="ComprobanteP" required>
+                            <input type="file" class="form-control" value="" id="ComprobanteP" name="ComprobanteP">
                         </div>
                     </div>
 

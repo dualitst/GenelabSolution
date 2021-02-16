@@ -4,14 +4,16 @@ using Genelab.Database.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Genelab.Database.Migrations
 {
     [DbContext(typeof(GenelabContext))]
-    partial class GenelabContextModelSnapshot : ModelSnapshot
+    [Migration("20210215205853_cambioNombre")]
+    partial class cambioNombre
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1304,10 +1306,6 @@ namespace Genelab.Database.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("varchar(150)")
                         .HasColumnName("Nombre");
-
-                    b.Property<int>("Precio")
-                        .HasColumnType("int")
-                        .HasColumnName("Precio");
 
                     b.Property<string>("UsuarioCreacion")
                         .IsRequired()

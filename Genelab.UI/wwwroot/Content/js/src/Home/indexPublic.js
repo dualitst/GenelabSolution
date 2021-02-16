@@ -25,13 +25,13 @@ var DatosPublico = function () {
     var SessionData = utils.fnLocalData.get(utils.fnGlobals("Sesion"));
 
     var colDefs = [
-        utils.fnAgGrid_ColumnBuilder({ header: "ID", field: "id" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "ID SERVICIO", field: "id" }),
         utils.fnAgGrid_ColumnBuilder({ header: "NOMBRE PACIENTE", field: "nombrePaciente" }),
         utils.fnAgGrid_ColumnBuilder({ header: "ESTUDIO", field: "estudioNombre" }),    
-        utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RECEPCIÓN", field: "fechaHoraCreacion", sort: "asc" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RECEPCIÓN", field: "fechaHoraCreacion" }),
         utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS PAGO", field: "estatusPagoNombre" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS FACTURA", field: "estatusFacturaNombre" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "USUARIO", field: "usuarioId" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "FACTURA", field: "estatusFacturaNombre" }),
+        //utils.fnAgGrid_ColumnBuilder({ header: "USUARIO", field: "usuarioId" }),
         utils.fnAgGrid_ColumnBuilder({ header: "RESULTADO", field: "resultado" })
     ];
 
@@ -39,10 +39,10 @@ var DatosPublico = function () {
         utils.fnAgGrid_ColumnBuilder({ header: "ID", field: "id" }),
         utils.fnAgGrid_ColumnBuilder({ header: "NOMBRE PACIENTE", field: "nombrePaciente" }),
         utils.fnAgGrid_ColumnBuilder({ header: "ESTUDIO", field: "estudioNombre" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RECEPCIÓN", field: "fechaHoraCreacion", sort: "asc" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RECEPCIÓN", field: "fechaHoraCreacion"}),
         utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS PAGO", field: "estatusPagoNombre" }),
-        //utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS FACTURA", field: "estatusFacturaNombre" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "USUARIO", field: "usuarioId" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS FACTURA", field: "estatusFacturaNombre" }),
+        //utils.fnAgGrid_ColumnBuilder({ header: "USUARIO", field: "usuarioId" }),
         utils.fnAgGrid_ColumnBuilder({ header: "RESULTADO", field: "resultado" })
     ];
 
@@ -82,7 +82,15 @@ var DatosPublico = function () {
             });
 
         $btnSolicitar.click(function () {
-            window.location.href = '/Request/Index';
+            //window.location.href = '/Request/Index';
+            var allUrl = /:\/\/([^\/]+)/.exec(window.location.href)[1];
+            if (allUrl == "www.fiinsoft.mx") {
+                var url = "/Genelab/portal/Request/index";
+                window.location = url;
+            } else {
+                var url = "/Request/index";
+                window.location = url;
+            }
         });
 
         $btnResultados.click(function () {

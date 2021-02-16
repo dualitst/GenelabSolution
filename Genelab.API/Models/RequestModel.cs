@@ -16,6 +16,7 @@ namespace Genelab.API.Models
         public string Edad { get; set; }
         public string AnioNacimiento { get; set; }
         public string EstudioId { get; set; }
+        public string CorreoE { get; set; }
     }
     public class RequestModel
     {

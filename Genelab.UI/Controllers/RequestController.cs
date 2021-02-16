@@ -24,5 +24,13 @@ namespace Genelab.UI.Controllers
             return View();
         }
 
+        public IActionResult EditAdminV2()
+        {
+            return View();
+        }
+        public IActionResult Detalle()
+        {
+            return View();
+        }
     }
 }

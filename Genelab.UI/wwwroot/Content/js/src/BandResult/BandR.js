@@ -29,15 +29,17 @@ var Solicitudes = function () {
     var $comentarios = $('#Comentarios');  
     var $resultado = $('#resultado');  
     var $ct = $('#ct');  
+    var $comprobanteP = $('#ComprobanteP');  
 
     var colDefs = [
         utils.fnAgGrid_ColumnBuilder({ header: "ACCIONES", noFilter: true, cellRenderer: cellRender_Acciones }),
-        utils.fnAgGrid_ColumnBuilder({ header: "ID", field: "id" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "SOLICITUD", field: "id" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "SERVICIO", field: "servicioDetalleID" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "RECEPCIÓN", field: "fechaHoraCreacion" }),
         utils.fnAgGrid_ColumnBuilder({ header: "NOMBRE", field: "nombrePaciente" }),
         utils.fnAgGrid_ColumnBuilder({ header: "ESTUDIO", field: "estudioNombre" }),
         utils.fnAgGrid_ColumnBuilder({ header: "RESULTADO", field: "resultado" }),
         utils.fnAgGrid_ColumnBuilder({ header: "CT", field: "ct" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "RECEPCIÓN", field: "fechaHoraCreacion", sort: "asc" }),
         utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS RESULTADO", field: "estatusResultadoNombre" }),
         utils.fnAgGrid_ColumnBuilder({ header: "RESULTADOS", field: "fechaHoraResultado" }),    
         utils.fnAgGrid_ColumnBuilder({ header: "USUARIO CARGA", field: "usuarioIdResultado" })      
@@ -96,7 +98,7 @@ var Solicitudes = function () {
 
         if (params.data.estatusResultadoId == 1) {
             //content += "<a role='button' id='btnEditar_" + params.rowIndex + "' name='btnEditar_" + params.rowIndex + "' class='btn btn-info btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Editar' onclick='Solicitudes.fnModalRegistro(\"" + params.servicioId + "\")'><i class='material-icons'>mode_edit</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
-            content += "<a role='button' id='btnAprobar_" + params.rowIndex + "' name='btnAprobar_" + params.rowIndex + "' class='btn btn-success btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Cargar resultado' onclick='Solicitudes.fnCargar(\"" + params.data.id + "\")'><i class='material-icons'>assignment</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
+            content += "<a role='button' id='btnAprobar_" + params.rowIndex + "' name='btnAprobar_" + params.rowIndex + "' class='btn btn-success btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Cargar resultado' onclick='Solicitudes.fnCargar(\"" + params.data.servicioDetalleID + "\")'><i class='material-icons'>assignment</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
         }
         return content;
     }
@@ -132,7 +134,7 @@ var Solicitudes = function () {
 
                                 setTimeout(
                                     function () {
-                                        utils.fnShowSuccessMessage("Se ha registrado el pago correctamente la solicitud correctamente");
+                                        utils.fnShowSuccessMessage("Se ha registrado el resultado correctamente");
                                         $modalCargar.modal('toggle');
                                         clearModal();
                                         llenaGrid();
@@ -155,6 +157,9 @@ var Solicitudes = function () {
 
     function clearModal() {
         $comentarios.val("");
+        $resultado.val("");
+        $ct.val("");
+        $comprobanteP.val("");
     }
 
     function CargarResultado(idSolicitud) {

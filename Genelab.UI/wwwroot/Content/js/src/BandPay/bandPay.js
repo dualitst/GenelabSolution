@@ -28,17 +28,20 @@ var Solicitudes = function () {
     var $idSolicitud = $('#IdSolicitud');
     var $tarjeta = $('#Tarjeta'); 
     var $monto = $('#Monto');
+    var $tarjetaDIV = $('#tarjetaDIV'); 
+    var $comprobanteDIV = $('#ComprobanteDIV');
+    var $comprobanteP = $('#ComprobanteDIV');
 
     var colDefs = [
         utils.fnAgGrid_ColumnBuilder({ header: "ACCIONES", noFilter: true, menuTabs:false, cellRenderer: cellRender_Pagar }),
         utils.fnAgGrid_ColumnBuilder({ header: "ID", field: "id" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "PACIENTES", field: "nombrePaciente" }),
         utils.fnAgGrid_ColumnBuilder({ header: "RECEPCIÓN", field: "fechaHoraCreacion" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "PACIENTES", field: "nombrePaciente" }),
         utils.fnAgGrid_ColumnBuilder({ header: "ESTUDIOS", field: "estudioNombre" }),
         utils.fnAgGrid_ColumnBuilder({ header: "PAGO", field: "estatusPagoNombre" }),
         utils.fnAgGrid_ColumnBuilder({ header: "PAGO", field: "fechaHoraPago" }),
         utils.fnAgGrid_ColumnBuilder({ header: "RESULTADOS", field: "estatusResultadoNombre" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "RESULTADOS", type: "date", field: "fechaHoraResultado" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "RESULTADOS", field: "fechaHoraResultado" }),
         utils.fnAgGrid_ColumnBuilder({ header: "REGISTRÓ PAGO", field: "usuarioIdPago" })
     ];
 
@@ -76,13 +79,17 @@ var Solicitudes = function () {
 
         $('input:radio[name=tipoPagoRad]').change(function () {
             if (this.value == 'TARJETA') {
-                $tarjeta.prop("disabled", false);
+               
+                $tarjetaDIV.addClass("visible").removeClass("hidden");
+                $comprobanteDIV.addClass("visible").removeClass("hidden");
             }
             else if (this.value == 'EFECTIVO') {
-                $tarjeta.prop("disabled", true);
+                $tarjetaDIV.addClass("hidden").removeClass("visible");
+                $comprobanteDIV.addClass("hidden").removeClass("visible");
 
             } else if (this.value == 'TRANSFERENCIA') {
-                $tarjeta.prop("disabled", true);
+                $tarjetaDIV.addClass("hidden").removeClass("visible");
+                $comprobanteDIV.addClass("visible").removeClass("hidden");
             }
             
         });
@@ -110,15 +117,18 @@ var Solicitudes = function () {
     function cellRender_Pagar(params) {
         var content = "";
         if (params.data.estatusPagoId == 1) {
-            //content += "<a role='button' id='btnAprobar_" + params.rowIndex + "' name='btnAprobar_" + params.rowIndex + "' class='btn btn-success btn-circle btn-circle' data-toggle='tooltip' data-placement='top' title='Registrar el pago' onclick='Solicitudes.fnPagar(\"" + params.data.id + "\")'><i class='material-icons'>request_page</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
+            content += "<a role='button' id='btnAprobar_" + params.rowIndex + "' name='btnAprobar_" + params.rowIndex + "' class='btn btn-success btn-circle btn-circle' data-toggle='tooltip' data-placement='top' title='Registrar el pago' onclick='Solicitudes.fnPagar(\"" + params.data.id + "\")'><i class='material-icons'>request_page</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
         }
        return content;
     }
 
 
     function PagarSolicitud(idSolicitud) {
+        clearModal();
+        Consulta(idSolicitud);
         $idSolicitud.val(idSolicitud);
         $modalCargar.modal('show');
+        
     }
 
 
@@ -158,7 +168,7 @@ var Solicitudes = function () {
                                                 function () {
                                                     utils.fnShowSuccessMessage("Se ha registrado el pago de la solicitud " + $idSolicitud.val()+" correctamente");
                                                     $modalCargar.modal('toggle');
-                                                    //clearModal();
+                                                    clearModal();
                                                     llenaGrid();
                                                 }, 2000);
 
@@ -180,17 +190,71 @@ var Solicitudes = function () {
 
 
     }
-    function clearModal() {
 
-        $('input[name="tipoPagoRad"]').prop('checked', false);
-         $tarjeta.val("");
-         $monto.val("");
+    function clearModal() {
+        var $radios = $('input:radio[name=tipoPagoRad]');
+        $radios.filter('[value=EFECTIVO]').prop('checked', true).trigger("change");
+
+        $tarjeta.val("");
+        $monto.val("");
+        $comprobanteP.val(''); 
     }
 
     function GuardarPago(idSolicitud) {
 
     
     }
+
+    function Consulta(idSolicitud) {
+
+       
+                try {
+                    var oUrl = 'Request/ConsultaPacientes';
+                    var oData =
+                    {
+                        "IdSolicitud": idSolicitud,
+                    };
+
+
+                    var oProcessMessage = 'Validando información, espere por favor...';
+                    var success = function (result) {
+
+                        if (utils.fnValidResult(result)) {
+                            //utils.fnShowSuccessMessage("Se ha confirmado la validación de la solicitud correctamente, se continuará con el proceso");
+
+                            $('#table_body').html("");
+                            var total = 0;
+
+                            $.each(result.data, function (index, value) {
+          
+                                var content = '<tr id="' + value.Id + '"><td>' + value.nombrePaciente + " " + value.apellidoPPaciente + " " + value.apellidoMPaciente + '</td><td>' + value.estudioNombre + '</td><td> $ ' + value.precio + '</td><tr>';
+                                total += value.precio;
+
+                                $('#table_body').append(content);
+                            });
+
+                            var total = '<tr style="background-color:#F3F4F9"><td></td><td style="color:black;font-weight:bold;" >TOTAL</td><td style="color:black;font-weight:bold;"> $ ' + total + '</td><tr>';
+                        
+
+                            $('#table_body').append(total);
+
+                        }
+                        else {
+                            utils.fnShowSuccessMessage("Error, ha ocurrido un error al dar de alta el servicio");
+                        }
+                    };
+
+                    utils.fnExecuteWithResult(null, oUrl, oData, oProcessMessage, success, true, "Originacion");
+
+                }
+                catch (e) {
+                    utils.fnShowErrorMessage(e.message);
+                }
+           
+
+    }
+
+
     /// -------------------------------------------------------------------------
     /// Objeto de regreso
     /// -------------------------------------------------------------------------

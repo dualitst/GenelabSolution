@@ -4,14 +4,16 @@ using Genelab.Database.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Genelab.Database.Migrations
 {
     [DbContext(typeof(GenelabContext))]
-    partial class GenelabContextModelSnapshot : ModelSnapshot
+    [Migration("20210215200545_nueva")]
+    partial class nueva
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1305,10 +1307,6 @@ namespace Genelab.Database.Migrations
                         .HasColumnType("varchar(150)")
                         .HasColumnName("Nombre");
 
-                    b.Property<int>("Precio")
-                        .HasColumnType("int")
-                        .HasColumnName("Precio");
-
                     b.Property<string>("UsuarioCreacion")
                         .IsRequired()
                         .HasMaxLength(256)
@@ -1587,9 +1585,10 @@ namespace Genelab.Database.Migrations
                         .HasColumnName("NombreTitular");
 
                     b.Property<string>("Parentezco")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)")
-                        .HasColumnName("Parentesco");
+                        .HasColumnName("Parentezco");
 
                     b.Property<string>("Resultado")
                         .IsRequired()

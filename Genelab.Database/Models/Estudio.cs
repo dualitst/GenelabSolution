@@ -16,5 +16,6 @@ namespace Genelab.Database.Models
         public  DateTime FechaHoraModificacion { get; set; }
         public  string UsuarioCreacion { get; set; }
         public  string UsuarioModificacion { get; set; }
+        public int Precio { get; set; }
     }
 }
