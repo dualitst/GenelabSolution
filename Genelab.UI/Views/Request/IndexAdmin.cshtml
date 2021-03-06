@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="row clearfix">
+<div class="row clearfix" style="">
     <div class="col-md-12">
 
        
@@ -13,10 +13,8 @@
             <div class="body">
 
                 <h2>@ViewBag.Title.</h2>
-                <br />
-
-
-                <h4>Información de la persona que se realizará el estudio</h4>
+              
+                <h5 style="color:gray;">Datos de la persona que se realizará el estudio</h5>
                 <hr />
                 <form id="formServicio" class="form-horizontal">
                     <div class="msg"></div>
@@ -147,7 +145,7 @@
                     </div>
 
                     @*TERMINA TABLA DE PACIENTES*@
-                    <h4>Información en caso de requerir el servicio a domicilio</h4>
+                    <h5 style="color:gray;">Datos en caso de requerir el servicio a domicilio</h5>
                     <hr />
 
 
@@ -234,7 +232,7 @@
                     </div>
                 
                     <br />
-                    <h4>Información en caso de requerir factura</h4>
+                    <h5 style="color:gray;">Datos en caso de requerir factura</h5>
                     <hr>
 
                     <div class="col-md-12">

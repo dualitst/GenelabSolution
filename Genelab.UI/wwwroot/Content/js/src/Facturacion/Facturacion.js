@@ -20,8 +20,8 @@ var Solicitudes = function () {
     /// -------------------------------------------------------------------------
     /// Objetos
     /// -------------------------------------------------------------------------
-    //var sitioAPI = "http://www.fiinsoft.mx/Genelab/api/api";
-    var sitioAPI = "http://localhost:57537/api";
+    var sitioAPI = "http://www.fiinsoft.mx/Genelab/api/api";
+    //var sitioAPI = "http://localhost:57537/api";
     var grdOptions = {};
     var $grdDatos = document.querySelector('#grdDatos');
     var $modalCargar = $('#modalCargar');
@@ -30,7 +30,7 @@ var Solicitudes = function () {
     var $comprobanteP = $('#ComprobanteP');  
 
     var colDefs = [
-        utils.fnAgGrid_ColumnBuilder({ header: "ACCIONES", noFilter: true, cellRenderer: cellRender_Pagar }),
+        utils.fnAgGrid_ColumnBuilder({ header: "<i class='material-icons'>settings</i>", noFilter: true, cellRenderer: cellRender_Pagar }),
         utils.fnAgGrid_ColumnBuilder({ header: "ID", field: "id" }),
         utils.fnAgGrid_ColumnBuilder({ header: "PACIENTES", field: "nombrePaciente" }),
         utils.fnAgGrid_ColumnBuilder({ header: "ESTUDIOS", field: "estudioNombre" }),

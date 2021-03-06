@@ -316,10 +316,10 @@ namespace Genelab.API.Controllers
 
                     //nuevos campos
                     servicioDetalle.EstatusMuestraId = 1;
-                    servicioDetalle.FechaHoraMuestra = DateTime.Now;
+                    //servicioDetalle.FechaHoraMuestra = DateTime.Now;
 
                     servicioDetalle.EstatusResultadoId = 1;
-                    servicioDetalle.FechaHoraResultado = DateTime.Now;
+                    //servicioDetalle.FechaHoraResultado = DateTime.Now;
 
                     if (objPaciente.CorreoE != null)
                         servicioDetalle.UsuarioServicio = objPaciente.CorreoE;
@@ -403,19 +403,22 @@ namespace Genelab.API.Controllers
                 //solo cuando se cargue un correo
                 foreach (var corr in distintosCorreos)
                 {
-                    var obj = model.Pacientes.Where(x => x.CorreoE.Equals(corr)).FirstOrDefault();
-
-                    if (obj.CorreoE != null)
+                    if (corr != string.Empty && corr != null)
                     {
+                        var obj = model.Pacientes.Where(x => x.CorreoE.Equals(corr)).FirstOrDefault();
 
-                        RegisterViewModel userNew = new RegisterViewModel();
+                        if (obj.CorreoE != null)
+                        {
 
-                        userNew.ApellidoMaterno = obj.ApellidoMPaciente;
-                        userNew.ApellidoPaterno = obj.ApellidoPPaciente;
-                        userNew.Email = obj.CorreoE;
-                        userNew.Nombre = obj.NombrePaciente;
+                            RegisterViewModel userNew = new RegisterViewModel();
 
-                        await CrearCuenta(userNew);
+                            userNew.ApellidoMaterno = obj.ApellidoMPaciente;
+                            userNew.ApellidoPaterno = obj.ApellidoPPaciente;
+                            userNew.Email = obj.CorreoE;
+                            userNew.Nombre = obj.NombrePaciente;
+
+                            await CrearCuenta(userNew);
+                        }
                     }
                 }
 
@@ -485,10 +488,10 @@ namespace Genelab.API.Controllers
 
                     //nuevos campos
                     servicioDetalle.EstatusMuestraId = 1;
-                    servicioDetalle.FechaHoraMuestra = DateTime.Now;
+                    //servicioDetalle.FechaHoraMuestra = DateTime.Now;
 
                     servicioDetalle.EstatusResultadoId = 1;
-                    servicioDetalle.FechaHoraResultado = DateTime.Now;
+                    //servicioDetalle.FechaHoraResultado = DateTime.Now;
 
                     if (objPaciente.CorreoE != null)
                         servicioDetalle.UsuarioServicio = objPaciente.CorreoE;
@@ -595,7 +598,7 @@ namespace Genelab.API.Controllers
                     {
                         solicitud.UsuarioModificacion = claim.Value;
                         solicitud.UsuarioIdPrepago = claim.Value;
-                        solicitud.FechaHoraPago = DateTime.Now;
+                        //solicitud.FechaHoraPago = DateTime.Now;
                     }
                     
                 }
@@ -1037,7 +1040,7 @@ namespace Genelab.API.Controllers
         {
             var user = await _userManager.FindByNameAsync(model.Email);
 
-            if (user == null)
+            if (user == null && model.Email != string.Empty && model.Email!=null)
             {
                 user = new ApplicationUser
                 {

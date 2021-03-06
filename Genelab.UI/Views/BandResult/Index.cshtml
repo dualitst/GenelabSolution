@@ -79,12 +79,18 @@
                     <div class="form-group">
                         <label class="col-md-2 control-label">Resultado</label>
                         <div class="col-md-10 form-custom">
-                            <input type="text" class="form-control" maxlength="30" id="resultado" name="resultado" required>
+                            @*<input type="text" class="form-control" maxlength="30" id="resultado" name="resultado" required>*@
+
+                            <select name="resultado" id="resultado" multiple>
+     
+                                <option value="Positivo">Positivo</option>
+                                <option value="Negativo">Negativo</option>
+                            </select>
                         </div>
                     </div>
                     <br />
                     <div class="form-group">
-                        <label class="col-md-2 control-label">CT</label>
+                        <label class="col-md-2 control-label">Ct</label>
                         <div class="col-md-10 form-custom">
                             <input type="text" class="form-control" maxlength="30" id="ct" name="ct" required>
                         </div>

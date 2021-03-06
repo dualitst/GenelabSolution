@@ -468,7 +468,18 @@ var Solicitud = function () {
         $coloniaF.val("");
         $cdpnF.val("");
     }
+    function disableFacturacionMoral(activo) {
 
+        $RfcF.attr("disabled", activo);
+        $EmailF.attr("disabled", activo);
+        $TelF.attr("disabled", activo);
+        $EmpresaF.attr("disabled", activo);
+        $cpF.attr("disabled", activo);
+        $delegacionF.attr("disabled", activo);
+        $delegacionF.selectpicker('refresh');
+        $coloniaF.attr("disabled", activo);
+        $cdpnF.attr("disabled", activo);
+    }
 
     function cleanFacturacionFisica() {
         $RfcFFisica.val("");
@@ -780,7 +791,7 @@ var Solicitud = function () {
 
                     console.log(result.data);
                     empresasList = result.data
-
+                    $empresasDrop.append('<option value="">Seleccione una opcion</option>');
                     $.each(result.data, (index, value) => {
                         console.log(value.id);
                         $empresasDrop.append('<option value="' + value.id + '">' + value.empresaFiscal + '</option>');
@@ -806,23 +817,30 @@ var Solicitud = function () {
 
  
         var empresaId = $empresasDrop.val();
-        
-        var _empresaSelected = $.grep(empresasList, function (e) {
-            return e.id == empresaId;
-        });
 
-        $EmpresaF.val(_empresaSelected[0].empresaFiscal);
-        $cpF.val(_empresaSelected[0].codigoPostal);
-        $delegacionF.val(_empresaSelected[0].delegacion);
-        $delegacionF.selectpicker('refresh');
-        $coloniaF.val(_empresaSelected[0].colonia);
-        $cdpnF.val(_empresaSelected[0].calle);
-        $EmailF.val(_empresaSelected[0].emailF);
-        $TelF.val(_empresaSelected[0].telF);
-        $RfcF.val(_empresaSelected[0].rfcF);
+        if (empresaId !== "") {
 
-        console.log(_empresaSelected[0]);
+            var _empresaSelected = $.grep(empresasList, function (e) {
+                return e.id == empresaId;
+            });
 
+            $EmpresaF.val(_empresaSelected[0].empresaFiscal);
+            $cpF.val(_empresaSelected[0].codigoPostal);
+            $delegacionF.val(_empresaSelected[0].delegacion);
+            $delegacionF.selectpicker('refresh');
+            $coloniaF.val(_empresaSelected[0].colonia);
+            $cdpnF.val(_empresaSelected[0].calle);
+            $EmailF.val(_empresaSelected[0].emailF);
+            $TelF.val(_empresaSelected[0].telF);
+            $RfcF.val(_empresaSelected[0].rfcF);
+
+            console.log(_empresaSelected[0]);
+
+            disableFacturacionMoral(true);
+        } else {
+            disableFacturacionMoral(false);
+            cleanFacturacionMoral();
+        }
     }
 
     /// -------------------------------------------------------------------------

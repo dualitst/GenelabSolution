@@ -33,7 +33,6 @@ var Usuarios = function () {
     ];
 
     var $hdnIdDato = $("#hdnIdDato");
-    var $hdnCveCatalogo = $("#hdnCveCatalogo");
     var $frmDatos = $("#frmDatos");
     var $txtCodigo      = $("#txtCodigo");
     var $txtDescripcion = $("#txtDescripcion");
@@ -50,7 +49,6 @@ var Usuarios = function () {
     $(document).ready(function () {
         fnInit();
     });
-
 
 
     /// -------------------------------------------------------------------------
@@ -76,7 +74,6 @@ var Usuarios = function () {
     };
 
 
-
     // Funciones manejo Grid
     //----------------------
     function llenaGrid() {
@@ -92,51 +89,17 @@ var Usuarios = function () {
             });
     }
 
-    //Actualiza filtro
-    function actualizaFiltro() {
-        grdOptions.api.setQuickFilter(document.getElementById('txtFiltro').value);
-    }
-
+ 
     // cellRender Acciones
     function cellRender_Acciones(params) {
         var content = "";
 
-        content += "<a role='button' id='btnEditar_" + params.rowIndex + "' name='btnEditar_" + params.rowIndex + "' class='btn btn-info btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Editar' onclick='Codigos.fnModalRegistro(\"" + params.data.cve_codigo + "\",\"" + params.data.cve_catalogo + "\")'><i class='material-icons'>mode_edit</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
-        content += "<a role='button' id='btnEliminar_" + params.rowIndex + "' name='btnEliminar_" + params.rowIndex + "' class='btn btn-danger btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Eliminar' onclick='Codigos.fnConfirmEliminarRegistro(\"" + params.data.cve_codigo + "\",\"" + params.data.cve_catalogo + "\")'><i class='material-icons'>delete</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
+        content += "<a role='button' id='btnEditar_" + params.rowIndex + "' name='btnEditar_" + params.rowIndex + "' class='btn btn-info btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Editar' onclick='Usuarios.fnEditar(\"" + params.data.id + "\")'><i class='material-icons'>mode_edit</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
+        content += "<a role='button' id='btnEliminar_" + params.rowIndex + "' name='btnEliminar_" + params.rowIndex + "' class='btn btn-danger btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Eliminar' onclick='Usuarios.fnEliminar(\"" + params.data.cve_codigo + "\",\"" + params.data.cve_catalogo + "\")'><i class='material-icons'>delete</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
 
         return content;
     }
 
-
-    // Modal registro
-    //---------------
-    function modalRegistro(id_dato, cve_catalogo) {
-        if (typeof (id_dato) == "undefined") {
-            id_dato = "";
-            $txtCodigo.removeAttr("readonly");
-        }
-        else {
-            $txtCodigo.attr("readonly", true);
-        }
-
-        utils.fnLimpiaForm($frmDatos.attr('id'));
-        $hdnIdDato.val(id_dato);
-        $hdnCveCatalogo.val(cve_catalogo);
-
-        if (id_dato != "") {
-            utils.fnGetAPIData("Codigos/Get", { cve_codigo: $hdnIdDato.val(), cve_catalogo: $hdnCveCatalogo.val() }, "Originacion", function (result) {
-                if (utils.fnValidResult(result)) {
-                    utils.fnActualizaInput($txtCodigo.attr('id'), result.Data.cve_codigo, "");
-                    utils.fnActualizaInput($txtDescripcion.attr('id'), result.Data.desc_codigo, "");
-                    utils.fnActualizaSelect($selCatalogo.attr('id'), true, result.Data.cve_catalogo.trim(), false, "");
-                    utils.fnActualizaInput($txtResolucion.attr('id'), result.Data.resolucion != null ? result.Data.resolucion.trim() : "", "");
-                    $chkActivo.prop("checked", result.Data.status);
-                }
-            });
-        }
-
-        $('#modalAgregar').modal('show');
-    }
 
 
     // Confirm guardar registro
@@ -218,14 +181,28 @@ var Usuarios = function () {
     }
 
 
+    function EditarUsuario(idUsuario) {
+       
+
+        var allUrl = /:\/\/([^\/]+)/.exec(window.location.href)[1];
+        if (allUrl == "www.fiinsoft.mx") {
+            var url = "/Genelab/portal/Account/EditAdmin?user=" + idUsuario;
+            window.open(url, "_blank");
+        } else {
+            var url = "/Account/EditAdmin?user=" + idUsuario;
+            window.open(url, "_blank");
+        }
+    }
+
+    function EliminarUsuario(idUsuario) {
+        alert(idUsuario)
+    }
 
     /// -------------------------------------------------------------------------
     /// Objeto de regreso
     /// -------------------------------------------------------------------------
     return {
-        fnActualizaFiltro: actualizaFiltro,
-        fnModalRegistro: modalRegistro,
-        fnConfirmGuardarRegistro: confirmGuardarRegistro,
-        fnConfirmEliminarRegistro: confirmEliminarRegistro
+        fnEditar: EditarUsuario,
+        fnEliminar:EliminarUsuario
     }
 }();

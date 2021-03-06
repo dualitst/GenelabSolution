@@ -55,6 +55,12 @@ namespace Genelab.UI.Controllers
         {
             return View();
         }
+
+        public IActionResult EditAdmin()
+        {
+            return View();
+        }
+
         public IActionResult Search()
         {
             return View();
@@ -147,6 +153,53 @@ namespace Genelab.UI.Controllers
                                 //return RedirectToAction("Index", "Home");
 
                                 AddErrors("Se ha creado correctamente su cuenta");
+
+                            }
+                            else
+                                AddErrors("Error al crear la cuenta");
+                        }
+                        else
+                        {
+                            AddErrors("Error al crear la cuenta");
+                        }
+                    }
+                }
+            }
+
+            // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
+            return View(model);
+        }
+
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditAdmin(UpdateViewModel model)
+        {
+            string error = string.Empty;
+            string Baseurl = _configuration.GetValue<string>("UrlLogin") + "/account/Update";
+            CancellationToken cancellationToken;
+
+            using (var client = new HttpClient())
+            using (var request = new HttpRequestMessage(HttpMethod.Post, Baseurl))
+            {
+                var json = JsonConvert.SerializeObject(model);
+                using (var stringContent = new StringContent(json, Encoding.UTF8, "application/json"))
+                {
+                    request.Content = stringContent;
+
+                    using (var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false))
+                    {
+                        if (response.IsSuccessStatusCode)
+                        {
+                            string product = await response.Content.ReadAsStringAsync();
+
+                            RespuestaAPI contenResponse = JsonConvert.DeserializeObject<RespuestaAPI>(product);
+
+                            if (contenResponse.MessageType == 0)
+                            {
+                                response.EnsureSuccessStatusCode();
+                                AddErrors("Se ha actualizado correctamente su cuenta");
 
                             }
                             else
@@ -289,7 +342,9 @@ namespace Genelab.UI.Controllers
                                         _role.value == "Caja" ||
                                         _role.value == "Resultados" ||
                                         _role.value == "Muestras" ||
-                                        _role.value == "Facturacion")
+                                        _role.value == "Facturacion" ||
+                                        _role.value == "Recepcion" ||
+                                        _role.value == "Muestras")
                                         return RedirectToAction("Index", "Home");
                                     else
                                         return RedirectToAction("IndexPublic", "Home");
@@ -299,19 +354,19 @@ namespace Genelab.UI.Controllers
                             else
                             {
                                 AddErrors("Error, valide sus datos de inicio");
-                                return View(model);
+                                return View();
                             }
                         }
                         else
                         {
                             AddErrors("Error, valide sus datos de inicio");
-                            return View(model);
+                            return View();
                         }
                     }
                 }
             }
 
-            return View(model);
+            return View();
         }
 
         // POST: /Account/LogOff

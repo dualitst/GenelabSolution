@@ -20,8 +20,8 @@ var Solicitudes = function () {
     /// -------------------------------------------------------------------------
     /// Objetos
     /// -------------------------------------------------------------------------
-    var sitioAPI = "http://localhost:57537/api";
-    //var sitioAPI = "http://www.fiinsoft.mx/Genelab/api/api";
+    //var sitioAPI = "http://localhost:57537/api";
+    var sitioAPI = "http://www.fiinsoft.mx/Genelab/api/api";
     var grdOptions = {};
     var $grdDatos = document.querySelector('#grdDatos');
     var $modalCargar = $('#modalCargar');
@@ -32,7 +32,7 @@ var Solicitudes = function () {
     var $comprobanteP = $('#ComprobanteP');  
 
     var colDefs = [
-        utils.fnAgGrid_ColumnBuilder({ header: "ACCIONES", noFilter: true, cellRenderer: cellRender_Acciones }),
+        utils.fnAgGrid_ColumnBuilder({ header: "<i class='material-icons'>settings</i>", noFilter: true, cellRenderer: cellRender_Acciones }),
         utils.fnAgGrid_ColumnBuilder({ header: "SOLICITUD", field: "id" }),
         utils.fnAgGrid_ColumnBuilder({ header: "SERVICIO", field: "servicioDetalleID" }),
         utils.fnAgGrid_ColumnBuilder({ header: "RECEPCIÓN", field: "fechaHoraCreacion" }),
@@ -99,8 +99,23 @@ var Solicitudes = function () {
         if (params.data.estatusResultadoId == 1) {
             //content += "<a role='button' id='btnEditar_" + params.rowIndex + "' name='btnEditar_" + params.rowIndex + "' class='btn btn-info btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Editar' onclick='Solicitudes.fnModalRegistro(\"" + params.servicioId + "\")'><i class='material-icons'>mode_edit</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
             content += "<a role='button' id='btnAprobar_" + params.rowIndex + "' name='btnAprobar_" + params.rowIndex + "' class='btn btn-success btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Cargar resultado' onclick='Solicitudes.fnCargar(\"" + params.data.servicioDetalleID + "\")'><i class='material-icons'>assignment</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
+        } else {
+            content += "<a role='button' id='btnAprobar_" + params.rowIndex + "' name='btnAprobar_" + params.rowIndex + "' class='btn btn-warning btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Consultar información' onclick='Solicitudes.fnConsulta(\"" + params.data.id + "\")'><i class='material-icons'>description</i></a>&nbsp;";
         }
         return content;
+    }
+
+    function ConsultaLectura(idSolicitud) {
+
+        var allUrl = /:\/\/([^\/]+)/.exec(window.location.href)[1];
+        if (allUrl == "www.fiinsoft.mx") {
+            var url = "/Genelab/portal/Request/Detalle?IdSolicitud=" + idSolicitud;
+            window.open(url, "_blank");
+        } else {
+            var url = "/Request/Detalle?IdSolicitud=" + idSolicitud;
+            window.open(url, "_blank");
+        }
+
     }
 
 
@@ -170,6 +185,7 @@ var Solicitudes = function () {
     /// Objeto de regreso
     /// -------------------------------------------------------------------------
     return {
-        fnCargar: CargarResultado
+        fnCargar: CargarResultado,
+        fnConsulta: ConsultaLectura
     }
 }();

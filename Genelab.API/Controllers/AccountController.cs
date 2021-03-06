@@ -5,6 +5,7 @@ using Genelab.EmailService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -28,8 +29,12 @@ namespace Genelab.API.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private RoleManager<IdentityRole> roleManager;
-        public AccountController(IConfiguration configuration, UserManager<ApplicationUser> userManager,
-                              SignInManager<ApplicationUser> signInManager, IEmailSender emailSender, RoleManager<IdentityRole> roleMgr)
+
+        public AccountController(IConfiguration configuration, 
+                                UserManager<ApplicationUser> userManager,
+                                SignInManager<ApplicationUser> signInManager, 
+                                IEmailSender emailSender, 
+                                RoleManager<IdentityRole> roleMgr)
         {
             _configuration = configuration;
             _userManager = userManager;
@@ -184,6 +189,74 @@ namespace Genelab.API.Controllers
 
         [HttpPost]
         [AllowAnonymous]
+        [HttpPost("Update")]
+        public async Task<ActionResult> Update(UpdateViewModel model)
+        {
+            try
+            {
+                var user = await _userManager.FindByNameAsync(model.Email);
+
+                if (user != null)
+                {
+
+                    user.Nombre = model.Nombre;
+                    user.ApellidoPaterno = model.ApellidoPaterno;
+                    user.ApellidoMaterno = model.ApellidoMaterno;
+
+                    await _userManager.UpdateAsync(user);
+
+                    if (model.Role != null)
+                    {
+                        //removiendo roles actuales
+                        var roles = await _userManager.GetRolesAsync(user);
+                        await _userManager.RemoveFromRolesAsync(user, roles);
+
+                        //agregando nuevo rol
+                        var roleAssign = await roleManager.FindByIdAsync(model.Role);
+                        var result1 = await _userManager.AddToRoleAsync(user, roleAssign.Name);
+                    }
+                    else
+                    {
+                        var result1 = await _userManager.AddToRoleAsync(user, "Public");
+                    }
+
+                    var data = new RespuestaAPI(user);
+
+                    try
+                    {
+
+                        var message = new Message(new string[] { model.Email }, "Genelab registro", "Se ha actualizado su cuenta satisfactoriamente.");
+                        _emailSender.SendEmail(message, "");
+                    }
+                    catch (Exception ex)
+                    {
+                        var dataRes = new RespuestaAPI(ex);
+
+                        return Ok(dataRes);
+                    }
+
+
+                    return Ok(data);
+                }
+                else
+                {
+                    Exception ex = new Exception("Error, cuenta de usuario ya existe");
+                    var data = new RespuestaAPI(ex);
+
+                    return Ok(data);
+                }
+            }
+            catch (Exception ex)
+            {
+                var data = new RespuestaAPI(ex);
+
+                return Ok(data);
+            }
+        }
+
+
+        [HttpPost]
+        [AllowAnonymous]
         [HttpPost("ResetPassword")]
         public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
         {
@@ -246,7 +319,8 @@ namespace Genelab.API.Controllers
                     _user.Activo = "No";
                     _user.Email = obj.Email;
                     _user.UserName = obj.UserName;
-
+                    _user.Id = obj.Id;
+                    
                     var roles =await  _userManager.GetRolesAsync(obj);
                     _user.Rol = roles.FirstOrDefault();
 
@@ -263,6 +337,64 @@ namespace Genelab.API.Controllers
             }
         }
 
+        [HttpPost]
+        [AllowAnonymous]
+        [HttpPost("GetUserById")]
+        public async Task<IActionResult> GetUserById(ConsultaUserModel oModel)
+        {
+            try
+            {
+                var userEdit =await _userManager.FindByIdAsync(oModel.IdUsuario);
+
+                InfoUserModel _user = new InfoUserModel();
+
+                if (userEdit != null)
+                {
+                    _user.Email = userEdit.Email;
+                    _user.Nombre = userEdit.Nombre;
+                    _user.ApellidoMaterno = userEdit.ApellidoMaterno;
+                    _user.ApellidoPaterno = userEdit.ApellidoPaterno;
+                    _user.UserName = userEdit.UserName;
+
+                    var roles = await _userManager.GetRolesAsync(userEdit);
+                    var NameRole = roles.FirstOrDefault();
+
+                    var roleId = await roleManager.FindByNameAsync(NameRole);
+                    _user.IdRol = roleId.Id;
+                }
+
+                var data = new RespuestaAPI(_user);
+
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                var data = new RespuestaAPI(ex);
+                return Ok(data);
+            }
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [HttpPost("DeleteById")]
+        public async Task<IActionResult> DeleteById(ConsultaUserModel oModel)
+        {
+            try
+            {
+                var userEdit = await _userManager.FindByIdAsync(oModel.IdUsuario);
+
+                await _userManager.DeleteAsync(userEdit);
+
+                var data = new RespuestaAPI("");
+
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                var data = new RespuestaAPI(ex);
+                return Ok(data);
+            }
+        }
 
     }
 }

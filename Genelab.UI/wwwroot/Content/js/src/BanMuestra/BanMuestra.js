@@ -20,8 +20,8 @@ var Solicitudes = function () {
     /// -------------------------------------------------------------------------
     /// Objetos
     /// -------------------------------------------------------------------------
-    var sitioAPI = "http://localhost:57537/api";
-    //var sitioAPI = "http://www.fiinsoft.mx/Genelab/api/api";
+    //var sitioAPI = "http://localhost:57537/api";
+    var sitioAPI = "http://www.fiinsoft.mx/Genelab/api/api";
     var grdOptions = {};
     var $grdDatos = document.querySelector('#grdDatos');
     var $modalCargar = $('#modalCargar');
@@ -31,18 +31,20 @@ var Solicitudes = function () {
     var $pacienteSolicitud = $('#pacienteSolicitud');
 
     var colDefs = [
-        utils.fnAgGrid_ColumnBuilder({ header: "ACCIONES", noFilter: true, cellRenderer: cellRender_Pagar }),
+        utils.fnAgGrid_ColumnBuilder({ header: "<i class='material-icons'>settings</i>", noFilter: true, cellRenderer: cellRender_Pagar }),
         //utils.fnAgGrid_ColumnBuilder({ header: "SOLICITUD", field: "id" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "SOLICITUD", field: "tipoServicioId" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "SERVICIO", field: "servicioDetalleID" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "ID", field: "tipoServicioId" }),
+        //utils.fnAgGrid_ColumnBuilder({ header: "SERVICIO", field: "servicioDetalleID" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "FECHA", field: "fechaHoraCreacion" }),
         utils.fnAgGrid_ColumnBuilder({ header: "NOMBRE", field: "nombrePaciente" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS", field: "estatusMuestraNombre" }),
         utils.fnAgGrid_ColumnBuilder({ header: "ESTUDIO", field: "estudioNombre" }),
         utils.fnAgGrid_ColumnBuilder({ header: "DELEGACIÓN", field: "delegacion" }),
         utils.fnAgGrid_ColumnBuilder({ header: "COLONIA", field: "colonia" }),
         utils.fnAgGrid_ColumnBuilder({ header: "CALLE", field: "calle" }),
-            utils.fnAgGrid_ColumnBuilder({ header: "TELEFONO", field: "telefono" }),
-            utils.fnAgGrid_ColumnBuilder({ header: "FECHA DE RECEPCIÓN", field: "fechaHoraCreacion" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "ESTATUS MUESTRA", field: "estatusMuestraNombre" }),
+        utils.fnAgGrid_ColumnBuilder({ header: "TELEFONO", field: "telefono" }),
+        
+        
         utils.fnAgGrid_ColumnBuilder({ header: "USUARIO CARGA", field: "usuarioMuestraId" })
     ];
 
@@ -116,7 +118,10 @@ var Solicitudes = function () {
     
         if (params.data.estatusMuestraId == 1) {
             content += "<a role='button' id='btnAprobar_" + params.rowIndex + "' name='btnAprobar_" + params.rowIndex + "' class='btn btn-success btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Registrar la toma de muestra' onclick='Solicitudes.fnPagar(\"" + params.data.servicioDetalleID + "\",\"" + params.data.nombrePaciente + "\")'><i class='material-icons'>assignment_turned_in</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
+        } else {
+            content += "<a role='button' id='btnAprobar_" + params.rowIndex + "' name='btnAprobar_" + params.rowIndex + "' class='btn btn-warning btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Consultar información' onclick='Solicitudes.fnConsulta(\"" + params.data.tipoServicioId + "\")'><i class='material-icons'>description</i></a>&nbsp;";
         }
+
             return content;
     }
 
@@ -130,6 +135,18 @@ var Solicitudes = function () {
         //alert(nombrePaciente)
     }
 
+    function ConsultaLectura(idSolicitud) {
+
+        var allUrl = /:\/\/([^\/]+)/.exec(window.location.href)[1];
+        if (allUrl == "www.fiinsoft.mx") {
+            var url = "/Genelab/portal/Request/Detalle?IdSolicitud=" + idSolicitud;
+            window.open(url, "_blank");
+        } else {
+            var url = "/Request/Detalle?IdSolicitud=" + idSolicitud;
+            window.open(url, "_blank");
+        }
+
+    }
 
     function InitialCarga() {
 
@@ -181,6 +198,7 @@ var Solicitudes = function () {
     /// Objeto de regreso
     /// -------------------------------------------------------------------------
     return {
-        fnPagar: PagarSolicitud
+        fnPagar: PagarSolicitud,
+        fnConsulta: ConsultaLectura,
     }
 }();

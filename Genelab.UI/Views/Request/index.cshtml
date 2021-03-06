@@ -13,10 +13,7 @@
             <div class="body">
 
                 <h2>@ViewBag.Title.</h2>
-                <br />
-
-
-                <h4>Información de la persona que se realizará el estudio</h4>
+                <h5 style="color:gray;">Datos de la persona que se realizará el estudio</h5>
                 <hr />
                 <form id="formServicio" class="form-horizontal">
                     <div class="msg"></div>
@@ -145,7 +142,7 @@
                     </div>
 
                     @*TERMINA TABLA DE PACIENTES*@
-                    <h4>Información en caso de requerir el servicio a domicilio</h4>
+                <h5 style="color:gray;">Datos en caso de requerir el servicio a domicilio</h5>
                     <hr />
 
 
@@ -232,7 +229,7 @@
                     </div>
 
                     <br />
-                    <h4>Información en caso de requerir factura</h4>
+                    <h5 style="color:gray;">Datos en caso de requerir factura</h5>
                     <hr>
 
                     <div class="col-md-12">
@@ -273,7 +270,7 @@
                         </div>
 
 
-
+                        <br />   <br />
 
                         <div id="divMoral">
 
@@ -286,118 +283,191 @@
                                 </div>
                             </div>
 
+
+                            <br />
                             <div class="form-group">
                                 <div>
                                     <label class="col-md-2 control-label">Catálogo de empresas</label>
                                     <div class="col-md-4 form-custom">
-                                        <select id="EmpresasDrop" name="EmpresasDrop" class="form-control" data-live-search="true" required>
-                                          
+                                        <select id="EmpresasDrop" name="EmpresasDrop" class="form-control" data-live-search="true">
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <br />
+                            <div class="form-group">
+
+                                <div>
+                                    <label class="col-md-2 control-label">CFDI uso</label>
+                                    <div class="col-md-4 form-custom">
+                                        <select id="cfdiMoral" name="cfdiMoral" class="form-control" data-live-search="true" required>
+                                            <option value="">Seleccione una opción</option>
+                                            <option value="G01 - Adquisición de mercancías">G01 - Adquisición de mercancías</option>
+                                            <option value="G02 - Devoluciones, descuentos o bonificaciones">G02 - Devoluciones, descuentos o bonificaciones</option>
+                                            <option value="G03 - Gastos en general">G03 - Gastos en general</option>
+                                            <option value="I01 - Construcciones">I01 - Construcciones</option>
+                                            <option value="I02 - Mobiliario y equipo de oficina por inversiones">I02 - Mobiliario y equipo de oficina por inversiones</option>
+                                            <option value="I03 - Equipo de transporte">I03 - Equipo de transporte</option>
+                                            <option value="I04 - Equipo de cómputo y accesorios">I04 - Equipo de cómputo y accesorios</option>
+                                            <option value="I05 - Dados, troqueles, moldes, matrices y herramental">I05 - Dados, troqueles, moldes, matrices y herramental</option>
+                                            <option value="I06 - Comunicaciones telefónicas">I06 - Comunicaciones telefónicas</option>
+                                            <option value="I07 - Comunicaciones satelitales">I07 - Comunicaciones satelitales</option>
+                                            <option value="I08 - Otra maquinaria y equipo">I08 - Otra maquinaria y equipo</option>
+                                            <option value="D01 - Honorarios médicos, dentales y gastos hospitalarios.">D01 - Honorarios médicos, dentales y gastos hospitalarios.</option>
+                                            <option value="D02 - Gastos médicos por incapacidad o discapacidad">D02 - Gastos médicos por incapacidad o discapacidad</option>
+                                            <option value="D03 - Gastos funerales.">D03 - Gastos funerales.</option>
+                                            <option value="D04 - Donativos">D04 - Donativos</option>
+                                            <option value="D05 - Intereses reales efectivamente pagados por créditos hipotecarios (casa habitación).">D05 - Intereses reales efectivamente pagados por créditos hipotecarios (casa habitación).</option>
+                                            <option value="D06 - Aportaciones voluntarias al SAR.">D06 - Aportaciones voluntarias al SAR.</option>
+                                            <option value="D07 - Primas por seguros de gastos médicos.">D07 - Primas por seguros de gastos médicos.</option>
+                                            <option value="D08 - Gastos de transportación escolar obligatoria.">D08 - Gastos de transportación escolar obligatoria.</option>
+                                            <option value="D09 - Depósitos en cuentas para el ahorro, primas que tengan como base planes de pensiones.">D09 - Depósitos en cuentas para el ahorro, primas que tengan como base planes de pensiones.</option>
+                                            <option value="D10 - Pagos por servicios educativos (colegiaturas)">D10 - Pagos por servicios educativos (colegiaturas)</option>
+                                            <option value="P01 - Por definir">P01 - Por definir</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
-
                             <br />
 
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label">Nombre de la empresa</label>
-                                    <div class="col-md-4 form-custom">
-                                        <input placeholder="Nombre de la empresa" type="text" class="form-control" maxlength="50" id="EmpresaF">
-                                    </div>
-
-                                    <label class="col-md-2 control-label">Razón social</label>
-                                    <div class="col-md-4 form-custom">
-                                        <input type="text" placeholder="RFC de la empresa" class="form-control" maxlength="50" id="RfcF">
-                                    </div>
-
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Nombre de la empresa</label>
+                                <div class="col-md-4 form-custom">
+                                    <input placeholder="Nombre de la empresa" type="text" class="form-control" maxlength="50" id="EmpresaF">
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label">Correo Electrónico</label>
-                                    <div class="col-md-4 form-custom">
-                                        <input type="email" placeholder="Correo electrónico de la empresa" maxlength="50" class="form-control" id="EmailF">
-                                    </div>
-
-                                    <label class="col-md-2 control-label">Teléfono</label>
-                                    <div class="col-md-4 form-custom">
-                                        <input type="tel" placeholder="Teléfono de la empresa" maxlength="10" pattern="[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}" class="form-control" id="TelF">
-                                    </div>
-
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label">Código postal</label>
-                                    <div class="col-md-4 form-custom">
-                                        <input type="text" placeholder="Código postal donde esta ubicada la empresa" maxlength="5" class="form-control" id="CpF">
-                                    </div>
-
-                                    <label class="col-md-2 control-label">Colonia</label>
-                                    <div class="col-md-4 form-custom">
-                                        <input type="text" placeholder="Colonia donde esta ubicada la empresa" maxlength="50" class="form-control" id="ColoniaF">
-                                    </div>
-                                </div>
-
-
-                                <div class="form-group">
-                                    <div>
-                                        <label class="col-md-2 control-label">Delegación</label>
-                                        <div class="col-md-4 form-custom">
-                                            <select id="DelegacionF" name="DelegacionF" class="form-control" data-live-search="true" required>
-                                                <option value="Álvaro Obregón">Álvaro Obregón</option>
-                                                <option value="Azcapotzalco">Azcapotzalco</option>
-                                                <option value="Benito Juárez">Benito Juárez</option>
-                                                <option value="Coyoacán">Coyoacán</option>
-                                                <option value="Cuajimalpa de Morelos">Cuajimalpa de Morelos</option>
-                                                <option value="Cuauhtémoc">Cuauhtémoc</option>
-                                                <option value="Gustavo A. Madero">Gustavo A. Madero</option>
-                                                <option value="Iztacalco">Iztacalco</option>
-                                                <option value="Iztapalapa">Iztapalapa</option>
-                                                <option value="La Magdalena Contreras">La Magdalena Contreras</option>
-                                                <option value="Miguel Hidalgo">Miguel Hidalgo</option>
-                                                <option value="Milpa Alta">Milpa Alta</option>
-                                                <option value="Tláhuac">Tláhuac</option>
-                                                <option value="Tlalpan">Tlalpan</option>
-                                                <option value="Venustiano Carranza">Venustiano Carranza</option>
-                                                <option value="Xochimilco">Xochimilco</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <label class="col-md-2 control-label">Calle, depto, número interno/externo</label>
-                                    <div class="col-md-4 form-custom">
-                                        <input type="text" placeholder="Calle o avenida donde esta ubicada la empresa" maxlength="50" class="form-control" id="CdpnF">
-                                    </div>
-
+                                <label class="col-md-2 control-label">Razón social</label>
+                                <div class="col-md-4 form-custom">
+                                    <input type="text" placeholder="RFC de la empresa" class="form-control" maxlength="50" id="RfcF">
                                 </div>
 
                             </div>
 
-                            <div class="input-group hidden" id="divFisica" hidden>
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label">Razón social</label>
-                                    <div class="col-md-4 form-custom">
-                                        <input type="text" placeholder="Razón social " class="form-control" id="RfcFFisica">
-                                    </div>
-
-                                    <label class="col-md-2 control-label">Nombre completo</label>
-                                    <div class="col-md-4 form-custom">
-                                        <input placeholder="Nombre completo" type="text" class="form-control" maxlength="50" id="NombreFisica">
-                                    </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Correo Electrónico</label>
+                                <div class="col-md-4 form-custom">
+                                    <input type="email" placeholder="Correo electrónico de la empresa" maxlength="50" class="form-control" id="EmailF">
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label">Correo Electrónico</label>
-                                    <div class="col-md-4 form-custom">
-                                        <input type="email" placeholder="Correo electrónico" maxlength="50" class="form-control" id="EmailFisica">
-                                    </div>
+                                <label class="col-md-2 control-label">Teléfono</label>
+                                <div class="col-md-4 form-custom">
+                                    <input type="tel" placeholder="Teléfono de la empresa" maxlength="10" pattern="[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}" class="form-control" id="TelF">
+                                </div>
 
-                                    <label class="col-md-2 control-label">Teléfono</label>
-                                    <div class="col-md-4 form-custom">
-                                        <input type="tel" placeholder="Teléfono" maxlength="10" pattern="[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}" class="form-control" id="TelFisica">
-                                    </div>
+                            </div>
 
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Código postal</label>
+                                <div class="col-md-4 form-custom">
+                                    <input type="text" placeholder="Código postal donde esta ubicada la empresa" maxlength="5" class="form-control" id="CpF">
+                                </div>
+
+                                <label class="col-md-2 control-label">Colonia</label>
+                                <div class="col-md-4 form-custom">
+                                    <input type="text" placeholder="Colonia donde esta ubicada la empresa" maxlength="50" class="form-control" id="ColoniaF">
                                 </div>
                             </div>
+
+
+                            <div class="form-group">
+                                <div>
+                                    <label class="col-md-2 control-label">Delegación</label>
+                                    <div class="col-md-4 form-custom">
+                                        <select id="DelegacionF" name="DelegacionF" class="form-control" data-live-search="true" required>
+                                            <option value="Álvaro Obregón">Álvaro Obregón</option>
+                                            <option value="Azcapotzalco">Azcapotzalco</option>
+                                            <option value="Benito Juárez">Benito Juárez</option>
+                                            <option value="Coyoacán">Coyoacán</option>
+                                            <option value="Cuajimalpa de Morelos">Cuajimalpa de Morelos</option>
+                                            <option value="Cuauhtémoc">Cuauhtémoc</option>
+                                            <option value="Gustavo A. Madero">Gustavo A. Madero</option>
+                                            <option value="Iztacalco">Iztacalco</option>
+                                            <option value="Iztapalapa">Iztapalapa</option>
+                                            <option value="La Magdalena Contreras">La Magdalena Contreras</option>
+                                            <option value="Miguel Hidalgo">Miguel Hidalgo</option>
+                                            <option value="Milpa Alta">Milpa Alta</option>
+                                            <option value="Tláhuac">Tláhuac</option>
+                                            <option value="Tlalpan">Tlalpan</option>
+                                            <option value="Venustiano Carranza">Venustiano Carranza</option>
+                                            <option value="Xochimilco">Xochimilco</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <label class="col-md-2 control-label">Calle, depto, número interno/externo</label>
+                                <div class="col-md-4 form-custom">
+                                    <input type="text" placeholder="Calle o avenida donde esta ubicada la empresa" maxlength="50" class="form-control" id="CdpnF">
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="input-group hidden" id="divFisica" hidden>
+
+
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Razón social</label>
+                                <div class="col-md-4 form-custom">
+                                    <input type="text" placeholder="Razón social " class="form-control" id="RfcFFisica">
+                                </div>
+
+                                <label class="col-md-2 control-label">Nombre completo</label>
+                                <div class="col-md-4 form-custom">
+                                    <input placeholder="Nombre completo" type="text" class="form-control" maxlength="50" id="NombreFisica">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Correo Electrónico</label>
+                                <div class="col-md-4 form-custom">
+                                    <input type="email" placeholder="Correo electrónico" maxlength="50" class="form-control" id="EmailFisica">
+                                </div>
+
+                                <label class="col-md-2 control-label">Teléfono</label>
+                                <div class="col-md-4 form-custom">
+                                    <input type="tel" placeholder="Teléfono" maxlength="10" pattern="[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}" class="form-control" id="TelFisica">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <div>
+                                    <label class="col-md-2 control-label">Uso de CFDI</label>
+                                    <div class="col-md-4 form-custom">
+                                        <select id="cfdiFisica" name="cfdiFisica" class="form-control" data-live-search="true" required>
+                                            <option value="">Seleccione una opción</option>
+                                            <option value="G01 - Adquisición de mercancías">G01 - Adquisición de mercancías</option>
+                                            <option value="G02 - Devoluciones, descuentos o bonificaciones">G02 - Devoluciones, descuentos o bonificaciones</option>
+                                            <option value="G03 - Gastos en general">G03 - Gastos en general</option>
+                                            <option value="I01 - Construcciones">I01 - Construcciones</option>
+                                            <option value="I02 - Mobiliario y equipo de oficina por inversiones">I02 - Mobiliario y equipo de oficina por inversiones</option>
+                                            <option value="I03 - Equipo de transporte">I03 - Equipo de transporte</option>
+                                            <option value="I04 - Equipo de cómputo y accesorios">I04 - Equipo de cómputo y accesorios</option>
+                                            <option value="I05 - Dados, troqueles, moldes, matrices y herramental">I05 - Dados, troqueles, moldes, matrices y herramental</option>
+                                            <option value="I06 - Comunicaciones telefónicas">I06 - Comunicaciones telefónicas</option>
+                                            <option value="I07 - Comunicaciones satelitales">I07 - Comunicaciones satelitales</option>
+                                            <option value="I08 - Otra maquinaria y equipo">I08 - Otra maquinaria y equipo</option>
+                                            <option value="D01 - Honorarios médicos, dentales y gastos hospitalarios.">D01 - Honorarios médicos, dentales y gastos hospitalarios.</option>
+                                            <option value="D02 - Gastos médicos por incapacidad o discapacidad">D02 - Gastos médicos por incapacidad o discapacidad</option>
+                                            <option value="D03 - Gastos funerales.">D03 - Gastos funerales.</option>
+                                            <option value="D04 - Donativos">D04 - Donativos</option>
+                                            <option value="D05 - Intereses reales efectivamente pagados por créditos hipotecarios (casa habitación).">D05 - Intereses reales efectivamente pagados por créditos hipotecarios (casa habitación).</option>
+                                            <option value="D06 - Aportaciones voluntarias al SAR.">D06 - Aportaciones voluntarias al SAR.</option>
+                                            <option value="D07 - Primas por seguros de gastos médicos.">D07 - Primas por seguros de gastos médicos.</option>
+                                            <option value="D08 - Gastos de transportación escolar obligatoria.">D08 - Gastos de transportación escolar obligatoria.</option>
+                                            <option value="D09 - Depósitos en cuentas para el ahorro, primas que tengan como base planes de pensiones.">D09 - Depósitos en cuentas para el ahorro, primas que tengan como base planes de pensiones.</option>
+                                            <option value="D10 - Pagos por servicios educativos (colegiaturas)">D10 - Pagos por servicios educativos (colegiaturas)</option>
+                                            <option value="P01 - Por definir">P01 - Por definir</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
 
                         </div>
 

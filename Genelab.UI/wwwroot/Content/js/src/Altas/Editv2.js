@@ -409,18 +409,6 @@ var Solicitud = function () {
             return e.id != idPacienteEdit;
         });
 
-        //editObjectPaciente.NombrePaciente = $nombre.val();
-        //editObjectPaciente.ApellidoPPaciente = $apellidop.val();
-        //editObjectPaciente.ApellidoMPaciente = $apellidom.val();
-        //editObjectPaciente.Parentezco = $parentesco.val();
-        //editObjectPaciente.EstudioId = $catalogo.val();
-        //editObjectPaciente.AnioNacimiento = $AnioNacimiento.val();
-        //editObjectPaciente.NombreTitular = $titular.val();
-        //editObjectPaciente.EstudioNombre = $("#Catalogo option:selected").text();
-
-        //insertamos el nuevo actualizado
-        //pacientesList.push(editObjectPaciente);
-
         var estudioList = $catalogo.val();
         console.log(estudioList);
 
@@ -431,15 +419,17 @@ var Solicitud = function () {
 
             var _pacienteObj =
             {
-                "Id": idPaciente,
-                "NombrePaciente": $nombre.val(),
-                "ApellidoMPaciente": $apellidom.val(),
-                "ApellidoPPaciente": $apellidop.val(),
-                "NombreTitular": $titular.val(),
-                "Parentezco": $parentesco.val(),
-                "EstudioId": value,
-                "EstudioNombre": estudioNombreList,
-                "AnioNacimiento": $AnioNacimiento.val()
+                "id": idPaciente,
+                "nombrePaciente": $nombre.val(),
+                "apellidoMPaciente": $apellidom.val(),
+                "apellidoPPaciente": $apellidop.val(),
+                "nombreTitular": $titular.val(),
+                "parentezco": $parentesco.val(),
+                "estudioId": value,
+                "estudioNombre": estudioNombreList,
+                "anioNacimiento": $AnioNacimiento.val(),
+                "correoE": $correoE.val(),
+                "usuarioServicio":  $correoE.val(),
             }
             pacientesList.push(_pacienteObj);
         });
@@ -448,9 +438,9 @@ var Solicitud = function () {
 
         $.each(pacientesList, function (index, value) {
             var tBody = "";
-            var content = '<tr id="' + value.Id + '"><td>' + value.NombrePaciente + " " + value.ApellidoPPaciente + " " + value.ApellidoMPaciente + '</td><td>' + value.EstudioNombre + '</td><td>' + value.AnioNacimiento + '</td><td>' + value.Parentezco + '</td>';
-            content += "<td><a role='button' id='btnEditar_" + value.Id + "' name='btnEditar_" + value.Id + "' class='btn btn-info btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Editar' onclick='Solicitud.fnEditar(\"" + value.Id + "\")'><i class='material-icons'>mode_edit</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
-            content += "<a role='button' id='btnEliminar_" + value.Id + "' name='btnEliminar_" + value.Id + "' class='btn btn-danger btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Eliminar' onclick='Solicitud.fnEliminar(\"" + value.Id + "\")'><i class='material-icons'>delete</i></a>&nbsp;&nbsp;&nbsp;&nbsp;<td>";
+            var content = '<tr id="' + value.id + '"><td>' + value.nombrePaciente + " " + value.apellidoPPaciente + " " + value.apellidoMPaciente + '</td><td>' + value.estudioNombre + '</td><td>' + value.anioNacimiento + '</td><td>' + value.parentezco + '</td>';
+            content += "<td><a role='button' id='btnEditar_" + value.id + "' name='btnEditar_" + value.id + "' class='btn btn-info btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Editar' onclick='Solicitud.fnEditar(\"" + value.id + "\")'><i class='material-icons'>mode_edit</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
+            content += "<a role='button' id='btnEliminar_" + value.id + "' name='btnEliminar_" + value.id + "' class='btn btn-danger btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Eliminar' onclick='Solicitud.fnEliminar(\"" + value.id + "\")'><i class='material-icons'>delete</i></a>&nbsp;&nbsp;&nbsp;&nbsp;<td>";
 
             tBody = tBody + content;
 
@@ -478,15 +468,17 @@ var Solicitud = function () {
 
             var _pacienteObj =
             {
-                "Id": idPaciente,
-                "NombrePaciente": $nombre.val(),
-                "ApellidoMPaciente": $apellidom.val(),
-                "ApellidoPPaciente": $apellidop.val(),
-                "NombreTitular": $titular.val(),
-                "Parentezco": $parentesco.val(),
-                "EstudioId": value,
-                "EstudioNombre": estudioNombreList,
-                "AnioNacimiento": $AnioNacimiento.val()
+                "id": idPaciente,
+                "nombrePaciente": $nombre.val(),
+                "apellidoMPaciente": $apellidom.val(),
+                "apellidoPPaciente": $apellidop.val(),
+                "nombreTitular": $titular.val(),
+                "parentezco": $parentesco.val(),
+                "estudioId": value,
+                "estudioNombre": estudioNombreList,
+                "anioNacimiento": $AnioNacimiento.val(),
+                "correoE": $correoE.val(),
+                "usuarioServicio": $correoE.val(),
             }
             
             pacientesList.push(_pacienteObj);
@@ -498,9 +490,9 @@ var Solicitud = function () {
 
         $.each(pacientesList, function (index, value) {
             var tBody = "";
-            var content = '<tr id="' + value.Id + '"><td>' + value.NombrePaciente + " " + value.ApellidoPPaciente + " " + value.ApellidoMPaciente + '</td><td>' + value.EstudioNombre + '</td><td>' + value.AnioNacimiento + '</td><td>' + value.Parentezco + '</td>';
-            content += "<td><a role='button' id='btnEditar_" + value.Id + "' name='btnEditar_" + value.Id + "' class='btn btn-info btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Editar' onclick='Solicitud.fnEditar(\"" + value.Id + "\")'><i class='material-icons'>mode_edit</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
-            content += "<a role='button' id='btnEliminar_" + value.Id + "' name='btnEliminar_" + value.Id + "' class='btn btn-danger btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Eliminar' onclick='Solicitud.fnEliminar(\"" + value.Id + "\")'><i class='material-icons'>delete</i></a>&nbsp;&nbsp;&nbsp;&nbsp;<td>";
+            var content = '<tr id="' + value.id + '"><td>' + value.nombrePaciente + " " + value.apellidoPPaciente + " " + value.apellidoMPaciente + '</td><td>' + value.estudioNombre + '</td><td>' + value.anioNacimiento + '</td><td>' + value.parentezco + '</td>';
+            content += "<td><a role='button' id='btnEditar_" + value.id + "' name='btnEditar_" + value.id + "' class='btn btn-info btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Editar' onclick='Solicitud.fnEditar(\"" + value.id + "\")'><i class='material-icons'>mode_edit</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
+            content += "<a role='button' id='btnEliminar_" + value.id + "' name='btnEliminar_" + value.id + "' class='btn btn-danger btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Eliminar' onclick='Solicitud.fnEliminar(\"" + value.id + "\")'><i class='material-icons'>delete</i></a>&nbsp;&nbsp;&nbsp;&nbsp;<td>";
 
             tBody = tBody + content;
 
@@ -534,6 +526,7 @@ var Solicitud = function () {
         $AnioNacimiento.val("");
         $titular.val("");
         $correoE.val("");
+        $correoE.attr('readonly', false);
     }
 
     function cleanFacturacionMoral() {
@@ -602,22 +595,26 @@ var Solicitud = function () {
         if ($nombre.val() == "" ||
             $apellidop.val() == "" ||
             $apellidom.val() == "" ||
-            $parentesco.val() == "" ||
+            //$parentesco.val() == "" ||
             $catalogo.val() == "" ||
-            $AnioNacimiento.val() == "")
+            $AnioNacimiento.val() == "") {
+
             return false
+        }
 
         if (esMenorEdad == true && $titular.val() == "")
             return false;
 
-        if ($parentesco.val() == "" && esMiCuenta == false)
-            return false;
+        if (!$("#divParentesco").is(":hidden")) {
+            if ($parentesco.val() == "" && esMiCuenta == false)
+                return false;
+        }
 
     }
 
     function AprobarParaPago(idSolicitud) {
 
-        utils.fnShowConfirmMessage("¿Está seguro que se ha validado la información de la solicitud ?  " + idSolicitud + "?",
+        utils.fnShowConfirmMessage("¿Está seguro que se ha validado la información de la solicitud " + idSolicitud + "?",
 
             function () {
 
@@ -811,6 +808,7 @@ var Solicitud = function () {
         $("#divCancelar").removeClass("hidden").addClass("visible");
         $("#divGuardar").removeClass("hidden").addClass("visible");
 
+        console.log(editPaciente);
 
         $nombre.val(editPaciente[0].nombrePaciente);
         $apellidop.val(editPaciente[0].apellidoPPaciente);
@@ -818,9 +816,14 @@ var Solicitud = function () {
         $parentesco.val(editPaciente[0].parentezco);
         $AnioNacimiento.val(editPaciente[0].anioNacimiento);
         $titular.val(editPaciente[0].nombreTitular);
-        $correoE.val(editPaciente[0].usuarioServicio);
-        $correoE.attr('readonly', true);
 
+        if (editPaciente[0].usuarioServicio != null) {
+            $correoE.val(editPaciente[0].usuarioServicio);
+        } else {
+            $correoE.val(editPaciente[0].correoE);
+        }
+
+        $correoE.attr('readonly', true);
         $catalogo.val(editPaciente[0].estudioId).trigger('change');
 
         var feche = moment(new Date(editPaciente[0].anioNacimiento)).format('yyyy-MM-dd');

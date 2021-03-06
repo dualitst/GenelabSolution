@@ -1,16 +1,15 @@
 ﻿@{
-    ViewBag.Title = "Registrar cuenta";
+    ViewBag.Title = "Editar cuenta de usuario";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model Genelab.UI.Models.RegisterViewModel
+@model Genelab.UI.Models.UpdateViewModel
 
 @{
     List<SelectListItem> listItems = new List<SelectListItem>();
     listItems.Add(new SelectListItem
     {
         Text = "Admin",
-        Value = "3AED39F0-28EA-430F-9EC0-463C96468F55",
-        Selected = true
+        Value = "3AED39F0-28EA-430F-9EC0-463C96468F55"
     });
     listItems.Add(new SelectListItem
     {
@@ -51,64 +50,53 @@
 
                 <h2>@ViewBag.Title.</h2>
 
-                @using (Html.BeginForm("RegisterAdmin", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                @using (Html.BeginForm("EditAdmin", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
                     @Html.AntiForgeryToken()
-                    <h4>Cree una cuenta nueva.</h4>
+                    <h4>Edite una cuenta de usuario.</h4>
                     <hr />
                     <br />
                     @Html.ValidationSummary("", new { @class = "text-danger" })
 
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Nombre, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-4 form-custom">
-                        @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control" })
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Nombre, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10 form-custom">
+                            @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control" })
+                        </div>
                     </div>
-
-                    @Html.LabelFor(m => m.ApellidoPaterno, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-4 form-custom">
-                        @Html.TextBoxFor(m => m.ApellidoPaterno, new { @class = "form-control" })
+                    <br />
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ApellidoPaterno, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10 form-custom">
+                            @Html.TextBoxFor(m => m.ApellidoPaterno, new { @class = "form-control" })
+                        </div>
                     </div>
-
-                </div>
-                   
                     <br />
                     <div class="form-group">
                         @Html.LabelFor(m => m.ApellidoMaterno, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-4 form-custom">
+                        <div class="col-md-10 form-custom">
                             @Html.TextBoxFor(m => m.ApellidoMaterno, new { @class = "form-control" })
                         </div>
-
-                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-4 form-custom">
-                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                        </div>
                     </div>
-                   
                     <br />
                     <div class="form-group">
-                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-4 form-custom">
-                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                        </div>
-
-                        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-4 form-custom">
-                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10 form-custom">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @readonly = "readonly" } )
                         </div>
                     </div>
                     
                     <br />
                     <div class="form-group">
                         @Html.LabelFor(m => m.Role, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-4 form-custom">
+                        <div class="col-md-10 form-custom">
                             @Html.DropDownListFor(model => model.Role, listItems, "-- Selecccione tipo de usuario --")
                         </div>
                     </div>
                     <br />
                     <div class="form-group">
                         <div class="col-md-offset-10 col-md-2">
-                            <input type="submit" class="btn btn-primary btn-lg" value="Crear cuenta" />
+                            <input type="submit" class="btn btn-primary" value="Guardar cambios" />
                         </div>
                     </div>
                 }
@@ -117,3 +105,5 @@
         </div>
     </div>
 </div>
+
+<script src="~/Content/js/src/Account/EditUser.js"></script>

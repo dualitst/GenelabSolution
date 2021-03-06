@@ -96,6 +96,30 @@ namespace Genelab.UI.Models
         public string ConfirmPassword { get; set; }
     }
 
+    public class UpdateViewModel
+    {
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Correo electrónico")]
+        public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "Nombre")]
+        public string Nombre { get; set; }
+
+        [Required]
+        [Display(Name = "Apellido paterno")]
+        public string ApellidoPaterno { get; set; }
+        [Required]
+        [Display(Name = "Apellido materno")]
+        public string ApellidoMaterno { get; set; }
+
+        [Display(Name = "Rol")]
+        public string Role { get; set; }
+
+    }
+
+
     public class ResetPasswordViewModel
     {
         [Required]

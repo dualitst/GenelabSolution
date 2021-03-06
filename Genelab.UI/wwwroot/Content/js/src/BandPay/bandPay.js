@@ -20,8 +20,8 @@ var Solicitudes = function () {
     /// -------------------------------------------------------------------------
     /// Objetos
     /// -------------------------------------------------------------------------
-    var sitioAPI = "http://localhost:57537/api";
-    //var sitioAPI = "http://www.fiinsoft.mx/Genelab/api/api";
+    //var sitioAPI = "http://localhost:57537/api";
+    var sitioAPI = "http://www.fiinsoft.mx/Genelab/api/api";
     var grdOptions = {};
     var $grdDatos = document.querySelector('#grdDatos');
     var $modalCargar = $('#modalCargar');
@@ -33,15 +33,15 @@ var Solicitudes = function () {
     var $comprobanteP = $('#ComprobanteDIV');
 
     var colDefs = [
-        utils.fnAgGrid_ColumnBuilder({ header: "ACCIONES", noFilter: true, menuTabs:false, cellRenderer: cellRender_Pagar }),
+        utils.fnAgGrid_ColumnBuilder({ header: "<i class='material-icons'>settings</i>", noFilter: true, menuTabs:false, cellRenderer: cellRender_Pagar }),
         utils.fnAgGrid_ColumnBuilder({ header: "ID", field: "id" }),
         utils.fnAgGrid_ColumnBuilder({ header: "RECEPCIÓN", field: "fechaHoraCreacion" }),
         utils.fnAgGrid_ColumnBuilder({ header: "PACIENTES", field: "nombrePaciente" }),
         utils.fnAgGrid_ColumnBuilder({ header: "ESTUDIOS", field: "estudioNombre" }),
         utils.fnAgGrid_ColumnBuilder({ header: "PAGO", field: "estatusPagoNombre" }),
         utils.fnAgGrid_ColumnBuilder({ header: "PAGO", field: "fechaHoraPago" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "RESULTADOS", field: "estatusResultadoNombre" }),
-        utils.fnAgGrid_ColumnBuilder({ header: "RESULTADOS", field: "fechaHoraResultado" }),
+        //utils.fnAgGrid_ColumnBuilder({ header: "RESULTADOS", field: "estatusResultadoNombre" }),
+        //utils.fnAgGrid_ColumnBuilder({ header: "RESULTADOS", field: "fechaHoraResultado" }),
         utils.fnAgGrid_ColumnBuilder({ header: "REGISTRÓ PAGO", field: "usuarioIdPago" })
     ];
 
@@ -118,10 +118,23 @@ var Solicitudes = function () {
         var content = "";
         if (params.data.estatusPagoId == 1) {
             content += "<a role='button' id='btnAprobar_" + params.rowIndex + "' name='btnAprobar_" + params.rowIndex + "' class='btn btn-success btn-circle btn-circle' data-toggle='tooltip' data-placement='top' title='Registrar el pago' onclick='Solicitudes.fnPagar(\"" + params.data.id + "\")'><i class='material-icons'>request_page</i></a>&nbsp;&nbsp;&nbsp;&nbsp;";
+        } else {
+            content += "<a role='button' id='btnAprobar_" + params.rowIndex + "' name='btnAprobar_" + params.rowIndex + "' class='btn btn-warning btn-circle btn-circle-sm' data-toggle='tooltip' data-placement='top' title='Consultar información' onclick='Solicitudes.fnConsulta(\"" + params.data.id + "\")'><i class='material-icons'>description</i></a>&nbsp;";
         }
        return content;
     }
+    function ConsultaLectura(idSolicitud) {
 
+        var allUrl = /:\/\/([^\/]+)/.exec(window.location.href)[1];
+        if (allUrl == "www.fiinsoft.mx") {
+            var url = "/Genelab/portal/Request/Detalle?IdSolicitud=" + idSolicitud;
+            window.open(url, "_blank");
+        } else {
+            var url = "/Request/Detalle?IdSolicitud=" + idSolicitud;
+            window.open(url, "_blank");
+        }
+
+    }
 
     function PagarSolicitud(idSolicitud) {
         clearModal();
@@ -259,6 +272,7 @@ var Solicitudes = function () {
     /// Objeto de regreso
     /// -------------------------------------------------------------------------
     return {
+        fnConsulta: ConsultaLectura,
         fnPagar: PagarSolicitud
     }
 }();
